@@ -4,7 +4,7 @@ title: Hi there, it's me RainerAtSpirit
 # tagline: Supporting tagline
 ---
 {% include JB/setup %}
-Thanks for coming. Find below a list of posts mainly written as a braindump while facing technical challenges.
+Thanks for stepping by. Find below a list of posts mainly written as a braindump while facing technical challenges.
 
 Enjoy
 
