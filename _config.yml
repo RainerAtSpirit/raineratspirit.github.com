@@ -9,8 +9,9 @@ pygments: true
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : '<: >'
-textlogo: Goin' back home
+title : RainerAtSpirit's blog
+logo: '<: >'
+logotitle: Goin' back home
 tagline: Adventures in XXX land
 author :
   name : Rainer Wittmann
