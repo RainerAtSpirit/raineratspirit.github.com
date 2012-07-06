@@ -1508,7 +1508,7 @@ hr {
         -ms-transform: rotate(120deg);
          -o-transform: rotate(120deg);
             transform: rotate(120deg);
-               filter: progid:DXImageTransform.Microsoft.Matrix(/* IE6–IE9 */
+               filter: progid:DXImageTransform.Microsoft.Matrix(/* IE6ï¿½IE9 */
                        M11=-0.4999999999999998, M12=-0.8660254037844387, M21=0.8660254037844387, M22=-0.4999999999999998, sizingMethod='auto expand');
                  zoom: 1;
     background-color: #ffffff;
@@ -1604,6 +1604,7 @@ hr {
 .highlight .vi { color: #D0D0FF} /* Name.Variable.Instance */
 .highlight .il { color: #A5C261} /* Literal.Number.Integer.Long */
 
-.licence{
-
+.meta{
+text-align: right;
+color: #ddd;
 }
