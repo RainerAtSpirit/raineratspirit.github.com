@@ -7,10 +7,10 @@ tags: ["Win8", "JavaScript", "WinJS"]
 ---
 {% include JB/setup %}
 
-So you are following MS best practice and already started namespacing your Metro projects nicely. Good :).
-Now here's the challenge: "**spot the issue** with the following code":
+So you are following MS best practice and started namespacing your Metro JavaScript projects nicely already. Good :).
+Now here's the challenge: **spot the issue** with the following code:
 
-**Problematic Version**: using `WinJS.Namespace.define`
+**Problematic ersion**: using `WinJS.Namespace.define`
 {% highlight javascript %}
 WinJS.Namespace.define('MyApp', {
     version : '0.0.1'
