@@ -4,7 +4,7 @@ title: Hi there, it's me RainerAtSpirit
 # tagline: Supporting tagline
 ---
 {% include JB/setup %}
-Thanks for coming. Find below a list of post mainly written as a braindump while facing technical challenges.
+Thanks for coming. Find below a list of posts mainly written as a braindump while facing technical challenges.
 
 Enjoy
 
@@ -15,6 +15,7 @@ Rainer
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
   {% endfor %}
 </ul>
+
 
 
 
