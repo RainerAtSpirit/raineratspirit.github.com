@@ -4,7 +4,7 @@ title: "First steps"
 description: "Following the tutorial"
 category: cuttingTeeth
 tags: ["First Steps"]
-published: false
+published: true
 ---
 {% include JB/setup %}
 
