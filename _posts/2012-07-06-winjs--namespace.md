@@ -10,7 +10,7 @@ tags: ["Win8", "WinJS", "spot the issue"]
 So you are following MS best practice and started namespacing your Metro JavaScript projects nicely already. Good :).
 Now here's the challenge: **spot the issue** with the following code:
 
-**Problematic ersion**: using `WinJS.Namespace.define`
+**Problematic version**: using `WinJS.Namespace.define`
 {% highlight javascript %}
 WinJS.Namespace.define('MyApp', {
     version : '0.0.1'
