@@ -3,7 +3,7 @@ layout: post
 title: "WinJS.Namespace.define gotcha"
 description: ""
 category: 'Good to know'
-tags: ["Win8", "JavaScript", "WinJS"]
+tags: ["Win8", "WinJS", "spot the issue"]
 ---
 {% include JB/setup %}
 
