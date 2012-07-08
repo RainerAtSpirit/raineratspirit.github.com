@@ -9,9 +9,6 @@ pygments: true
 # so be sure to set them if your theme uses them.
 #
 title : RainerAtSpirit's blog
-logo: '<: >'
-logotitle: Goin' back home
-tagline: Adventures in XXX land
 author :
   name : Rainer Wittmann
   email : R.Wittmann@spirit.de
