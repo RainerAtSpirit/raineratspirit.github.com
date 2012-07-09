@@ -6,6 +6,11 @@ group: navigation
 ---
 {% include JB/setup %}
 
+<script type="text/javascript">
+   // Using liquid to populate JeykllApp.posts array
+   JekyllApp.posts = {% include Helper/JekyllAppPosts %}
+</script>
+
 {% literal  %}
 
 <div id="search-container" class="entrance" ng-app="JekyllApp" ng-controller="JekyllSearchController">
@@ -24,5 +29,5 @@ group: navigation
   </div>
 </div>
 
-{% literal  %}
+{% endliteral %}
 
