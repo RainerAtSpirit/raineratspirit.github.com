@@ -21,7 +21,7 @@ Here's the relevant excerpt from default.html.
 
 <script src="https://gist.github.com/3076150.js?file=headerexcerp.html"> </script>
 
-Edward is making an XHR call to retrieve the RSS-feed `feed.xml` and then parses the xml. This is a pretty
+Edward Hotchkiss is making an XHR call to retrieve the RSS-feed `feed.xml` and then parses the xml. This is a pretty
 straight forward implementation, but I wanted to omit this extra XHR call and 'bootstrap' the information into the
 initial page. Therefore a liquid helper is used to create an JavaScript array with the relevant post information.
 This has the additional advantage that you can leverage liquid filter like
