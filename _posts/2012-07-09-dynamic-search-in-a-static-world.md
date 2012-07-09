@@ -124,7 +124,7 @@ expression :) kicks in and returns an array with title, url, date and content in
 
 All in all the implementation was pretty straight forward, even when there were a couple of gotchas.
 
-On very last gotcha I run into and that I'd like to share is that on my local box jekyll is running with liquid 2.3
+On very last gotcha I run into and that I'd like to share, is that on my local box jekyll is running with liquid 2.3
 whatever, which allows you to use `{{ "{% raw " }}%}`, while github is using liquid 2.2 whatever and therefore the
 older `{{ "{% literal " }}%}` expression is used. After being hit by that one I finally understood Edward's
 `LeftCurley` setting in \_config.yml and **I feel his pain**.
