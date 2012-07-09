@@ -2,7 +2,7 @@
 layout: post
 title: "First steps"
 description: "Following the tutorial"
-category: cuttingTeeth
+category: 'cutting Teeth'
 tags: ["First Steps"]
 published: true
 ---
