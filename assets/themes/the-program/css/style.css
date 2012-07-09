@@ -1608,3 +1608,20 @@ hr {
 text-align: right;
 color: #999;
 }
+
+#searchText, #q {
+  line-height:22px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
+  border: 1px solid #ccc;
+  color: #999;
+  padding: 6px 15px 6px 15px;
+  -webkit-border-radius:15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  margin-right: 15px;
+}
+.search {
+    padding: 20px;
+}

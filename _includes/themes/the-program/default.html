@@ -10,7 +10,26 @@
 	<meta name="author" content="{{ site.author.name }}">
 	<link href='{{ ASSET_PATH }}/css/style.css' rel="stylesheet" media="all">
 	<link href="http://feeds.feedburner.com/{{ site.author.feedbaname }}" rel="alternate" title="{{ page.title }}" type="application/atom+xml">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+	{% if page.title == 'Search'%}<style type="text/css">
+      .match {
+        background-color: #f9ffa1;
+        -webkit-animation-name: pop;
+        -webkit-animation-duration: 0.3s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+      }
+       .preview {
+           font-size: 0.8em;
+           color: #999999;
+       }
+   </style>
+   <script type="text/javascript" src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+   <script type="text/javascript" src="/js/JekyllApp.js"></script>
+   {% endif %}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
 </head>
 <body>
 <div id="logowrap">
@@ -27,6 +46,14 @@
 						<li class="page"><a href="/pages.html">pages</a></li>
 						<li class="category"><a href="/categories.html">categories</a></li>
 						<li class="tag"><a href="/tags.html">tags</a></li>
+                        {% if page.title != 'Search' %}
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        {% endif %}
 					</ul>
 				</nav>
 			</div><!-- unit-inner -->
