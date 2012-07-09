@@ -129,7 +129,7 @@ whatever, which allows you to use `{{ "{% raw " }}%}`, while github is using liq
 older `{{ "{% literal " }}%}` expression is used. After being hit by that one I finally understood Edward's
 `LeftCurley` setting in \_config.yml and **I feel his pain**.
 
-Anyway a rule of thumb, don't use those tags for the time being and rewrite the code instead. There are some
+Anyway as a rule of thumb, don't use those tags for the time being and rewrite the code instead. There are some
 instructions from
 [Khaja Minhajuddin](http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags) that doesn't
 require plug-ins.
