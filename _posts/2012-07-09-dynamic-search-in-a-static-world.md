@@ -14,8 +14,8 @@ little with Jekyll liquid and AngularJS. There was no need to reinvent the wheel
 pretty similiar.
 [1]: http://edwardhotchkiss.com/blog/2012/03/11/jekyll-live-search-with-angular.js/
 Therefore here are just the major differences, I expect that you're familiar with [Edward's post][1],
-if not please read it first. AngularJS v1.0.1 is used and by using a small liquid condition scripts are only loaded on
-the search page.
+if not please read it first. The implementation is based on AngularJS v1.0.1 and by using a small liquid
+condition scripts are only loaded on the search page.
 
 Here's the relevant excerpt from default.html.
 
@@ -27,7 +27,7 @@ initial page. Therefore a liquid helper is used to create an JavaScript array wi
 This has the additional advantage that you can leverage liquid filter like
 `strip_html | truncate : 120 ` (on the server side!) to clean up and cut down potentially large information.
 
-One of my goal was to having a search box on every page, so the Controller was enhanced that the `$scope
+One goal was to having a search box on every page. The Controller was enhanced so that the `$scope
 .searchText = ''` can now be passed in via querystring as well.
 
 BTW: You can give it a try on all blog pages, to see it in action.
@@ -89,7 +89,7 @@ fully at the moment I've to admit, like
 - why AngularJS doesn't have an easy (to discover) method that allows a full page reload on href click
 
 so I'd be happy if somebody could fill the gaps.
-In the meantime workarounds are used, so querystring `q` is determined in a good old fashioned way and ther's a
+In the meantime workarounds are used, so querystring `q` is determined in a good old fashioned way and there's a
 thread on the
  [angular groups](https://groups.google.com/forum/#!msg/angular/zu5RMEWWyPQ/1yiOm9p5CCkJ) that discusses page reload.
 
@@ -117,19 +117,17 @@ thread on the
 {% endhighlight %}
 
 
-So where's the magic `include Helper/JekyllAppPosts` coming from? This is whers my first liquid expression kicks
-in and returns an
-array with title, url, date and content information, formatted in such a way that it can be easily consumed in
-AngularJS.
+So where's that magic `include Helper/JekyllAppPosts` coming from? This is where my very first liquid
+expression :) kicks in and returns an array with title, url, date and content information.
 
 <script src="https://gist.github.com/3076150.js?file=liquid helper"> </script>
 
 All in all the implementation was pretty straight forward, even when there were a couple of gotchas.
 
-On very last thing that I'd like to share is that on my local box jekyll is running with liquid 2.3 whatever,
-which allows you to use `{{ "{% raw " }}%}`, while github is using liquid 2.2 whatever and therefore the older
-`{{ "{% literal " }}%}` expression is used. After being hit by that one I finally understood Edward's LeftCurleys
-setting in \_config.yml and **I feel his pain**.
+On very last gotcha I run into and that I'd like to share is that on my local box jekyll is running with liquid 2.3
+whatever, which allows you to use `{{ "{% raw " }}%}`, while github is using liquid 2.2 whatever and therefore the
+older `{{ "{% literal " }}%}` expression is used. After being hit by that one I finally understood Edward's
+`LeftCurley` setting in \_config.yml and **I feel his pain**.
 
 Anyway a rule of thumb, don't use those tags for the time being and rewrite the code instead. There are some
 instructions from
