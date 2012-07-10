@@ -1,10 +1,8 @@
 -rake/*
 _site/*
 _theme_packages/*
-_node_modules/*
 .idea/*
 
-grunt.js
 Thumbs.db
 .DS_Store
 

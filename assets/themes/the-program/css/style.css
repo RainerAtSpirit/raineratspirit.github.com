@@ -893,6 +893,9 @@ a:hover {
   line-height: 52px;
   padding-bottom: 26px;
 }
+.the-header .unit-head .nav-global .search {
+  text-align: right;
+}
 .body .unit-body {
   border-top: 1px solid rgba(255, 255, 255, 0.6);
   padding: 26px;
@@ -971,6 +974,9 @@ a:hover {
   .the-header .unit-head .nav-global .logo a:hover {
     background-color: transparent;
   }
+  .the-header .unit-head .nav-global .search {
+    padding: 20px;
+  }
 }
 /*
 	Not that old computer layout 
@@ -985,6 +991,9 @@ a:hover {
     line-height: 18px;
     margin-bottom: 0;
     padding-left: 52px;
+  }
+  .the-header .unit-head .nav-global .search {
+    text-align: left;
   }
   .body {
     float: left;
@@ -1044,6 +1053,9 @@ a:hover {
     padding-left: 5px;
     position: relative;
     top: auto;
+  }
+  .the-header .unit-head .nav-global .search {
+    padding: 0;
   }
   .body {
     border-left: 1px solid rgba(0, 0, 0, 0.2);
