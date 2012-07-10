@@ -12,14 +12,20 @@ While adding search to a new blog might not be the most important thing to do, i
 little with Jekyll liquid and AngularJS. There was no need to reinvent the wheel as
 [Edward Hotchkiss][1] already implemented something
 pretty similiar.
-[1]: http://edwardhotchkiss.com/blog/2012/03/11/jekyll-live-search-with-angular.js/
 Therefore here are just the major differences, I expect that you're familiar with [Edward's post][1],
 if not please read it first. The implementation is based on AngularJS v1.0.1 and by using a small liquid
 condition scripts are only loaded on the search page.
 
+[1]: http://edwardhotchkiss.com/blog/2012/03/11/jekyll-live-search-with-angular.js/
+
 Here's the relevant excerpt from default.html.
 
-<script src="https://gist.github.com/3076150.js?file=headerexcerp.html"> </script>
+{% highlight html linenos %}
+{{ "{% if page.title == 'Search' " }}%}
+    <script type="text/javascript" src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script type="text/javascript" src="/js/JekyllApp.js"></script>
+{{ "{% endif " }}%}
+{% endhighlight %}
 
 Edward Hotchkiss is making an XHR call to retrieve the RSS-feed `feed.xml` and then parses the xml. This is a pretty
 straight forward implementation, but I wanted to omit this extra XHR call and 'bootstrap' the information into the
@@ -120,7 +126,16 @@ thread on the
 So where's that magic `include Helper/JekyllAppPosts` coming from? This is where my very first liquid
 expression :) kicks in and returns an array with title, url, date and content information.
 
-<script src="https://gist.github.com/3076150.js?file=liquid helper"> </script>
+{% highlight html linenos %}
+[{{ "{% for post in site.posts " }}%}
+{"title" : "{{ "{{ post.title " }}}}",
+"url" : "{{ "{{ post.url " }}}}",
+"date" : "{{ "{{ post.date | date_to_string " }}}}",
+"content" : "{{ "{{ post.content |  strip_html | truncate : 120 " }}}}"}{{ "{% if forloop.rindex0 != 0 " }},{{ "{% endif " }}
+{{ "{% endfor " }}%}
+];
+{% endhighlight %}
+
 
 All in all the implementation was pretty straight forward, even when there were a couple of gotchas.
 
