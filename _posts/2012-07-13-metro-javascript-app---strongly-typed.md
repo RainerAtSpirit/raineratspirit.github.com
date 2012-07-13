@@ -7,8 +7,8 @@ tags: ["JayData", "Win8", "WinJS"]
 ---
 {% include JB/setup %}
 Let's face it, even when I choose to build Metro style apps with HTML5, JavaScript and
-CSS because I love the dynamic nature of this environment, there are times where I'm a little bit jealous of that
-strong typed stuff that you get in that boring C#/XAML world ;-).
+CSS because I love the dynamic nature of this environment, there are times when I'm a little bit jealous of that
+strong typed stuff that you get in that boring C#/XAML world `;-)`.
 
 Let see if we can take an existing application like Jeremy Foster's excellent [A Metro Netflix browser in HTML/JS -
 The Hub page][], add some magic ([JayData][]) to it and see if that helps reducing my jealousy .
