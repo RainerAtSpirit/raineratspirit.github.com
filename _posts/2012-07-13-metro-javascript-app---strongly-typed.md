@@ -176,7 +176,7 @@ without leaving the comfort zone of Visual Studio and its Intellisene. Not too s
 step further and let's try making our OData request a little bit more precise.
 
 Can we do that? Of course we can by using the `.map` method; and there's even an additional benefit to it.
-Unfortunately I couldn't
+Unfortunately _Please note_ that I couldn't
  bring Intellisense to show me available properties for `item`, but when you look at the Json returned by
  the service in Fiddler, you can see that we map `title: item.ShortName` and `BoxArt: item.BoxArt` and return that
  as an anonymous object. So in the forEach loop we access those as `item.title` and `item.BoxArt`.
