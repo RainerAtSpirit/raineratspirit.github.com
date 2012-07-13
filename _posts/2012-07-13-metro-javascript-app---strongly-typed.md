@@ -42,8 +42,10 @@ several switches for fine tuning, we only require three of them.
 - `-m` $metadata url of your service e.g http://odata.netflix.com/catalog/$metadata
 - `-n` Namespace e.g. here Netflix
 - `-o` output file e.g. Netflix.js
-- `cmd:` jaysvcutil.exe -m "http://odata.netflix.com/catalog/$metadata" -o Netflix.js -n \'Netflix\'
-[ ![Image](/img/metro-javascript-app---strong-typed-JaySvcUtil.jpg "JaySvcUtil") ]
+{% highlight bash %}
+Rainer@METRORP ~/Downloads/JaySvcUtil
+$ JaySvcUtil.exe -m 'http://odata.netflix.com/catalog/$metadata' -o Netflix.js -n 'Netflix'
+{% endhighlight %}
 
 If everything went smoothly the system should now generate your 'Netflix.js' file. Depending on the complexity of
 your service you might receive a couple of warning message, which - most of the time - can be ignored.
