@@ -201,20 +201,21 @@ Netflix.context.Titles
 {% endhighlight %}
 
 [ ![Image](/img/metro-javascript-app---strong-typed-fiddler140k.jpg "Fiddler 140K") ]
-If you are now running the application and watch Fiddler you can see that the return set is way smaller than before. We
+If you are now running the application and watch Fiddler you see that the return set is way smaller than before. We
 are down from **740K** to about **140K**. So by using the strongly typed Netflix object you not only gained the
 benefit of
-Intellisense support, you somehow became an OData expert as well `;-)`.
+Intellisense support, you somehow became an OData expert as well `;-)`. 
 Closer watching the URL in Fiddler reveals that there's a new `$select=ShortName,BoxArt` parameter that was added by
 JayData, so now the projection is accomplished at the server side and no longer at the client.
 
 
-That's it for today and I wanna leave you with a choice.
+That's it for today and truth told I feel my jealousy about strongly typed C#/XAML fading away and my excitement
+about JavaScript grow. But everybody's different, so here are two choices if you want to move on with Jeremy's Metro app: 
 
-1. You can can get rid of all JayData files you've added and apply your new knowledge about the `$select` parameter
+1. You can get rid of all JayData files you've added and apply the knowledge about the `$select` parameter
 to enhance the original WinJS code manually. You will see the same performance benefits that we got here.
 
-   Just so that you know, there's nothing wrong about this approach, really.
+   Just so that you know, there's nothing wrong with this approach, really.
 2. But maybe you want to stay a little with JayData and see how it pays off.
 
 For those of you, who are on the fence line, it might be good to know that JayData supports a couple of other formats
