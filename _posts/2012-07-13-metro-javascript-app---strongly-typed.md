@@ -214,7 +214,7 @@ That's it for today and I wanna leave you with a choice.
 1. You can can get rid of all JayData files you've added and apply your new knowledge about the `$select` parameter
 to enhance the original WinJS code manually. You will see the same performance benefits that we got here.
 
-   Just so that you know, there's nothing wrong about that, really.
+   Just so that you know, there's nothing wrong about this approach, really.
 2. But maybe you want to stay a little with JayData and see how it pays off.
 
 For those of you, who are on the fence line, it might be good to know that JayData supports a couple of other formats
