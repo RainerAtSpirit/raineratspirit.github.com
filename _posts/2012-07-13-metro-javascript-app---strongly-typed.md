@@ -91,7 +91,7 @@ Your default.html should now look like this:
 While doing that in my case Visual studio was complaining about some errors in `Netflix.js` and right so.
 You can see that there are a couple of mistpyed `..., params : , ...` lingering around. If that the case for you as
 well go ahead and remove them. Not quite sure if that's Netflix or an JayData issue,
-but it's reported to JayData nevertheless.
+but it's reported to JayData.
 
 Alright almost done. Let's open up `js/home.js` and
 1. get rid of the current WinJS.xhr call
@@ -152,8 +152,8 @@ Converting this is pretty straight forward. `Netflix.context` is already aware o
 appropriate Request-Header, so that the service returns Json. That leaves us with teaching the system that we would
 like to retrieve 200 Titles.
 By looking at the available methods for `Netflix.context.Titles` we notice
-the `take()`method, which might sound familiar to many of you. There are several other like `include(), filter(),
-orderBy(), skip(), map() and forEach` that are all part of the JavaScript Language Query.
+the `take()`method, which might sound familiar to many of you. There are several other like `include()`, `filter()`,
+`orderBy()`, `skip()`, `map()` and `forEach` that are all part of the JavaScript Language Query.
 If you never heard of any of those, don't worry you can check them out at [(JSLQ) 101][] and come back later.
 
 The last thing we need to do is reusing the logic of the original forEach loop.
@@ -178,7 +178,7 @@ without leaving the comfort zone of Visual Studio and its Intellisene. Not too s
 step further and let's try making our OData request a little bit more precise.
 
 Can we do that? Of course we can by using the `.map` method; and there's even an additional benefit to it.
-Unfortunately _Please note_ that I couldn't
+_Please note_ that I couldn't
  bring Intellisense to show me available properties for `item`, but when you look at the Json returned by
  the service in Fiddler, you can see that we map `title: item.ShortName` and `BoxArt: item.BoxArt` and return that
  as an anonymous object. So in the forEach loop we access those as `item.title` and `item.BoxArt`.
@@ -223,7 +223,7 @@ can be all accessed using the same JSQL you started to get familiar with.
 > Facebook Query Language, SqlLite, Yahoo Open Data Tables, InMemoryDB, WebSQL, IndexedDb
 and there are more in the pipeline
 
-Let me know how about your decission.
+I'd be glad to hear from you about your decission and the reasoning behind it.
 
 
 PS: For the impatient ones that wants to start immediately with JayData version of Jeremy's Metro example feel free to
