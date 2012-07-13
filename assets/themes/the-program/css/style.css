@@ -716,6 +716,7 @@ a:hover {
   display: block;
   margin-left: auto;
   margin-left: auto;
+  max-width: 100%;
 }
 .unit-article img.left {
   margin-right: 16px;
