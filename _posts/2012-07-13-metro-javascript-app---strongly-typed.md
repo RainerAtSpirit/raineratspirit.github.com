@@ -215,7 +215,8 @@ to enhance the original WinJS code manually. You will see the same performance b
    Just so that you know, there's nothing wrong about that, really.
 2. But maybe you want to stay a little with JayData and see how it pays off.
 
-For those of you who are on the fence it might be good to know that JayData supports a couple of other formats that
+For those of you, who are on the fence line, it might be good to know that JayData supports a couple of other formats
+that
 can be all accessed using the same JSQL you started to get familiar with.
 > Facebook Query Language, SqlLite, Yahoo Open Data Tables, InMemoryDB, WebSQL, IndexedDb
 and there are more in the pipeline
