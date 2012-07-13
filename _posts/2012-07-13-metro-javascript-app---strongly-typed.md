@@ -221,7 +221,7 @@ can be all accessed using the same JSQL you started to get familiar with.
 > Facebook Query Language, SqlLite, Yahoo Open Data Tables, InMemoryDB, WebSQL, IndexedDb
 and there are more in the pipeline
 
-Let me know how you decided.
+Let me know how about your decission.
 
 
 PS: For the impatient ones that wants to start immediately with JayData version of Jeremy's Metro example feel free to
