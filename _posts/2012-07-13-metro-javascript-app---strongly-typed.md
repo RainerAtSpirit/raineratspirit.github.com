@@ -18,7 +18,7 @@ While on it don't miss to download and install [Fiddler 4][] and the [Windows 8 
 
 Simply follow the Jeremy's instructions, fire up fiddler and run the code.
 
-###Checkpoint: Make sure that you see some titles coming back from Netflix.
+**Checkpoint:** Make sure that you see some titles coming back from Netflix.
 [ ![Image](/img/metro-javascript-app---strong-typed-fiddler.jpg "Fiddler Response") ]
 
 Looking at fiddler you should see something like the above. Notice the response size of about 740K. At the moment we
@@ -85,7 +85,7 @@ Your default.html should now look like this:
 {% endhighlight %}
 
 
-###Checkpoint: Run the app just to see if all files can be loaded and no error occurs.
+**Checkpoint:** Run the app just to see if all files can be loaded and no error occurs.
 [ ![Image](/img/metro-javascript-app---strong-typed-params.jpg "Netflix.js errors") ]
 
 While doing that in my case Visual studio was complaining about some errors in `Netflix.js` and right so.
@@ -172,7 +172,7 @@ Netflix.context.Titles
 _Please note_ that at the time of this writing, while there is an JayData deferred.js adapter available for jQuery
 there's NO WinJS aware adapter... yet. So at the moment you won't be able to create promises and use `.then()` or `.done()`.
 
-###Checkpoint: Run the code and make sure that you **still** see  titles coming back from Netflix.
+*Checkpoint:* Run the code and make sure that you **still** see  titles coming back from Netflix.
 Alright how does that feel so far? Without being an OData expert you just conducted an OData query,
 without leaving the comfort zone of Visual Studio and its Intellisene. Not too shabby I'd say. But we'll take it even a
 step further and try making our OData request a little bit more precise.
