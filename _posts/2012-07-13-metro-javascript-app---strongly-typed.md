@@ -31,7 +31,7 @@ Extract both files into two separate directories, we don't want all of them ling
 directory, we cherry pick instead the bare minimum.
 
 So from the JayData directory add the following files into the project's **js** directory
-- JayDat-vsdoc.js
+- JayData-vsdoc.js
 - JayData.js
 - datajs-1.0.2.js
 
