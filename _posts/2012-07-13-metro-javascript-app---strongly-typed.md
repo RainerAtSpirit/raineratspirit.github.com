@@ -36,7 +36,7 @@ So from the JayData directory add the following files into the project's **js** 
 - datajs-1.0.2.js
 
 Open up your preferred command line and navigate to the `JaySvcUtil` directory. `JaySvcUtil.exe` is command line
-utility that allows to converting OData $metada information into a strongly typed JavaScript object. While it has
+utility that allows converting OData $metada information into a strongly typed JavaScript object. While it has
 several switches for fine tuning, we only require three of them.
 
 - `-m` $metadata url of your service e.g http://odata.netflix.com/catalog/$metadata
@@ -47,9 +47,9 @@ Rainer@METRORP ~/Downloads/JaySvcUtil
 $ JaySvcUtil.exe -m 'http://odata.netflix.com/catalog/$metadata' -o Netflix.js -n 'Netflix'
 {% endhighlight %}
 
-If everything went smoothly the system should now generate your 'Netflix.js' file. Depending on the complexity of
-your service you might receive a couple of warning message, which - most of the time - can be ignored.
-Please add the newly created 'YourOutputFile.js' to the project as well.
+If everything went smoothly the system should have generated your 'Netflix.js' file. Depending on the complexity of
+your service you might receive a couple of warning messages, which - most of the time - can safely be ignored.
+Please add the newly created 'YourOutputFile.js' to the project's **js** directory as well.
 
 Your default.html should now look like this:
 {% highlight html linenos %}
@@ -89,11 +89,11 @@ Your default.html should now look like this:
 [ ![Image](/img/metro-javascript-app---strong-typed-params.jpg "Netflix.js errors") ]
 
 While doing that in my case Visual studio was complaining about some errors in `Netflix.js` and right so.
-You can see that there are a couple of mistpyed `..., params : , ...` lingering around. If that the case for you as
+You can see that there are a couple of mistyped `..., params : , ...` in the code begining at line 166. If that the case for you as
 well go ahead and remove them. Not quite sure if that's Netflix or an JayData issue,
 but it's reported to JayData.
 
-Alright almost done. Let's open up `js/home.js` and
+Alright almost done with the setup phase. Let's open up `js/home.js` and
 1. get rid of the current WinJS.xhr call
 2. add some references to the JayData files to get Intellisense support.
 
@@ -128,7 +128,7 @@ You're home.js should look like below. Remember that you need to compile once to
 })();
 {% endhighlight %}
 
-Now here's the magic moment :), type in `Netflix.context.` and you should see Intellisene kicking in. Before we move
+Now roll drum here's the magic moment `:)`, type in `Netflix.context.` and you should see Intellisene kicking in. Before we move
 on let's celebrate by leaving the computer and doing whatever you prefer to do when you celebrate.
 
 [ ![Image](/img/metro-javascript-app---strong-typed-Intellisense.jpg "Intellisense") ]
@@ -149,14 +149,14 @@ WinJS.xhr({ url: "http://odata.netflix.com/Catalog/Titles?$format=json&$top=200"
 {% endhighlight %}
 
 Converting this is pretty straight forward. `Netflix.context` is already aware of the URL and JayData will add the
-appropriate Request-Header, so that the service returns Json. That leaves us with teaching the system that we would
+appropriate Request-Header, so that the Odata service returns Json. That leaves us with teaching the system that we would
 like to retrieve 200 Titles.
 By looking at the available methods for `Netflix.context.Titles` we notice
-the `take()`method, which might sound familiar to many of you. There are several other like `include()`, `filter()`,
+the `take()`method, which probably sounds familiar to many of you. There are several other methods like `include()`, `filter()`,
 `orderBy()`, `skip()`, `map()` and `forEach` that are all part of the JavaScript Language Query.
-If you never heard of any of those, don't worry you can check them out at [(JSLQ) 101][] and come back later.
+If you never heard of any of those or want to learn more about it check them out at [(JSLQ) 101][] and come back later.
 
-The last thing we need to do is reusing the logic of the original forEach loop.
+The last thing we need to do is reusing the logic of the original forEach loop to push the results into `titlesListGrouped`.
 
 {% highlight javascript linenos %}
 Netflix.context.Titles
@@ -170,14 +170,14 @@ Netflix.context.Titles
 {% endhighlight %}
 
 _Please note_ that at the time of this writing, while there is an JayData deferred.js adapter available for jQuery
-there's  NO WinJS aware adapter... yet. So at the moment you won't be able to create promises and use `
-.then` or `.done`.
+there's NO WinJS aware adapter... yet. So at the moment you won't be able to create promises and use `.then()` or `.done()`.
 
-Alright how does that feel so far? Without being an OData expert you just conducted a OData query,
-without leaving the comfort zone of Visual Studio and its Intellisene. Not too shabby I'd say. But let's take it a
-step further and let's try making our OData request a little bit more precise.
+###Checkpoint: Run the code and make sure that you **still** see  titles coming back from Netflix.
+Alright how does that feel so far? Without being an OData expert you just conducted an OData query,
+without leaving the comfort zone of Visual Studio and its Intellisene. Not too shabby I'd say. But we'll take it even a
+step further and try making our OData request a little bit more precise.
 
-Can we do that? Of course we can by using the `.map` method; and there's even an additional benefit to it.
+Can we do that? Of course we can by leveraging the `.map` method; and there's even an additional benefit to it.
 _Please note_ that I couldn't
  bring Intellisense to show me available properties for `item`, but when you look at the Json returned by
  the service in Fiddler, you can see that we map `title: item.ShortName` and `BoxArt: item.BoxArt` and return that
@@ -203,8 +203,8 @@ Netflix.context.Titles
 [ ![Image](/img/metro-javascript-app---strong-typed-fiddler140k.jpg "Fiddler 140K") ]
 If you are now running the application and watch Fiddler you can see that the return set is way smaller than before. We
 are down from **740K** to about **140K**. So by using the strongly typed Netflix object you not only gained the
-benefits of
-Intellisense support, you somehow became an OData expert at no cost as well ;-).
+benefit of
+Intellisense support, you somehow became an OData expert as well `;-)`.
 Closer watching the URL in Fiddler reveals that there's a new `$select=ShortName,BoxArt` parameter that was added by
 JayData, so now the projection is accomplished at the server side and no longer at the client.
 
@@ -219,7 +219,7 @@ to enhance the original WinJS code manually. You will see the same performance b
 
 For those of you, who are on the fence line, it might be good to know that JayData supports a couple of other formats
 that
-can be all accessed using the same JSQL you started getting familiar with.
+can be all accessed using the same **JSQL** you started getting familiar with.
 > Facebook Query Language, SqlLite, Yahoo Open Data Tables, InMemoryDB, WebSQL, IndexedDb
 and there are more in the pipeline
 
