@@ -84,7 +84,7 @@ Your default.html should now look like this:
 
 
 ###Checkpoint: Run the app just to see if all files can be loaded and no error occurs.
-[ ![Image](/img/metro-javascript-app---strong-typed-Params.jpg "Netflix errors") ]
+[ ![Image](/img/metro-javascript-app---strong-typed-params.jpg "Netflix.js errors") ]
 
 While doing that in my case Visual studio was complaining about some errors in `Netflix.js` and right so.
 You can see that there are a couple of mistpyed `..., params : , ...` lingering around. If that the case for you as
