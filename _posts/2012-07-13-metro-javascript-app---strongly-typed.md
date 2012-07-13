@@ -128,7 +128,7 @@ You're home.js should look like below. Remember that you need to compile once to
 })();
 {% endhighlight %}
 
-Now roll drum here's the magic moment `:)`, type in `Netflix.context.` and you should see Intellisene kicking in. Before we move
+Now, roll drum... here's the magic moment `:)`, type in `Netflix.context.` and you should see Intellisene kicking in. Before we move
 on let's celebrate by leaving the computer and doing whatever you prefer to do when you celebrate.
 
 [ ![Image](/img/metro-javascript-app---strong-typed-Intellisense.jpg "Intellisense") ]
@@ -172,7 +172,7 @@ Netflix.context.Titles
 _Please note_ that at the time of this writing, while there is an JayData deferred.js adapter available for jQuery
 there's NO WinJS aware adapter... yet. So at the moment you won't be able to create promises and use `.then()` or `.done()`.
 
-*Checkpoint:* Run the code and make sure that you **still** see  titles coming back from Netflix.
+**Checkpoint:** Run the code and make sure that you **still** see  titles coming back from Netflix.
 Alright how does that feel so far? Without being an OData expert you just conducted an OData query,
 without leaving the comfort zone of Visual Studio and its Intellisene. Not too shabby I'd say. But we'll take it even a
 step further and try making our OData request a little bit more precise.
