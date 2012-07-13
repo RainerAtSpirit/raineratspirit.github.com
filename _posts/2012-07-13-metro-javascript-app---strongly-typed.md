@@ -35,7 +35,7 @@ So from the JayData directory add the following files into the project's **js** 
 - JayData.js
 - datajs-1.0.2.js
 
-Open up your preferred command line and navigate to the `JaySvcUtil` directory. 'JaySvcUtil.exe' is command line
+Open up your preferred command line and navigate to the `JaySvcUtil` directory. `JaySvcUtil.exe` is command line
 utility that allows to converting OData $metada information into a strongly typed JavaScript object. While it has
 several switches for fine tuning, we only require three of them.
 
