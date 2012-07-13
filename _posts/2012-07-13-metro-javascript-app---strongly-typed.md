@@ -173,7 +173,7 @@ there's  NO WinJS aware adapter... yet. So at the moment you won't be able to cr
 
 Alright how does that feel so far? Without being an OData expert you just conducted a OData query,
 without leaving the comfort zone of Visual Studio and its Intellisene. Not too shabby I'd say. But let's take it a
-step further and let's try making our OData request a little smaller.
+step further and let's try making our OData request a little bit more precise.
 
 Can we do that? Of course we can by using the `.map` method; and there's even an additional benefit to it.
 Unfortunately I couldn't
