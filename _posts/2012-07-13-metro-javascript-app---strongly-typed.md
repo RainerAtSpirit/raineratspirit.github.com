@@ -19,7 +19,7 @@ While on it don't miss to download and install [Fiddler 4][] and the [Windows 8 
 Simply follow the Jeremy's instructions, fire up fiddler and run the code.
 
 **Checkpoint:** Make sure that you see some titles coming back from Netflix.
-[ ![Image](/img/metro-javascript-app---strong-typed-fiddler.jpg "Fiddler Response") ]
+![Fiddler Response](/img/metro-javascript-app---strong-typed-fiddler.jpg )
 
 Looking at fiddler you should see something like the above. Notice the response size of about 740K. At the moment we
  are not leveraging OData to its full extend. I know that if you're an OData expert you already spoted
@@ -86,7 +86,7 @@ Your default.html should now look like this:
 
 
 **Checkpoint:** Run the app just to see if all files can be loaded and no error occurs.
-[ ![Image](/img/metro-javascript-app---strong-typed-params.jpg "Netflix.js errors") ]
+![Netflix.js errors](/img/metro-javascript-app---strong-typed-params.jpg)
 
 While doing that in my case Visual studio was complaining about some errors in `Netflix.js` and right so.
 You can see that there are a couple of mistyped `..., params : , ...` in the code begining at line 166. If that the case for you as
@@ -131,7 +131,7 @@ You're home.js should look like below. Remember that you need to compile once to
 Now, roll drum... here's the magic moment `:)`, type in `Netflix.context.` and you should see Intellisene kicking in. Before we move
 on let's celebrate by leaving the computer and doing whatever you prefer to do when you celebrate.
 
-[ ![Image](/img/metro-javascript-app---strong-typed-Intellisense.jpg "Intellisense") ]
+![Intellisense](/img/metro-javascript-app---strong-typed-Intellisense.jpg)
 
 Alright, back to work! Your first goal would be to come up with an equivalent of the original WinJS.xhr call
 
@@ -200,7 +200,7 @@ Netflix.context.Titles
     })
 {% endhighlight %}
 
-[ ![Image](/img/metro-javascript-app---strong-typed-fiddler140k.jpg "Fiddler 140K") ]
+![Fiddler 140K](/img/metro-javascript-app---strong-typed-fiddler140k.jpg)
 If you are now running the application and watch Fiddler you see that the return set is way smaller than before. We
 are down from **740K** to about **140K**. So by using the strongly typed Netflix object you not only gained the
 benefit of
