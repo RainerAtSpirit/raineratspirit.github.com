@@ -237,7 +237,7 @@ finishing line.
 
 
 Boy, that was probably just another **TL;DR**, but if you made it till here, you might have picked up one or two
-things  about the **DVWP** that you consider 'Good to kwow'.
+things  about the **DVWP** that you consider 'Good to know'.
 
 I'd be glad to hear from you about the experiences you make, while testing this out.
 
