@@ -120,7 +120,7 @@ You should test this modification immediately in the browser and you'll see this
 <http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_3.aspx>
 
 How comes? The page looks still good in SPD, doesn't it? Somehow the web part seems to have a dependency on the
-`asp:ScriptManager` that only shows up in the browser. Being at this point before, youremember that the
+`asp:ScriptManager` that only shows up in the browser. Being at this point before, you remember that the
 ScriptManager is responsible for loading all kind of JavaScript files, some of them `Async` in nature. So by
 carefully exploring the **DVWP** attributes, you come accross the following `AsyncRefresh=True`.
 Modifying this to `AsyncRefresh=False` will ensure that the error message goes away and brings the html down to
@@ -138,7 +138,7 @@ though, we are simply driving the **DVWP** behind the point that's supported. Th
  code.
 
 **One additional warning** By making modifications beyond this point, you will no longer be able to save your site as
- a site template and create a new sites from it, at least not reliable.
+ a site template and create new sites from it, at least not reliable.
 Most of the time this is not an issue, remember we are going to build a **`Ferrari`** and you probably just need one
 not
 thousands `;-)`. But if there's ever a need to move your **`Ferrari`** around, you can still manually copy the aspx
@@ -220,12 +220,13 @@ this code is injected by the **DVWP**.
 
 ![Step 6 source](/img/2012-07-15-sharepoint-dvwp-step_6source.jpg)
 
-There's a web part property called `SuppressWebPartChrome` ([see MSDN][]), which helps us getting rid of
-this extra `<table>` tag. _Please note_ that this only works if the **DVWP** lives outside a web part zone,
-so you can't use this for standard implemenations like our `WebPartPage.aspx`.
+The not that well known property `SuppressWebPartChrome` ([see MSDN][]) will help us getting rid of
+this extra `WebPartChrome`. _Please note_ that this only works if the **DVWP** lives outside a web part zone,
+so you can't use this for standard implemenations like our initial `WebPartPage.aspx`.
 
 
-Adding  `SuppressWebPartChrome="True"` to the web part properties will eventually bring us to the finishing line.
+So by adding  `SuppressWebPartChrome="True"` to the web part properties, this will eventually bring us to the
+finishing line.
 
 **16** lines of **clean HTML5** code or The **`Ferrari`** version
 
