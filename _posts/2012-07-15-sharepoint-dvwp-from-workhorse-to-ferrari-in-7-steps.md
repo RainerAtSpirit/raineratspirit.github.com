@@ -21,7 +21,8 @@ But before we even start, here are some pre-requisites:
     would be beneficial. Before you ask: I'm using [WebStorm][].
 
 Let's get started with something the **DVWP** was build for:
-- accessing data via a data source -just to recap: _Database_, _SOAP_, _REST_, _XML Files_ and _Linked Data source_-
+- accessing data via a data source -just to recap: _Database_, _SOAP_, _REST_, _XML Files_ and _Linked Data source_
+are available-
 - converting the data using XSLT
 - and finally display the result as part of a SharePoint page.
 
@@ -43,28 +44,30 @@ Nothing fancy so far, so let's move on:
 1. create a web part page called `WebPartPage.aspx`
 1. Place a **DVWP** on it show us the standard content.
 
-**Checkpoint:** As said I assume that you know the **DVWP** inside out. But if not or you prefer to not follow along,
- don't worry. Each of the steps below can be accessed online, so please sit back, relax and enjoy the ride. If you
+**Checkpoint:** As said, I assume that you know the **DVWP** inside out. But if not or you prefer not following along
+ now,
+ don't worry. Each of the steps below can be accessed online, so sit back, relax and enjoy the ride. If you
  wanna get your hands dirty later, you find the [source code] at github.
 
  Ok, let's move on. By default SPD uses some OOTB XSLT to perform the XML/XSLT conversion,
  which is clearly not the best starting point for us, so let's replace the xsl:stylesheet by our own.
 {% highlight xslt lineos %}
-	<xsl:stylesheet version="1.0" exclude-result-prefixes="xsl msxsl ddwrt" xmlns:ddwrt="http://schemas.microsoft.com/WebParts/v2/DataView/runtime" xmlns:asp="http://schemas.microsoft.com/ASPNET/20" xmlns:__designer="http://schemas.microsoft.com/WebParts/v2/DataView/designer" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:SharePoint="Microsoft.SharePoint.WebControls" xmlns:ddwrt2="urn:frontpage:internal">
-    	<xsl:output method="html" indent="no"/>
-    	<xsl:template match="/" xmlns:asp="http://schemas.microsoft.com/ASPNET/20" xmlns:__designer="http://schemas.microsoft.com/WebParts/v2/DataView/designer" xmlns:SharePoint="Microsoft.SharePoint.WebControls">
-    		<h1><xsl:value-of select="root/title" /></h1>
-    	</xsl:template>
-    </xsl:stylesheet>
+<xsl:stylesheet version="1.0" exclude-result-prefixes="xsl msxsl ddwrt" xmlns:ddwrt="http://schemas.microsoft.com/WebParts/v2/DataView/runtime" xmlns:asp="http://schemas.microsoft.com/ASPNET/20" xmlns:__designer="http://schemas.microsoft.com/WebParts/v2/DataView/designer" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:SharePoint="Microsoft.SharePoint.WebControls" xmlns:ddwrt2="urn:frontpage:internal">
+    <xsl:output method="html" indent="no"/>
+    <xsl:template match="/" xmlns:asp="http://schemas.microsoft.com/ASPNET/20" xmlns:__designer="http://schemas.microsoft.com/WebParts/v2/DataView/designer" xmlns:SharePoint="Microsoft.SharePoint.WebControls">
+        <h1><xsl:value-of select="root/title" /></h1>
+    </xsl:template>
+</xsl:stylesheet>
 {% endhighlight %}
 
-Asssuming nothing went wrong you should now see something like this.
+Asssuming nothing went wrong, you should see something like this in your browser.
 
 ![Empty ASPX Page](/img/2012-07-15-sharepoint-dvwp-step_0.jpg)
 
 You can see the rendered result live at <http://www.spirit
 .de/demos/gtk/dvwp/ServiceFiles/WebPartPage.aspx>; and what's more important you can see the HTML source of that page
- at <https://gist.github.com/3116685#file_web_part_page.aspx>.
+ at <https://gist.github.com/3116685#file_web_part_page.aspx> and yes, right click on the rendered result,
+ view source will work as well.
 The size of HTML source will act as our _baseline_, and a quick look reveals that have  **772** lines of code,
 which includes our _payload_ of `<h1>Hello world</h1>`. You can see that our _payload_ is nicely integrated into a
 fully
