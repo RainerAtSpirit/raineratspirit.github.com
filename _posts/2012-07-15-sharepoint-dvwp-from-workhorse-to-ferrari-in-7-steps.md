@@ -21,8 +21,8 @@ But before we even start, here are some pre-requisites:
     would be beneficial. Before you ask: I'm using [WebStorm][].
 
 Let's get started with something the **DVWP** was build for:
-- accessing data via a data source -just to recap: _Database_, _SOAP_, _REST_, _XML Files_ and _Linked Data source_
-are available-
+- accessing data via a data source
+- (just to recap: _Database_, _SOAP_, _REST_, _XML Files_ and _Linked Data source_ are available)
 - converting the data using XSLT
 - and finally display the result as part of a SharePoint page.
 
