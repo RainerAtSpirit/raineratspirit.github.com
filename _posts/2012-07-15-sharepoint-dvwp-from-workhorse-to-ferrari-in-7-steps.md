@@ -15,7 +15,7 @@ But before we even start, here are some pre-requisites:
 
 - you worked with the **DVWP** before
 - you're familiar with XML/XSLT
-- you know who Mark Andereson is and know his [posts about the DVWP] inside out
+- you know who Marc D Anderson is and know his [posts about the DVWP] inside out
 - you are familiar with SharePoint Designer,
     but you are not afraid using a text editor. Notepad will do, but some kind of syntax checking and highlighting
     would be beneficial. Before you ask: I'm using [WebStorm][].
