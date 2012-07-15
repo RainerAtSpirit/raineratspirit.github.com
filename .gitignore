@@ -5,6 +5,7 @@ _theme_packages/*
 
 Thumbs.db
 .DS_Store
+atlassian-ide-plugin.xml
 
 !.gitkeep
 
