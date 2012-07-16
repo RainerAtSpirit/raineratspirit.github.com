@@ -6,7 +6,7 @@ category: 'Good to know'
 tags: [SharePoint, DVWP, XML, XSLT]
 ---
 {% include JB/setup %}
-This is going to be intense and this is going to be fun... if you are willing to follow to the end. I'm going to
+This is going to be intense and this is going to be fun..., if you are willing to follow till the end. I'm going to
 take the good old Data Form Web Part, better known as **DVWP**, and turn the standard HTML,
 which is delivered by this
 reliabe workhorse, in some highly optimized HTML5 code: I call it the **`Ferrari`** version.
