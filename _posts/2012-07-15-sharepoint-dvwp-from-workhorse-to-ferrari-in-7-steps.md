@@ -262,8 +262,7 @@ Metro demo, which is a HTML5 client app that was build using two **DVWPs**..., b
 stay tuned!
 
 ![Metro demo](/img/2012-07-15-sharepoint-dvwp-metro.jpg)
-- Live <http://www.spirit.de/demos/metro/ServiceFiles/DynMetroStyle.aspx>
-
+[Live](http://www.spirit.de/demos/metro/ServiceFiles/DynMetroStyle.aspx)
 
 [posts about the DVWP]: http://sympmarc.com/tag/dvwp/
 [source code]: https://github.com/RainerAtSpirit/DVWP-HTML5
