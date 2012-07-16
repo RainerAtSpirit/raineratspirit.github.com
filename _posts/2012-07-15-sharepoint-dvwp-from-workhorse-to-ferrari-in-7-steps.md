@@ -3,7 +3,7 @@ layout: post
 title: "SharePoint DVWP: from workhorse to ferrari in 7 steps"
 description: ""
 category: 'Good to know'
-tags: [SharePoint, DVWP, XML, XSLT]
+tags: [SharePoint, DVWP]
 ---
 {% include JB/setup %}
 This is going to be intense and this is going to be fun..., if you are willing to follow till the end. I'm going to
