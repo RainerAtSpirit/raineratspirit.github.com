@@ -11,7 +11,7 @@ take the good old Data Form Web Part, better known as **DVWP**, and turn the sta
 which is delivered by this
 reliable workhorse, in some highly optimized HTML5 code: I call it the **`Ferrari`** version.
 
-But before we even start, here are some pre-requisites:
+But before we even start, here are some prerequisites:
 
 - you worked with the **DVWP** before
 - you're familiar with XML/XSLT
