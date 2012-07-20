@@ -33,7 +33,7 @@ Let's get started with something the **DVWP** was build for:
  1. create a subfolder `servicefiles/xml`
  1. and finally create a `helloworld.xml` file with the following content
 
-{% highlight xml lineos %}
+{% highlight xml linenos %}
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
 	<title>Hello World</title>
@@ -52,7 +52,7 @@ Nothing fancy so far, so let's move on:
 
  Ok, let's move on. By default SPD uses some baked in XSLT to perform the XML/XSLT conversion,
  which is clearly not the best starting point for us, so let's replace the xsl:stylesheet by our own.
-{% highlight xslt lineos %}
+{% highlight xslt linenos %}
 <xsl:stylesheet version="1.0" exclude-result-prefixes="xsl msxsl ddwrt" xmlns:ddwrt="http://schemas.microsoft.com/WebParts/v2/DataView/runtime" xmlns:asp="http://schemas.microsoft.com/ASPNET/20" xmlns:__designer="http://schemas.microsoft.com/WebParts/v2/DataView/designer" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:SharePoint="Microsoft.SharePoint.WebControls" xmlns:ddwrt2="urn:frontpage:internal">
     <xsl:output method="html" indent="no"/>
     <xsl:template match="/" xmlns:asp="http://schemas.microsoft.com/ASPNET/20" xmlns:__designer="http://schemas.microsoft.com/WebParts/v2/DataView/designer" xmlns:SharePoint="Microsoft.SharePoint.WebControls">
@@ -178,7 +178,7 @@ addition let's cleanup the current header.
 - update the doctype `<!DOCTYPE html>` and `<html>` tag
 - remove existing `<style>` tag
 
-{% highlight html lineos %}
+{% highlight html linenos %}
 <title><SharePoint:ListItemProperty Property="BaseName" maxlength="40" runat="server"/></title>`
 {% endhighlight %}
 
@@ -206,7 +206,7 @@ but now that our HTML becomes smaller, it is far easier to spot that they are no
 This one is pretty straight forward, just modify the XSLT slightly. Here's the reformatted version that defines
 all `exclude-result-prefixes` correctly and removes the namespaces in `<xsl:template match="/"`.
 
-{% highlight xslt lineos %}
+{% highlight xslt linenos %}
 <xsl:stylesheet version="1.0"
 exclude-result-prefixes="ddwrt asp __designer xsl msxsl SharePoint ddwrt2"
 xmlns:ddwrt="http://schemas.microsoft.com/WebParts/v2/DataView/runtime"
