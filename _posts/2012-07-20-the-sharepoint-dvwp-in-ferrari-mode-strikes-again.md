@@ -13,13 +13,13 @@ Now the bad news: For those who like to cut things down to the bare bones, that'
 
 Now the good news: For those who think that this would be great starting point to build something new,
 read on. In this post I'm going to show you my way of driving the **`Ferrari`**. Of course this is not the only
-way, so feel free to do something completely different... and let me know about your progress.
+way, so feel free to do something completely different... and give me your success stories.
 
 First let's ask ourself some question:
 
 1. What are we going to build?
 2. Which technologies are we going to use?
-3. How to effectively use our **`Ferrari`** in that landscape?
+3. How to effectively use our **`Ferrari`** in that scenario?
 
 
 **Answer to Q1:** Let's build a new version of the [Metro style menu web part], that was initially build by [Peter
@@ -34,39 +34,41 @@ so let's try to find a technology stack that can cope with that ideal `;-)`.
 ###Technologies:
 
 1. Accessing SharePoint data: [DVWP in ferrari mode]
-2. Providing a modern HTML5/CSS3 Framework  [Zurb Foundation 3]
+2. Providing a modern HTML5/CSS3/JavaScript Framework  [Zurb Foundation 3]
 3. Metro styled live tiles by Drew Greenwell [MetroJS]
 4. Alternative for SergoiUI (the metro font) [Open Sans Condensed]
 5. Metro like icons by IconShock [Free Metro Icons]
 
 
 The reasoning behind each selection is simple: I like them. I know that there are alternatives at each level,
-but as said earlier it's up to you to decide what and how you're going to build.
-Now without further explanation lets show you two screenshots of the finished result. Thanks to some feedback I got
-on twitter from Marc D Anderson the second screenshot shows an optimized version for iPhones.
+but as said earlier it's your decision entirely... when you build your solution.
+Now without further hesitation lets present two screenshots of the live demo. Thanks to some feedback I got
+on twitter from [Marc D Anderson] the second screenshot shows an optimized version for iPhones.
 
 ![Empty ASPX Page](/img/2012-07-20-dvwp-result.jpg)
 
 ![Empty ASPX Page](/img/2012-07-20-dvwp-iPhone.jpg)
 
-
+[Marc D Anderson]: https://twitter.com/sympmarc
 [Source],
 [Live](http://www.spirit.de/demos/metro/Zurb/MetroStyle.aspx)
 
 [Source]: https://github.com/RainerAtSpirit/ZurbMeetsMetroJS/blob/master/MetroStyle.aspx
 
-I encourage you to take a look at the live version first, as there are some really cool animations going on. All
+I encourage you to take a look at the live version first to see the live tiles in action. All
 kudos to Drew Greenwell's [MetroJS] project.
 
 Now let's dive a littler deeper into the code by looking at the [Source].
-As you can see this is pretty straight forward foundation HTML5 template. Somewhere in the middle you see this `<div
-id="metroTiles" class="twelve columns tiles">...</div>` and this is where the **DVWP** is included.
-If you are looking very closely
-you spot some differences from where we left the web part last time. This time the web part properties are
-stripped down to the bare minimum and `<XslLink>XSLT/ListsAsTiles.xslt</XslLink>` is used for storing the XSLT in
- an external file. By storing the XSLT separately you get the benefits of syntax checking etc.
- As in the Peter Collin's version the DataSourceMode is set to `ListOfLists` in which the server returns information
- about all lists/libraries of the current site.
+As you can see it's almost the same minimal HTML5 that was introduced last time,
+enhanced by the files required by  [Zurb Foundation 3] and [MetroJS].
+
+Somewhere in the middle you see this div
+`<div id="metroTiles">...</div>`, where the **DVWP** is instantiated.
+If you are looking very closely, you spot some differences from where we left it last time. This time the web part
+properties are
+stripped down to the bare minimum and by using `<XslLink>XSLT/ListsAsTiles.xslt</XslLink>` we are allowed to store the XSLT
+ in an external file. As in the Peter Collin's version the DataSourceMode is set to `ListOfLists` in which the server
+  returns information about all lists/libraries of the current site.
 
 {% highlight html linenos %}
     <div id="metroTiles" class="twelve columns tiles">
@@ -90,35 +92,34 @@ but from my first impression I can
 say at least so much: "**It's hot! Real hot!**". A quantum leap compared to other prominent HTML5
 frameworks. Don't take my word on it, check it out on your own and let me know what you think.
 
-**Answer to Q3:** This one is pretty short **XSLT**.
+**Answer to Q3:** This one is pretty short: Know your **XSLT**.
 
 **Checkpoint:** Up till now you should have a rough understanding how the various pieces of the solution fits
 together. While it's certainly not rocket science it's nothing for beginners either. But now we are coming to the
-heart of the solution. We have to fine tune the **`Ferrari`** so that it can deliver it's best performance. You
+heart of the solution. We have to fine tune the **`Ferrari`**, so that it can deliver it's best performance. You
 asked for it, so here it is:
 
-_A word of warning_: There's no need to read on if you most likely never work with XSLT at all.
+_A word of warning_: I don't want to waste your time, so there's no need to read on, if you most likely never work with
+XSLT at all.
 ###XSLT deep dive
 
 XSLT might not be everybody's darling, but let's face it, you can do a lot of smart things in SharePoint with it that
 otherwise would require either third party tools or custom .Net development.
 
-You have access to the complete code at [github](https://github
-.com/RainerAtSpirit/ZurbMeetsMetroJS/blob/master/XSLT/ListsAsTiles.xslt) and I'm going to give you some background
-information about the various part below.
+You have access to the complete XSLT at [github](https://github
+.com/RainerAtSpirit/ZurbMeetsMetroJS/blob/master/XSLT/ListsAsTiles.xslt) and I'm going to provide some background
+information about the various pieces below.
 Of course that
 code only reflects my
-coding style. If you pick up one or another XSLT trick that you find usefull, good. If not there's certainly more than
- one way to skin a cat, so I'd glad to hear from you how you are tackling things instead.
+coding style. If you pick up one or another XSLT trick that you find usefull, good. If not, there's certainly more than
+ one way to skin a cat, so I'd glad to hear from you about you're tackling things instead.
 
 BTW before you ask: My favorite book ever on that topic is Jenni Tennison's [XSLT and XPath On the edge](http://www
 .amazon.com/XSLT-XPath-Unlimited-Professional-Mindware/dp/0764547763).
 
-With that here's what makes the **`Ferrari`** engine tick. After the usual `<xsl:stylesheet ..>` declaration there's
-the `$Rows`
-variable defined.
-It's
-used to filter out list/libaries that you don't want to render e.g.
+With that here's what makes the **`Ferrari`** engine tick. After the usual `<xsl:stylesheet ..>` declaration we
+start by defining a `$Rows` variable.
+It's used to filter out list/libaries that you don't want to render e.g.
 like those with `(@__spHidden = 'True'` and ...
 
 {% highlight xslt linenos %}
@@ -126,7 +127,8 @@ like those with `(@__spHidden = 'True'` and ...
 (@__spDefaultViewUrl, '_catalogs')) and @__spTitle != 'ServiceFiles']"/>
 {% endhighlight %}
 
-I want the solution to be configurable. One of the easiest way to accomplish that is by defining a variable and
+One goal for the solution was to make it configurable. One of the easiest way to accomplish that is by defining
+ a variable and
 access it via `msxsl:node-set($VariableName)`. Here I'm using the `global` element to store global configuration
 options and `tiles` to store configuration options based on the `BaseTemplate` e.g. Contacts,
 DocumentLibrary and so on. As you can see there are options for color and icon, which control the visual apperance,
@@ -186,11 +188,12 @@ The above variables are all globally defined, so they can be accessed throughout
 Next comes the root template and you can see that the result set is sorted by a _heavy_ **XPath** expression.
 All we want to do here is having the lists/libraries sorted by the time they were last modified,
 but unfortunately the system buries the only reliable UTC date somewhere down in the `@__spPropertiesXml`
-attribute.
+attribute. I leave it up to you to digest this XPath and figure out what it's exactly doing.
 
 
-By testing against the configuration option `$globalConfig/maxTiles` you restrict the number of tiles rendered to
-whatever you've configured, nothing fancy here.
+By checking `<xsl:if test="position() &lt;= $globalConfig/maxTiles">` before we call the `Tile` template  we restrict
+the number of rendered tiles  to
+whatever is configured, nothing fancy here.
 
 {% highlight xslt linenos %}
 <xsl:template match="/">
@@ -206,12 +209,11 @@ whatever you've configured, nothing fancy here.
 </xsl:template>
 {% endhighlight %}
 
-The next template starts building up the tile html, but as you can see this is divided into
-multiple separate templates. The reasoning behind this is that I don't like having logic inside html templates.
-That allows far easier restructuring of the html template later down the road.
-So in the `Tile`
-template we build up a helper variable `$t` using the `MetaData` template (logic),
-which is passed to the `TileTemplate` (html).
+The `Tile` template is responsible for building up the tile html, but as you can see this is divided into
+multiple separate templates. I simply follow common sense here that mixing structure and logic will become
+unmaintainable very soon. So  we build up a helper variable `$t` using the `MetaData` template (logic),
+which is passed to the `TileTemplate` (html). Think of this template as your dispenser: logic -> left,
+structure ->right.
 
 {% highlight xslt linenos %}
 <xsl:template name="Tile">
@@ -233,12 +235,13 @@ which is passed to the `TileTemplate` (html).
 {% endhighlight %}
 
 Alright prime time, we are bulding the required html that represents one tile.  We start by copying
-the tile html from the [MetroJS] page. There are two data sources that we can access here.
+the tile html from the [MetroJS] page. There are multipe variable that you can access here.
 1. `$Rows` attributes can be accessed directly e.g. `<xsl:value-of select="@__spItemCount"/>` or
    `data-target="{@__spDefaultViewUrl}"`.
 2. Meta data can be accessed through `$t` with the same ease as e.g. ` <div class="live-tile
 {$t/item/@color} {$t/size}"` or
 `<img src="{$t/item/@icon}" class="micon"/>`.
+3. You've access to everything that was globally defined like e.g `$globalConfig`.
 
 {% highlight xslt linenos %}
 <xsl:template name="TileTemplate">
@@ -272,8 +275,15 @@ the tile html from the [MetroJS] page. There are two data sources that we can ac
 </xsl:template>
 {% endhighlight %}
 
-The last template builds an mashup for the current Row and `$tilesConfig`. In addition `<size>`
- and `<prettyDate>` elements are calculated here.
+The last template builds a mashup based on the current item's `$tilesConfig`. Think of it as multiple tables that are
+joined by some common keys e.g ` $tilesConfig/item[@BaseTemplate = $baseTemplate]`. Here we use the
+`@__spBaseTemplate` attribute
+ of the current Row, which was passed in as `baseTemplate` param as the join criteria for
+ `$tilesConfig/item/@BaseTemplate`. If there's a match we make a copy of the matched `$tilesConfig/item` if not we
+ copy `$tilesConfig/item[@BaseTemplate = 'unknown']` instead.
+
+Everything that needs to be calculated like `<size>` and `<prettyDate>`  goes in this template as well. If the logic
+for a given calculation would become to complex you should factor it out of course.
 
 {% highlight xslt linenos %}
 <xsl:template name="MetaData">
@@ -307,8 +317,8 @@ The last template builds an mashup for the current Row and `$tilesConfig`. In ad
 </xsl:template>
 {% endhighlight %}
 
-That's it, you made it. Within SharePoint we've build a modern HTML5/CSS3/JavaScript solution powered by the
-**`Ferrari`** and at its core **134 lines** of fully documented XSLT.
+That's it, you made it. You've seen how to build a modern HTML5/CSS3/JavaScript solution in SharePoint 2007/2010/(2013?)
+ using the good old **DVWP**. And you know that at its core it's powered by **134 lines** of XSLT.
 
 As always feedback welcome and bye for now.
 
