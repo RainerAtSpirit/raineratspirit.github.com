@@ -236,7 +236,8 @@ structure ->right.
 
 Alright prime time, we are bulding the required html that represents one tile.  We start by copying
 the tile html from the [MetroJS] page. There are multipe variable that you can access here.
-1. `$Rows` attributes can be accessed directly e.g. `<xsl:value-of select="@__spItemCount"/>` or
+
+1. The `$Rows` attributes can be accessed directly e.g. `<xsl:value-of select="@__spItemCount"/>` or
    `data-target="{@__spDefaultViewUrl}"`.
 2. Meta data can be accessed through `$t` with the same ease as e.g. ` <div class="live-tile
 {$t/item/@color} {$t/size}"` or
