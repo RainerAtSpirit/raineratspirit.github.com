@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SharePoint DVWP: from workhorse to ferrari in 7 steps"
+title: "SharePoint DVWP: from workhorse to Ferrari in 7 steps"
 description: ""
 category: 'Good to know'
 tags: [SharePoint, DVWP]
@@ -61,11 +61,11 @@ Nothing fancy so far, so let's move on:
 </xsl:stylesheet>
 {% endhighlight %}
 
-Asssuming nothing went wrong, you should see something like this in your browser.
+Assuming nothing went wrong, you should see something like this in your browser.
 
 ![Empty ASPX Page](/img/2012-07-15-sharepoint-dvwp-step_0.jpg)
 
-For your convienience you have access to the [Source](https://github
+For your convenience you have access to the [Source](https://github
 .com/RainerAtSpirit/DVWP-HTML5/blob/master/WebPartPage.aspx), see the rendered result [Live](http://www.spirit
 .de/demos/gtk/dvwp/ServiceFiles/WebPartPage.aspx)
  and what's more important you can see the [HTML source](https://gist.github.com/3116685#file_web_part_page.aspx) of
@@ -73,7 +73,7 @@ For your convienience you have access to the [Source](https://github
 
 The size of HTML source will act as our _baseline_, and a quick look reveals that there are **772** lines of code,
 which includes our _payload_ of `<h1>Hello world</h1>`. You can see that our _payload_ is nicely integrated into a
-fully fledged SharePoint theme. As said above this scenario is exactly, what the **DVWP** was build for.
+fully-fledged SharePoint theme. As said above this scenario is exactly, what the **DVWP** was built for.
 
 
 **Checkpoint** In a series of small step-by-step modifications this starting point now undergoes optimization,
@@ -115,7 +115,7 @@ which will bring us down to **154** lines.
 [HTML source](https://gist.github.com/3116685#file_step_2.aspx)
 
 **Step 3**
-After that easy passage in **step 2** let's get a little bit more agressive by getting rid of the
+After that easy passage in **step 2** let's get a little bit more aggressive by getting rid of the
  `asp:ScriptManager` tag. You can either delete it in the code view or in design view. If the latter, make sure that
  you've turned on  Visual  Aids otherwise you won't see it.
 
@@ -131,7 +131,7 @@ You should test this modification immediately in the browser and you'll see this
 How comes? The page looks still good in SPD, doesn't it? Somehow the web part seems to have a dependency on the
 `asp:ScriptManager` that only shows up in the browser. Being at this point before, you remember that the
 ScriptManager is responsible for loading all kind of JavaScript files, some of them `Async` in nature. So by
-carefully exploring the **DVWP** settings, you come accross the following `AsyncRefresh=True` property.
+carefully exploring the **DVWP** settings, you come across the following `AsyncRefresh=True` property.
 Modifying this to `AsyncRefresh=False` will ensure that the error message goes away and brings the html down to
 **124** lines.
 
@@ -144,7 +144,7 @@ Modifying this to `AsyncRefresh=False` will ensure that the error message goes a
 
 **Checkpoint** Up till now we've used SPD to make modifications, but from
 this point on SPD is no longer your best friend for dealing with the **DVWP**. This is not the fault of SPD
-though, we are simply driving the **DVWP** behind the point that's supported inside SPD. Therefore
+though; we are simply driving the **DVWP** behind the point that's supported inside SPD. Therefore
  I'd suggest that you now grab your favorite XML/XSLT HTML editor and make further modifications directly in the source
  code.
 
@@ -229,9 +229,9 @@ xmlns:ddwrt2="urn:frontpage:internal">
 
 
 **Step 7**
-Not much room for optimation left, correct? But there's one thing that annoys me most,
+Not much room for optimization left, correct? But there's one thing that annoys me most,
 when looking at the current state of things.
-Take a look at our XSLT stylesheet above, there's cleary **NO** `<table class"....></table>` in there,
+Take a look at our XSLT stylesheet above, there's clearly **NO** `<table class"....></table>` in there,
 this code is injected by the **DVWP** instead.
 
 ![Step 6 source](/img/2012-07-15-sharepoint-dvwp-step_6source.jpg)

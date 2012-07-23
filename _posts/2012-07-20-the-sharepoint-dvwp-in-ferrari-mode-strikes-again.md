@@ -6,16 +6,16 @@ category: 'Good to know'
 tags: [SharePoint, DVWP, MetroJS, 'Zurb Foundation 3']
 ---
 {% include JB/setup %}
-In the [last post] we disected the SharePoint DVWP up till the point where it delivered **clean HTML5**. If
+In the [last post] we dissected the SharePoint DVWP up till the point where it delivered **clean HTML5**. If
 you remember I call this  mode the **`Ferrari`**.
-Now the bad news: For those who like to cut things down to the bare bones, that's it. You can't disect the
+Now the bad news: For those who like to cut things down to the bare bones, that's it. You can't dissect the
 **DVWP** any further.
 
 Now the good news: For those who think that this would be great starting point to build something new,
 read on. In this post I'm going to show you my way of driving the **`Ferrari`**. Of course this is not the only
 way, so feel free to do something completely different... and give me your success stories.
 
-First let's ask ourself some question:
+First let's ask ourselves some question:
 
 1. What are we going to build?
 2. Which technologies are we going to use?
@@ -58,7 +58,7 @@ on twitter from [Marc D Anderson] the second screenshot shows an optimized versi
 I encourage you to take a look at the live version first to see the live tiles in action. All
 kudos to Drew Greenwell's [MetroJS] project.
 
-Now let's dive a littler deeper into the code by looking at the [Source].
+Now let's dive a little deeper into the code by looking at the [Source].
 As you can see it's almost the same minimal HTML5 that was introduced last time,
 enhanced by the files required by  [Zurb Foundation 3] and [MetroJS].
 
@@ -96,7 +96,7 @@ frameworks. Don't take my word on it, check it out on your own and let me know w
 
 **Checkpoint:** Up till now you should have a rough understanding how the various pieces of the solution fits
 together. While it's certainly not rocket science it's nothing for beginners either. But now we are coming to the
-heart of the solution. We have to fine tune the **`Ferrari`**, so that it can deliver it's best performance. You
+heart of the solution. We have to fine tune the **`Ferrari`**, so that it can deliver its best performance. You
 asked for it, so here it is:
 
 _A word of warning_: I don't want to waste your time, so there's no need to read on, if you most likely never work with
@@ -111,7 +111,7 @@ You have access to the complete XSLT at [github](https://github
 information about the various pieces below.
 Of course that
 code only reflects my
-coding style. If you pick up one or another XSLT trick that you find usefull, good. If not, there's certainly more than
+coding style. If you pick up one or another XSLT trick that you find useful, good. If not, there's certainly more than
  one way to skin a cat, so I'd glad to hear from you about you're tackling things instead.
 
 BTW before you ask: My favorite book ever on that topic is Jenni Tennison's [XSLT and XPath On the edge](http://www
@@ -131,7 +131,7 @@ One goal for the solution was to make it configurable. One of the easiest way to
  a variable and
 access it via `msxsl:node-set($VariableName)`. Here I'm using the `global` element to store global configuration
 options and `tiles` to store configuration options based on the `BaseTemplate` e.g. Contacts,
-DocumentLibrary and so on. As you can see there are options for color and icon, which control the visual apperance,
+DocumentLibrary and so on. As you can see there are options for color and icon, which control the visual appearance,
 but also options like `data-mode` and
  `data-direction` that will be used by [MetroJS] to provide the slide and flip animations.
 
@@ -234,7 +234,7 @@ structure ->right.
 </xsl:template>
 {% endhighlight %}
 
-Alright prime time, we are bulding the required html that represents one tile.  We start by copying
+Alright prime time; we are building the required html that represents one tile.  We start by copying
 the tile html from the [MetroJS] page. There are multipe variable that you can access here.
 
 1. `$Rows` attributes can be accessed directly e.g. `<xsl:value-of select="@__spItemCount"/>` or
@@ -277,7 +277,7 @@ the tile html from the [MetroJS] page. There are multipe variable that you can a
 {% endhighlight %}
 
 The last template builds a mashup based on the current item's `$tilesConfig`. Think of it as multiple tables that are
-joined by some common keys e.g ` $tilesConfig/item[@BaseTemplate = $baseTemplate]`. Here we use the
+joined by some common keys e.g. ` $tilesConfig/item[@BaseTemplate = $baseTemplate]`. Here we use the
 `@__spBaseTemplate` attribute
  of the current Row, which was passed in as `baseTemplate` param as the join criteria for
  `$tilesConfig/item/@BaseTemplate`. If there's a match we make a copy of the matched `$tilesConfig/item` if not we
