@@ -12,8 +12,8 @@ Good morning, good afternoon, good evening to you.
 
 
 Welcome back to a new episode in the **`Ferrari`** series. For
-those of you who remember what I call the **`Ferrari`** read on; all other please make yourself familiar with the
- first two posts in this series:  [Part 1] and [Part 2] before moving on.
+those of you who remember what I call the **`Ferrari`** read on; all other please make yourself familiar with
+[Part 1] and [Part 2] in this series before moving on.
 
 In [Part 2] we
 ended up with a HTML5 app that shows a nice metro style tile view of SharePoint lists and libraries. This time we want
