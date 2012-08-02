@@ -317,13 +317,13 @@ takes over.
 1. `app.context` knows about all lists and libraries, so here we use `base` to select a specific one
 `var base = app.context[newValue]`
 
-2. `orderBy()`or `orderByDescing` are used a defaults for the sorting criteria. This can be modified during runtime
-by using observables `OrderAsc` and `OrderBy` .
+2. `orderBy()` or `orderByDescending()` are using the default sorting criteria . This can be modified during
+runtime by updating the `OrderAsc` and `OrderBy` observables.
 
- 3. `include()` in OData terms maps to the $expand verb. Default settings here are `CreatedBy` and
+ 3. `include()` in OData terms maps to the OData `$expand` verb. Default settings here are `CreatedBy` and
  `ModifiedBy`. There's a `includeArray()` observabelArray that is used to store the ones you're interested in.
 
- 4. `.map()` mapping or projection is another important feature that allows you to select specific fields instead
+ 4. `map()` mapping or projection is another important feature that allows you to select specific fields instead
  of retrieving all information. I'm using the `chooseMap()` method here in order to retrieve a small set of fields based on
  their availability e.g. `Title` vs. `Name` vs `URL`.
 
