@@ -38,7 +38,7 @@ JayData comes with a bunch of modules that offers integration into various third
 as I haven't worked with it before.
 The last piece of software that I want to bring to
 the table is of course RequireJS. We are going to build a JavaScript app and based on my experience there's simply
-no way of writing an app without it.
+no way of writing one without it.
 
 So without further hassle  we are now going to build a pretty straight forward three tier navigation,
 which BTW will align us nicely with the Metro-style design guides; and nah, we won't do Metro style left <-> right
@@ -82,8 +82,8 @@ The following HTML is used as by Knockout to produce the Tile View.
 
 
 And here's the `TileViewModel` as RequireJS module leveraging the revealing module pattern. I've seen John Papa
-[mentioning this pattern](http://johnpapa.net/spapost2) more than once. Feel free to provide some feedback about your
- recommendation to structure knockout apps.
+[mentioning this pattern](http://johnpapa.net/spapost2) more than once. BTW feel free to provide feedback about
+your favorite way to structure knockout apps.
 
 {% highlight javascript linenos %}
 define (['knockout', 'helper'], function ( ko, fn ) {
@@ -310,7 +310,7 @@ Yes I did and here you go.
 });
 {% endhighlight %}
 
-Within ListingViewModel.js you find the above  `postbox.subcriber` that listen to any change in the
+Within ListingViewModel.js you find the above  `postbox.subscriber` that listen to any change in the
 `selectedList` channel. After checking if there's a non empty value and that the user is already logged in [JayData]
 takes over.
 
@@ -324,7 +324,8 @@ runtime by updating the `OrderAsc` and `OrderBy` observables.
  `ModifiedBy`. There's a `includeArray()` observabelArray that is used to store the ones you're interested in.
 
  4. `map()` mapping or projection is another important feature that allows you to select specific fields instead
- of retrieving all information. I'm using the `chooseMap()` method here in order to retrieve a small set of fields based on
+ of retrieving all information. The [`chooseMap()` method](https://gist.github.com/3237820#L43) is used to
+ retrieve a small set of fields based on
  their availability e.g. `Title` vs. `Name` vs `URL`.
 
 5. `take()` allows you to restrict the number of items returned by the system. Again a observable is used to store
