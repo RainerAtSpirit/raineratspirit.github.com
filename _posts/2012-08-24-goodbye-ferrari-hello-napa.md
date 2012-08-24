@@ -23,9 +23,9 @@ SharePoint 2013 App Model, but if you want to learn more about it, spend an hour
 [screencast]: http://www.made4the.net/archive/2012/08/17/introduction-to-sharepoint-2013-app-model-screencast.aspx
 
 Why should we talk about Napa apps in the first place? One reason is that Napa apps are the lowest hanging fruits
- in SP2013 development at least in terms of required infrastructure. There's no need setting up an on
- premise SP2013 development  environment, nor does it require to have Visual studio 2012 installed. Still you are
- able to take whatever you did in Napa and open it up in VS 2012 if that requirement comes up.
+ in SP2013 development at least in terms of required infrastructure. You don't need to setup an on
+ premise SP2013 development environment and you're not required to have Visual studio 2012
+ installed.
 
 With that said if you want to follow along and haven't Napa yet, this [Office 365 Developer] page will get you started.
 
@@ -130,8 +130,8 @@ function onGetUserNameFail(sender, args) {
 }
 {% endhighlight %}
 
-Beside the fact that the small code leaks more than half a dozen globals, which makes some of us laughing and some of
- us crying, we see that `getUserName()` retrieves the user information from the `AppWeb` via CSOM and finally
+Beside the fact that the small code leaks more than half a dozen globals, which makes some of us laugh and some of
+ us cry, we see that `getUserName()` retrieves the user information from the `AppWeb` via CSOM and finally
  `onGetUserNameSuccess()` renders the `Hello username` message.
 
 **Checkpoint** So far everything was nice and easy I'd say and you shouldn't have an issue if you follow along.
@@ -141,7 +141,11 @@ Now let's switch gears by **first** getting rid of the SharePoint chrome. Simply
 source2] for the page is down to **18 lines**.
 
 By glancing through [Source2] you see that we are still using some ASP.NET directives,
-just the reference to the masterpage has gone. In [Part 1] we stripped down the **DVWP** in a similar manner,
+just the reference to the masterpage has gone. In addition the `<asp:Content>` blocks have been replaced by some
+standard HTML5. In [Part 1] we stripped down
+the **DVWP** in a
+similar
+manner,
 so we might call this mode the **`Naparari`** `:-)`.
 *Please note* that at this time the JavaScript won't work as some required CSOM files are loaded via the
 masterpage.
@@ -285,7 +289,7 @@ self-executing anonymous function might not be appropriate.
 
 
 Running the example right away won't work. The reason is that we missed the most important configuration part for SP
-2013 apps. Whenever your app requires acccess information in the `HostWeb` you have to configure the appropriate
+2013 apps. Whenever your app requires acccessing information in the `HostWeb` you have to configure the appropriate
 permissions. In addition whenever a site admin installs an app, they have to decide if they trust your app or not.
 
 
