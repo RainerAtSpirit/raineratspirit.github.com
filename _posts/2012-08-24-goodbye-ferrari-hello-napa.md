@@ -284,14 +284,15 @@ self-executing anonymous function might not be appropriate.
 {% endhighlight %}
 
 
-Running the example right away won't work. The reason is that miss the most important configuration part for SP
+Running the example right away won't work. The reason is that we missed the most important configuration part for SP
 2013 apps. Whenever your app requires acccess information in the `HostWeb` you have to configure the appropriate
-permissions. In addition whenever a site admin installs an app, they have to decide if they trust our app or not.
+permissions. In addition whenever a site admin installs an app, they have to decide if they trust your app or not.
 
 
 It will be interesting to see how this new concept (new to SharePoint, you're probably familiar with it from mobile
-apps) will pay off in the real world. For Napa apps there are just one additional step required
-as developer, so let's walk trough that process quickly.
+apps) will pay off in the real world.
+
+For Napa apps there's just one additional step required as developer, so let's walk trough that process quickly.
 
 **Step 1** As a developer you have to explicitly ask for permission for your app
 ![Napa Development](/img/2012-08-24-NapaPermision.jpg)
