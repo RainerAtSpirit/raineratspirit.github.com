@@ -284,14 +284,14 @@ self-executing anonymous function might not be appropriate.
 {% endhighlight %}
 
 
-If you'd immediately try running this example you would be probably suprised that you are still not able to access
-information from the `HostWeb`. The reason is that you skipped the most important configuration part for SP 2013
-apps. Whenever an app wants to get acccess to the `HostWeb` we have to tell it, which permsision it requires. In
-addition whenever a site admin installs an app, they have to decide if they trust the app or not.
+Running the example right away won't work. The reason is that miss the most important configuration part for SP
+2013 apps. Whenever your app requires acccess information in the `HostWeb` you have to configure the appropriate
+permissions. In addition whenever a site admin installs an app, they have to decide if they trust our app or not.
 
-It will be interesting to see how this new concept (new to SharePoint) will pay off in the real world,
-but for Napa apps there are just one additional step required, so let's walk trough that process
-quickly.
+
+It will be interesting to see how this new concept (new to SharePoint, you're probably familiar with it from mobile
+apps) will pay off in the real world. For Napa apps there are just one additional step required
+as developer, so let's walk trough that process quickly.
 
 **Step 1** As a developer you have to explicitly ask for permission for your app
 ![Napa Development](/img/2012-08-24-NapaPermision.jpg)
