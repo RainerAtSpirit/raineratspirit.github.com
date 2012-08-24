@@ -144,9 +144,8 @@ By glancing through [Source2] you see that we are still using some ASP.NET direc
 just the reference to the masterpage has gone. In addition the `<asp:Content>` blocks have been replaced by some
 standard HTML5. In [Part 1] we stripped down
 the **DVWP** in a
-similar
-manner,
-so we might call this mode the **`Naparari`** `:-)`.
+similar manner, so we might call this mode the **`Naparari`** `:-)`.
+
 *Please note* that at this time the JavaScript won't work as some required CSOM files are loaded via the
 masterpage.
 
