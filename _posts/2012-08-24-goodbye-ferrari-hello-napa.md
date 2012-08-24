@@ -215,8 +215,7 @@ executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@targe
  `/web?$expand=CurrentUser` is used to retrieve web and at the same time CurrentUser information.
 
 Goal 3: There's more than one way to accomplish that, but here we simply wrap our code in an
-Immediately-Invoked Function Expression [IIFE].  Read Ben Alman's article about [IIFE] why the more popular term
-self-executing anonymous function might not be appropriate.
+Immediately-Invoked Function Expression [IIFE], which you might know as self-executing anonymous function as well.
 
 [MSDN]: http://msdn.microsoft.com/en-us/library/fp179927(v=office.15).aspx
 [IIFE]: http://benalman.com/news/2010/11/immediately-invoked-function-expression/
