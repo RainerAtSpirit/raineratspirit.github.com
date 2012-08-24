@@ -203,7 +203,7 @@ so for our JavaScript code that is running
  restriction.
 
 
-Let's see how our goals can be accomplished. The JavaScript below is based on code from [MSDN]. If you're
+Let's see how our goals can be accomplished in the JavaScript below, which is based on code from [MSDN]. If you're
 not familiar with the cross-domain library `SP.RequestExecutor.js` please check it out first.
 
 Goal 1 and 2: The answer to both goals lives in the `execCrossDomainRequest()` function. As you can see we are
