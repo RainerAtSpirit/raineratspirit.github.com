@@ -217,7 +217,7 @@ executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@targe
 
  Beside the cross-domain library specific you can now use the same OData syntax that you would use locally e.g.
  here  `/web?$expand=CurrentUser` is used to
- retrieve `HostWeb` data and at the same time CurrentUser information.
+ retrieve web and at the same time CurrentUser information.
 
 Goal 3: There's more than one way to accomplish that, but to be close to the origal version let's wrap our code in an
 Immediately-Invoked Function Expression [IIFE], which you might know as self-executing anonymous function as well.
