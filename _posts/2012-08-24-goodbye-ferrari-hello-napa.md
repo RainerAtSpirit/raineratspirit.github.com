@@ -215,10 +215,11 @@ executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@targe
  `@target`. Effectivily this will provide us access to the remote `SPHostUrl/_api` endpoint (though the cross-domain
  library).
 
- Now use can use the same OData syntax that you would use locally e.g. here `/web?$expand=CurrentUser` is used to
+ Beside the cross-domain library specific you can now use the same OData syntax that you would use locally e.g.
+ here  `/web?$expand=CurrentUser` is used to
  retrieve `HostWeb` data and at the same time CurrentUser information.
 
-Goal 3: There's more than one way to accomplish that, but here we simply wrap our code in an
+Goal 3: There's more than one way to accomplish that, but to be close to the origal version let's wrap our code in an
 Immediately-Invoked Function Expression [IIFE], which you might know as self-executing anonymous function as well.
 
 [MSDN]: http://msdn.microsoft.com/en-us/library/fp179927(v=office.15).aspx
