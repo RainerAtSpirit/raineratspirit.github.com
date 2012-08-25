@@ -209,8 +209,9 @@ so for our JavaScript code that is running
 Let's see how our goals can be accomplished in the JavaScript below, which is based on code from [MSDN]. If you're
 not familiar with the cross-domain library `SP.RequestExecutor.js` please check it out first.
 
-Goal 1 and 2: The answer to both goals lives in the `execCrossDomainRequest()` function. As you can see we are
-executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@target)/` and passing in the `SPHostUrl` as
+Goal 1 and 2: The answer to both goals live in the `execCrossDomainRequest()` function. As you can see we are
+executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@target)/` OData endpoint and passing in
+`SPHostUrl` as
  `@target`. Effectivily this will provide us access to the remote `SPHostUrl/_api` endpoint (though the cross-domain
  library).
 
