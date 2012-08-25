@@ -309,6 +309,6 @@ version- under the hood is clean as hell and hopefully well understood `;-)`.
 Take it a starting point for your own Napa apps and let me know how it goes.
 
 One question though: How do you feel about SP apps and the SP marketplace in general? Are
-you already sold (can't wait for it to open, so that you can get ritch) or do you have some concerns compared to
+you already sold (can't wait for it to open, so that you can get rich) or do you have some concerns compared to
 traditional farm or sandbox solutions?
 
