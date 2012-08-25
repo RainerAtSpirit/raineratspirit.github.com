@@ -291,7 +291,12 @@ Immediately-Invoked Function Expression [IIFE], which you might know as self-exe
 {% endhighlight %}
 
 
-Running the example right away won't work. The reason is that we missed the most important configuration part for SP
+After all that hard work here's the **Punchline**:
+##Running the example right away won't work!
+
+The reason is that we missed the
+most important configuration part for
+ SP
 2013 apps. Whenever your app requires acccessing information in the `HostWeb` you have to configure the appropriate
 permissions. In addition whenever a site admin installs an app, they have to decide if they trust your app or not.
 
