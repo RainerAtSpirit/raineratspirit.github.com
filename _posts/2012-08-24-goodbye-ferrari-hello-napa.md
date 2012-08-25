@@ -310,7 +310,7 @@ For Napa apps there's just one additional step required as developer, so let's w
 ![Napa Development](/img/2012-08-24-NapaPermision.jpg)
 **Step 2** As site admin you have to trust the app
 ![Napa Development](/img/2012-08-24-NapaTrust.jpg)
-**Step 3** Finally the desired result: A User name and Web title.
+**Step 3** Finally the desired result: No chrome, user name and (Host)web title.
 ![Napa Development](/img/2012-08-24-NapaRestResult.jpg)
 
 
