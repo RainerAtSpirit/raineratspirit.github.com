@@ -193,14 +193,14 @@ Napa apps like other SharePoint Apps enforces a clear separation between the `Ho
 the web where you install your app, and the `AppWeb`, the place
 where your code is actually running.
 
-As an example take a lokk at my `HostWeb` URL:
+As an example take a look at my `HostWeb` URL:
 https://spirit2013preview.sharepoint.com/sites/dev/
 
 Whenever a Napa app is launched it runs at an `AppWeb` URL similiar to
 
 https://spirit2013preview**-b0204c96e900db**.sharepoint.com/sites/dev/GoodbyeFerrariHelloNapa/Pages/Default.aspx
 
-You see that a app specific GUID like **-b0204c96e900db** is added to the host header,
+You see that an app specific GUID like **-b0204c96e900db** is added to the host header,
 so for our JavaScript code that is running
  in the `AppWeb` there's NO way to access information directly in the `HostWeb` due to cross site scripting
  restriction.
