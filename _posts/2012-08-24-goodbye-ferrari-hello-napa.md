@@ -212,8 +212,8 @@ not familiar with the cross-domain library `SP.RequestExecutor.js` please check 
 Goal 1 and 2: The answer to both goals live in the `execCrossDomainRequest()` function. As you can see we are
 executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@target)/` OData endpoint and passing in
 `SPHostUrl` as
- `@target`. Effectivily this will provide us access to the remote `SPHostUrl/_api` endpoint (though the cross-domain
- library).
+ `@target`. Effectivily this will provide us access to the remote `SPHostUrl/_api` endpoint (through the
+ cross-domain library).
 
  Beside the cross-domain library specific you can now use the same OData syntax that you would use locally e.g.
  here  `/web?$expand=CurrentUser` is used to
