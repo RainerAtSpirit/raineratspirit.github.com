@@ -147,7 +147,7 @@ the **DVWP** in a
 similar manner, so we might call this mode the **`Naparari`** `:-)`.
 
 *Please note* that at this time the JavaScript won't work as some required CSOM files are loaded via the
-masterpage.
+masterpage we just removed.
 
 [Source2]: https://gist.github.com/3436332#file_source_default.aspx
 [JavaScript2]: https://gist.github.com/3436332#file_app.js
@@ -189,11 +189,11 @@ masterpage.
 2. Goal: Instead of adding the required CSOM files, we are switching to `OData`
 3. Goal: While on it let's get rid of the globals `;-)`.
 
-As said above I'm not going to dicuss all options in the SharePoint App model, but they all have in common that
-there's a clear separation between the `HostWeb`, the web where you install your app, and the `AppWeb`, the place
+Napa apps like other SharePoint Apps enforces a clear separation between the `HostWeb`,
+the web where you install your app, and the `AppWeb`, the place
 where your code is actually running.
 
-Here's an example of my `HostWeb` URL:
+As an example take a lokk at my `HostWeb` URL:
 https://spirit2013preview.sharepoint.com/sites/dev/
 
 Whenever a Napa app is launched it runs at the following `AppWeb` URL.
@@ -210,9 +210,12 @@ Let's see how our goals can be accomplished in the JavaScript below, which is ba
 not familiar with the cross-domain library `SP.RequestExecutor.js` please check it out first.
 
 Goal 1 and 2: The answer to both goals lives in the `execCrossDomainRequest()` function. As you can see we are
-executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@target)/` and passing in our `SPHostUrl` as
- `@target`. Effectivily this will provide us access to the remote `SPHostUrl/_api` endpoint. Here
- `/web?$expand=CurrentUser` is used to retrieve web and at the same time CurrentUser information.
+executing a call against the local `SPAppWebUrl` `/_api/SP.AppContextSite(@target)/` and passing in the `SPHostUrl` as
+ `@target`. Effectivily this will provide us access to the remote `SPHostUrl/_api` endpoint (though the cross-domain
+ library).
+
+ Now use can use the same OData syntax that you would use locally e.g. here `/web?$expand=CurrentUser` is used to
+ retrieve `HostWeb` data and at the same time CurrentUser information.
 
 Goal 3: There's more than one way to accomplish that, but here we simply wrap our code in an
 Immediately-Invoked Function Expression [IIFE], which you might know as self-executing anonymous function as well.
