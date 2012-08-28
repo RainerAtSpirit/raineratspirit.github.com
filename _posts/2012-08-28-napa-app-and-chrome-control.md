@@ -34,9 +34,9 @@ own.
 
 ![First Result](/img/2012-08-24-NapaRestResult.jpg)
 
-Without the masterpage reference our current Nappa template
-behaves more like a hosted HTML5 app and for that kind of app Microsoft offers **[the client chrome control]**
-as answer to that challenge.
+Don't wonder any longer, you don't `;-)` and even better there are just a few changes necessary. Without the
+masterpage reference  our current Nappa template behaves more like a hosted HTML5 app and for that kind of SharePoint
+app Microsoft already offers **[the client chrome control]**.
 
 [the client chrome control]: http://msdn.microsoft.com/en-us/library/fp179916(v=office.15).aspx
 
