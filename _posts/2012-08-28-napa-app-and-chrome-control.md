@@ -67,8 +67,8 @@ pages otherwise the links won't work.
 
 One minor issue that I've noticed it that without further modifications the MSDN version might lead to some
 flash of unstyled content ([fouc]). One way to prevent that is to change our HTML in default.aspx to `<div
-id="message" style="display: none">`. In our code we then bind to the load event of the dynamically injected
-stylesheet and leverage `$('#message').show();` to show the message.
+id="message" style="display: none">` to hide our message div by default. In our code we then bind to the load event of
+the dynamically injected stylesheet and leverage `$('#message').show();` to show the message.
 
 {% highlight javascript linenos %}
 var nav = new SP.UI.Controls.Navigation(
