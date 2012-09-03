@@ -131,7 +131,7 @@ function onGetUserNameFail(sender, args) {
 {% endhighlight %}
 
 Beside the fact that the small code leaks more than half a dozen globals, which makes some of us laugh and some of
- us cry, we see that `getUserName()` retrieves the user information from the `AppWeb` via CSOM and finally
+ us cry, we see that `getUserName()` retrieves the user information from the `app web` via CSOM and finally
  `onGetUserNameSuccess()` renders the `Hello username` message.
 
 **Checkpoint** So far everything was nice and easy I'd say and you shouldn't have an issue if you follow along.
@@ -185,24 +185,24 @@ masterpage we just removed.
 
 **Second** let's make some modification to app.js.
 
-1. Goal: In addition to the username we want to retrieve the web title from the `HostWeb`
+1. Goal: In addition to the username we want to retrieve the web title from the `host web`
 2. Goal: Instead of adding the required CSOM files, we are switching to `OData`
 3. Goal: While on it let's get rid of the globals `;-)`.
 
-Napa apps like other SharePoint Apps enforces a clear separation between the `HostWeb`,
-the web where you install your app, and the `AppWeb`, the place
+Napa apps like other SharePoint Apps enforces a clear separation between the `host web`,
+the web where you install your app, and the `app web`, the place
 where your code is actually running.
 
-As an example take a look at my `HostWeb` URL:
+As an example take a look at my `host web` URL:
 https://spirit2013preview.sharepoint.com/sites/dev/
 
-Whenever a Napa app is launched it runs at an `AppWeb` URL similiar to
+Whenever a Napa app is launched it runs at an `app web` URL similiar to
 
 https://spirit2013preview**-b0204c96e900db**.sharepoint.com/sites/dev/GoodbyeFerrariHelloNapa/Pages/Default.aspx
 
 You see that an app specific GUID like **-b0204c96e900db** is added to the host header,
 so for our JavaScript code that is running
- in the `AppWeb` there's NO way to access information directly in the `HostWeb` due to cross site scripting
+ in the `app web` there's NO way to access information directly in the `host web` due to cross site scripting
  restriction.
 
 
@@ -266,7 +266,7 @@ Immediately-Invoked Function Expression [IIFE], which you might know as self-exe
     function successHandler(data) {
         var jsonObject = JSON.parse(data.body);
         $('#message').html(jsonObject.d.CurrentUser.Title  +
-                    '<br/>HostWeb: <b>' + jsonObject.d.Title + '</b>');
+                    '<br/>host web: <b>' + jsonObject.d.Title + '</b>');
     }
 
     // Function to handle the error event.
@@ -297,7 +297,7 @@ After all that hard work here's the **Punchline**:
 The reason is that we missed the
 most important configuration part for
  SP
-2013 apps. Whenever your app requires acccessing information in the `HostWeb` you have to configure the appropriate
+2013 apps. Whenever your app requires acccessing information in the `host web` you have to configure the appropriate
 permissions. In addition whenever a site admin installs an app, they have to decide if they trust your app or not.
 
 
