@@ -24,6 +24,10 @@ So what happened? I wanted to replace the default files in an
 `Autohosted` template with files coming from my
 favorite HTML5 framework: [Zurb foundation](http://foundation.zurb.com/).
 
+If you don't trust screenshots `;-)` here
+are the
+ steps to follow along:
+
 
 **Step 1:** Create an App for SharePoint
 ![Create App](/img/2012-09-03-NewProject.jpg)
