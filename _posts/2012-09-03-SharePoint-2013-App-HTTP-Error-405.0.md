@@ -10,8 +10,9 @@ tags: ['SharePoint 2013', 'AutoHosted Apps', 'HTTP Error 405.0']
 
 Hi there!
 
-Today's post is just a quick one about an `HTTP Error 405.0` that I was seeing when trying to get an `Autohosted` SharePoint app
-working with static files. If you're not sure what a SharePoint App is or what is good for read Ted Pattison's blog
+Today's post is just a short one about an `HTTP Error 405.0` that I was seeing when trying to get an `Autohosted`
+SharePoint app working with static files. If you're not sure what a SharePoint App is or what it's good for read Ted
+Pattison's blog
 [My first weekend in Napa] and the [Apps for Office and SharePoint blog] to get you started.
 
 [Cloud9]: https://c9.io/
@@ -19,10 +20,10 @@ working with static files. If you're not sure what a SharePoint App is or what i
 [Apps for Office and SharePoint blog]: http://blogs.msdn.com/b/officeapps/
 
 
-So what happened? I wanted to replace the default files in the
+So what happened? I wanted to replace the default files in an
 `Autohosted` template with files coming from my
 favorite HTML5 framework: [Zurb foundation](http://foundation.zurb.com/).
-
+Let see what happened:
 
 **Step 1:** Create an App for SharePoint
 ![Create App](/img/2012-09-03-NewProject.jpg)
@@ -45,13 +46,16 @@ favorite HTML5 framework: [Zurb foundation](http://foundation.zurb.com/).
 
 I'm pretty sure you've been to [http://code.msdn.microsoft.com/office](http://code.msdn.microsoft.com/office) before
 and seen many SharePoint 2013
-examples with the following troubleshooting message. Unfortunately after applying the additional verbs to my
-`applicationhost.config` file I  still got the same  error.
- ![405 Recommendation](/img/2012-09-03-405Recommendation.jpg)
+examples with the following troubleshooting message.
+
+![405 Recommendation](/img/2012-09-03-405Recommendation.jpg)
+
+Unfortunately after applying the additional verbs to my
+`applicationhost.config` file I  still got the same  error `:(`.
 
  For further troubleshooting I've added a new handler `StaticHTML` for `*.html
- files`,  which while leading to the same error at least showed that the new handler with all correctly configured
- verbs was used.
+ files`,  which while leading to the same error at least proved that the new handler with all correctly configured
+ verbs was used by the system.
  {% highlight xml linenos %}
  ..
  <handlers>
@@ -62,8 +66,10 @@ examples with the following troubleshooting message. Unfortunately after applyin
  {% endhighlight %}
  ![New error](/img/2012-09-03-error2.jpg)
 
-Google-fu to the rescue: [this post] talks about some intrinic of the `StaticFileHandler` and why static sometimes is
- not static enough. After following the recommendation of adding the `AspNetStaticFileHandler`
+After a moment of frustation Google-fu came to the rescue: [this post] talks about some intrinic of the
+`StaticFileHandler` and
+why static sometimes is
+ not static enough. After following the recommendation of adding an `AspNetStaticFileHandler`
  everything was working as expected.
 
 [this post]: http://www.paraesthesia.com/archive/2011/05/02/when-staticfilehandler-is-not-staticfilehandler.aspx
