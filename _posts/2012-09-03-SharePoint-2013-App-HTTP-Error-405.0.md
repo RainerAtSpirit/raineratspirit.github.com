@@ -62,8 +62,8 @@ examples with the following troubleshooting message. Unfortunately after applyin
  {% endhighlight %}
  ![New error](/img/2012-09-03-error2.jpg)
 
- After some googling I found [this post], which talks about some intrinic of
- the `StaticFileHandler`. After following the recommendation of adding the `AspNetStaticFileHandler`
+Google-fu to the rescue: [this post] talks about some intrinic of the `StaticFileHandler` and why static sometimes is
+ not static enough. After following the recommendation of adding the `AspNetStaticFileHandler`
  everything was working as expected.
 
 [this post]: http://www.paraesthesia.com/archive/2011/05/02/when-staticfilehandler-is-not-staticfilehandler.aspx
