@@ -213,7 +213,8 @@ function execCrossDomainRequest() {
 
 
 **Step 3**: By loading scripts at the bottom, the need to wait for `$(document).ready` before we can kick off our code
-vanishes away, so can speed up loading time by switching to an Immediately-Invoked Function Expression [IIFE] instead.
+vanishes away, so we can speed up load time by switching to an Immediately-Invoked Function Expression [IIFE]
+instead.
 
 **Before:**
 {% highlight javascript linenos %}
