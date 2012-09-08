@@ -218,7 +218,7 @@ require(['app'], function (app) {
 
 Within app.js we define dependencies on the various VMs that you've seen earlier and within the `init` method we use
 `ko.applyBindings()` to bind them to the corresponding element in the DOM. As said I'm new to knockout,
-so I leave to the experts if that's a recommend pattern or not.  At least it's working,
+so I leave it to the experts if that's a recommend pattern or not.  At least it's working,
 so it can't be totally wrong ;-).
   Path.js is used as a light alternative to sammy.js in order to setup some URL rules. As you can see Ryan Niemeyer's
   excellent [postbox] -a native ko pubsub sytem- is used to notify subscribers whenever changes occur.
