@@ -58,7 +58,7 @@ shots, but I won't dig into too much code today. Don't worry though, because
 
 1. The [ToDoMVC example is available at github], so clone it and use it as starting point for your own apps
 2. Each todo has an associated git tag that let you checkout the example at this specific point
-3. Git diffs are available, whenever there's a need to point out specifics
+3. Links to git diffs are available, whenever there's a need for some details
 
 [ToDoMVC example is available at github]: https://github.com/RainerAtSpirit/ToDoMVC
 
