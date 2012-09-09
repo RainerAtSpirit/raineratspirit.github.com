@@ -46,8 +46,8 @@ If you haven't made up your mind yet, which MV* style is the right one for you, 
 >MV* concepts in most of the popular JavaScript MV* frameworks of today.
 
 
-To get a better understanding of the  distinction between frameworks and libraries and if one or another better suits
- your needs check out Stephen Sanderson's [the Seven Frameworks] post.
+Want to find out what makes it a framework or library and if one or another better suits your needs? Make sure
+that you don't miss Stephen Sanderson's [the Seven Frameworks] post.
 
 [http://todomvc.com/]: http://todomvc.com/
 [Spaghetti to Ravioli]: http://johnpapa.net/spapost6
