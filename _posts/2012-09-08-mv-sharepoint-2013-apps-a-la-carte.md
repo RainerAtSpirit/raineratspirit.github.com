@@ -20,18 +20,18 @@ ever have written some SPA before, you'll know that you're in the need to struct
 you'll start writing unmaintainable Spaghetti code.
 
  That's where Model View Controller, Model View Presenter, Model View View Model or short MV* libraries like
- [Knockout], [backbone.js] ... or frameworks like [dojo], [yui] ... come into play. They help you,
+ [Knockout], [backbone.js]... or frameworks like [dojo], [yui]... come into play. They help you,
  and I'm going to quote John Papa's words here:
-
-[backbone.js]: http://backbonejs.org/
-[dojo]: http://dojotoolkit.org/
-[yui]: http://yuilibrary.com/
 
 >Turn your code from [Spaghetti to Ravioli].
 
 
 With that said without further hassle, here's what we are going to serve today. Even better find all background
 information needed to help you get started when cooking your own.
+
+[backbone.js]: http://backbonejs.org/
+[dojo]: http://dojotoolkit.org/
+[yui]: http://yuilibrary.com/
 
 ![SharePoint 2013 ToDo App](/img/2012-09-08-ToDosApp.jpg)
 
