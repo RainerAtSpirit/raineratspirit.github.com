@@ -93,7 +93,15 @@ why static sometimes is
  ![Result](/img/2012-09-03-Result.jpg)
 
 
+**Update 09/09:** Ready to deploy to Azure?
+Make sure to add the handlers to web.config otherwise you'll be presented with a similiar error 405.0 when trying
+ to launch your app on azure.
 
+ ![Result](/img/2012-09-03-AzureError.jpg)
+
+  ![Result](/img/2012-09-03-AzureHandlers.jpg)
+
+ ![Result](/img/2012-09-03-DeployToAzure.jpg)
 
 
 

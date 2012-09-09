@@ -147,3 +147,7 @@ li > ol, li > ul {
 unit-article img {
     margin: 6px 0 12px auto;
 }
+
+.unit-article ul {
+    list-style: disc;
+}
