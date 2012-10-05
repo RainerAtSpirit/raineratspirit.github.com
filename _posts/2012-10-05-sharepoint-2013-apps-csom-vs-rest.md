@@ -86,7 +86,8 @@ with that if you are creating a client side only app. Once you've access to the 
 then ensure that you are accessing the host data in compliance to the permissions you've configured.
 
 
-Here's just some minimal code that will retrieve information from the app web and the host web.
+Here's some minimalistic code that retrieves information from the app web and the host web and logs title and url
+ on success.
 
 {% highlight javascript linenos %}
 function execCrossDomainRequest() {
@@ -128,7 +129,8 @@ function successHandler(data) {
 
 {% endhighlight %}
 
-Trying to run this code immediately won't work and the various error messages you might see can be tracked down to the
+Trying to run this code using an OOTB template won't work and the various error messages you might see can be tracked
+down to the
 fact
 that the `appweburl` is `undefined`.
 
