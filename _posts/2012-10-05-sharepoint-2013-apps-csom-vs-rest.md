@@ -140,7 +140,7 @@ SharePoint doesn't create the app web for you. But as you can see in the diagram
 there's no way to retrieve information for a client side solution. An NO, replacing `appweburl` through `hostweburl`to
  bypass the app web completely like in the following code example won't work.
 
-![hostweb not allowed here](/img/2012-10-05-HostWeb.jpg)
+![hostweb not allowed here](/img/2012-10-05-Hostweb.jpg)
 
 
 Instead the system returns the following error message.
