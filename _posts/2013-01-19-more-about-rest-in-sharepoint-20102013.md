@@ -47,12 +47,11 @@ Hopefully Microsoft will deliver two things in the near future:
   2. lift the requirements for the app store. Come on guys IE8 is outdated and you've already got two newer releases
   out there!
 
-Regardless if Microsoft will fulfill my small wish list or not, luckily you can start running
-your SharePoint 2010 and SharePoint 2013 using `_vti_bin/listdata.svc` as of today.
+Regardless if Microsoft will fulfill my small wish list or not, luckily you can get JayData running on
+SharePoint 2010 and SharePoint 2013 by using `_vti_bin/listdata.svc` as of today.
 
- In order to get you started here are links to two example sites that will allow you to  get hands-on with
-OData v2 and JayData. Both require that you know how to work with a browser console :),
-so pick up your favorite one and give it a try.
+ In order to get you started here are links to two example sites that will allow you to get hands-on. Both require
+ that you know your way around in a browser console :), so pick up your favorite one and give it a try.
 
 [JavaScript language query playground]
 
