@@ -44,10 +44,11 @@ Guess what one of the **MUST** have criteria is that allows it to be placed in t
 Hopefully Microsoft will deliver two things in the near future:
 
   1. provide $metadata for `_api` -> this will make `_api` a real  OData v3 provider
+
   2. lift the requirements for the app store. Come on guys IE8 is outdated and you've already got two newer releases
   out there!
 
-Regardless if Microsoft will fulfill my small wish list or not, luckily you can get JayData running on
+but regardless if Microsoft will fulfill my small wish list or not, luckily you can get JayData running on
 SharePoint 2010 and SharePoint 2013 by using `_vti_bin/listdata.svc` as of today.
 
  In order to get you started here are links to two example sites that will allow you to get hands-on. Both require
