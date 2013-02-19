@@ -67,7 +67,7 @@ can be done using `_vti_bin/listdata.svc` in SharePoint 2010/2013.
 
 **UserName**: odatademo@spirit2013preview.onmicrosoft.com
 
-**Password**: Way2Cool
+**Password**: OData!Demo
 
 
 ![SharePoint hosted JSLQ example 6](/img/2013-01-18--SP13-Example6.jpg)
@@ -77,7 +77,7 @@ This is a SharePoint-hosted app that allows you to use CRUD operation against th
   reading [this post from Chris].
 
 Note even if this  is an SharePoint hosted app running on SharePoint 2013, because it's using
-`_vti_bin/listdata.svc` this would workin SP2010 as well.
+`_vti_bin/listdata.svc` this would work on SP2010 as well.
 
 
 
