@@ -7,13 +7,13 @@ tags: ['SharePoint 2013', 'SharePoint-hosted Apps', 'MV*', 'Durandal']
 ---
 {% include JB/setup %}
 
-One of the benefits of the new SharePoint 2013 app model is that we are nowadays allowed to living on the cutting edge
+One of the benefits of the new SharePoint 2013 app model is that we are nowadays allowed to live on the cutting edge
 of technology. At least if you build Autohosted or Providerhosted apps. If that what you're doing make sure to read
 Scott's [Announcing release of ASP.NET and Web Tools 2012.2 Update], install the bits and then explore some of the
 new MVC4 [templates].
 
 Next step would be to look at Ananu's blog [aanuwizard] as it has step-by-step instructions for you how to add a MVC4
- project to your solution.
+ project to your SharePoint 2013 apps.
 
 But how can you survive building single page application (SPA) in SharePoint if you are
 
@@ -46,9 +46,9 @@ and the VS template can be forked form [github].
 We are starting by opening up the MVC4 Durandal starter template and creating an OOTB SharePoint 2013 app of type
 SharePoint-hosted.
 Files in the MVC Content and Script folder can be copied straight away, because there are already corresponded modules
- in the SP template. Before coping files in the App folder we need to create a new module with a name of `App`.
- Make sure to exclude `App/Durandal/amd/optimizer.exe` from the project as by default SP won't allow
-upload of `.exe` files.
+ in the SP template. Before coping files in the App folder we need to create a new module named `App`. After copying
+ all App files from MVC4 make sure to exclude `App/Durandal/amd/optimizer.exe` from the project. By default SP
+ won't allow upload of `.exe` files. Do NOT delete that file, we'll need it later.
 
 ![Creating an App module](/img/2013-02-21--App-Module.jpg)
 
@@ -59,7 +59,7 @@ adjust them to the aspx syntax.
 
 
 In order to substitute the MVC4 BundleConfig settings for CSS and JavaScript files you must have [Web Essentials 2012]
-installed. If you don't have it already, install it now!
+installed. If not, this is a good time to install it otherwise the next step won't work.
 
 ![Creating an App module](/img/2013-02-21--BundleConfig.jpg)
 ![Creating an App module](/img/2013-02-21--WebEssentials.jpg)
@@ -68,10 +68,12 @@ Hit F5, wait till the upload is finished and you should see something similar li
 
 ![Creating an App module](/img/2013-02-21--FirstStab.jpg)
 
-Not that bad for a first stab I'd say, but there's still room for improvement. First Durandal's navigation bar is
-overlaying the default SharePoint navigation and second the app is in its developer mode. That means that all AMD
-files will be served individually. In addition we are getting a whole amount of logging messages in our console.
-
+Not that bad for a first stab I'd say, you've reached Durandal's development mode. All AMD files will be served
+individually and in addition we are getting a whole amount of logging messages in our console. That's the place
+where later down the road you'd spend most of your time, so make yourself familiar.
+ Today we simply heading forward to production, but before we do that let's to make a
+ small adjustment to Durandal's navigation bar because it's overlaying the default SharePoint
+ navigation.
 If you are already familiar with Durandal's app structure the next two steps are obvious. If not here are some
 readings that get you started
 
@@ -79,7 +81,7 @@ readings that get you started
 + [John Papa]
 + [Stephen Walter]
 
-In order to address the positioning of the navbar we remove the `navbar-fixed-top`class in `views/shell.html`.
+In order to address the positioning of the navbar remove the `navbar-fixed-top` class in `views/shell.html`.
 
 ![Creating an App module](/img/2013-02-21--Shell.html.jpg)
 
@@ -98,12 +100,12 @@ Last step is to comment/uncomment the appropriate part in default.aspx that's re
 
 Looks like we accomplished our mission for today and from my first impressions it looks like Durandal can fulfill the
 promise of *Your search for a SPA framework ends here.*
-In one of the upcoming blogs I'll add my trusted data abstraction tool [JayData] to see how
- they are playing along.
+In one of the upcoming posts I'll add my trusted data access tool [JayData] to see how the combo of Durandal,
+SharePoint OData and Durandal are playing together.
 
- Here's a final word of warning. Before diving into this new and mighty thing called Durandal,
- make sure that you read up the whole story about its eponym and you see that at the end the hero Roland is dead,
- just the sword survived `;-)`.
+ Here's a final word of warning. Before diving into this new and mighty thing called Durandal, remember it's young.
+ So weigh the risks and don't miss to dig up the story of Durandal's eponym. You'll see that at the end the
+ hero Roland is dead, just the sword survived `;-)`.
 
 
 [Announcing release of ASP.NET and Web Tools 2012.2 Update]: http://weblogs.asp.net/scottgu/archive/2013/02/18/announcing-release-of-asp-net-and-web-tools-2012-2-update.aspx
