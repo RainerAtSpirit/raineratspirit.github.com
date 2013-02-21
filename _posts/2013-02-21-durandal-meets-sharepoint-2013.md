@@ -69,13 +69,13 @@ Hit F5, wait till the upload is finished and you should see something similar li
 ![Creating an App module](/img/2013-02-21--FirstStab.jpg)
 
 Not that bad for a first stab I'd say, you've reached Durandal's development mode. All AMD files will be served
-individually and in addition we are getting a whole amount of logging messages in our console. That's the place
+individually and in addition we are getting a whole amount of logging messages in the console. That's the place
 where later down the road you'd spend most of your time, so make yourself familiar.
- Today we simply heading forward to production, but before we do that let's to make a
- small adjustment to Durandal's navigation bar because it's overlaying the default SharePoint
+ Today we simply heading forward to production, but before we do that let's make a
+ small adjustment to Durandal's navigation bar because at the moment it's overlaying the default SharePoint
  navigation.
 If you are already familiar with Durandal's app structure the next two steps are obvious. If not here are some
-readings that get you started
+readings that get you started:
 
 + [Durandal docs]
 + [John Papa]
@@ -100,8 +100,8 @@ Last step is to comment/uncomment the appropriate part in default.aspx that's re
 
 Looks like we accomplished our mission for today and from my first impressions it looks like Durandal can fulfill the
 promise of *Your search for a SPA framework ends here.*
-In one of the upcoming posts I'll add my trusted data access tool [JayData] to see how the combo of Durandal,
-SharePoint OData and Durandal are playing together.
+In one of the upcoming posts I'll add my trusted data access tool [JayData] that allows us to leverage native
+SharePoint OData (among other data provider) and see how it fits into the Durandal SPA framework.
 
  Here's a final word of warning. Before diving into this new and mighty thing called Durandal, remember it's young.
  So weigh the risks and don't miss to dig up the story of Durandal's eponym. You'll see that at the end the
