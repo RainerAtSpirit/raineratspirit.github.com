@@ -39,15 +39,15 @@ Alright let's test these statements by throwing Durandal into a SharePoint-hoste
 goes.
 
 Before we start here's a screen shot of the final result as teaser. There's an [online version] as well
-and the VS template can be forked form [github].
+and the VS template can be forked from [github].
 
-![Creating an App module](/img/2013-02-21--finalResult.jpg)
+![Final app running online](/img/2013-02-21--finalResult.jpg)
 
 We are starting by opening up the MVC4 Durandal starter template and creating an OOTB SharePoint 2013 app of type
 SharePoint-hosted.
 Files in the MVC Content and Script folder can be copied straight away, because there are already corresponded modules
- in the SP template. Before coping files in the App folder we need to create a new module named `App`. After copying
- all App files from MVC4 make sure to exclude `App/Durandal/amd/optimizer.exe` from the project. By default SP
+ in the SP template. Create a new module named `App`, copy
+ all App files from MVC4 app and make sure to exclude `App/Durandal/amd/optimizer.exe` from the project. By default SP
  won't allow upload of `.exe` files. Do NOT delete that file, we'll need it later.
 
 ![Creating an App module](/img/2013-02-21--App-Module.jpg)
@@ -55,25 +55,25 @@ Files in the MVC Content and Script folder can be copied straight away, because 
 In the next step we're copying the necessary bits from `Index.cshtml` and `_splash.cshtml` into our `Default.aspx` and
 adjust them to the aspx syntax.
 
-![Creating an App module](/img/2013-02-21--Default.aspx.jpg)
+![Modifying default.aspx](/img/2013-02-21--Default.aspx.jpg)
 
 
 In order to substitute the MVC4 BundleConfig settings for CSS and JavaScript files you must have [Web Essentials 2012]
 installed. If not, this is a good time to install it otherwise the next step won't work.
 
-![Creating an App module](/img/2013-02-21--BundleConfig.jpg)
-![Creating an App module](/img/2013-02-21--WebEssentials.jpg)
+![BundleConfig settings](/img/2013-02-21--BundleConfig.jpg)
+![Using WebEssentials](/img/2013-02-21--WebEssentials.jpg)
 
-Hit F5, wait till the upload is finished and you should see something similar like this.
+Hit F5, wait till the upload has finished and you should see something similar like this.
 
-![Creating an App module](/img/2013-02-21--FirstStab.jpg)
+![Running in developer mode](/img/2013-02-21--FirstStab.jpg)
 
 Not that bad for a first stab I'd say, you've reached Durandal's development mode. All AMD files will be served
 individually and in addition we are getting a whole amount of logging messages in the console. That's the place
 where later down the road you'd spend most of your time, so make yourself familiar.
  Today we simply heading forward to production, but before we do that let's make a
  small adjustment to Durandal's navigation bar because at the moment it's overlaying the default SharePoint
- navigation.
+ top nav.
 If you are already familiar with Durandal's app structure the next two steps are obvious. If not here are some
 readings that get you started:
 
@@ -83,29 +83,28 @@ readings that get you started:
 
 In order to address the positioning of the navbar remove the `navbar-fixed-top` class in `views/shell.html`.
 
-![Creating an App module](/img/2013-02-21--Shell.html.jpg)
+![Modifying nav settings](/img/2013-02-21--Shell.html.jpg)
 
-And now a scary moment. In order to produce an optimized version of our app, you have to go down to a command
-line and
+And now a scary moment. Let's create an optimized version of our app by going down to a command line and
 run `optimizer.exe`. Remember, that was the file that we excluded earlier in the process from our project,
 but of course it's still sitting in the file system. As long as you stick with Durandal's defaults this tool will help
  you creating an optimized `main-built.js` file.
 
-![Creating an App module](/img/2013-02-21--Optimizer.jpg)
+![Running optimizer](/img/2013-02-21--Optimizer.jpg)
 
-Last step is to comment/uncomment the appropriate part in default.aspx that's responsible for loading
+In the last step comment|uncomment the appropriate parts in default.aspx that are responsible for loading
 `main-build.js` and you should be good to go.
 
-![Creating an App module](/img/2013-02-21--finalDefault.jpg)
+![Switching from dev to prod mode](/img/2013-02-21--finalDefault.jpg)
 
-Looks like we accomplished our mission for today and from my first impressions it looks like Durandal can fulfill the
+Looks like we accomplished our mission for today and from my first impressions I'd say that Durandal can fulfill the
 promise of *Your search for a SPA framework ends here.*
-In one of the upcoming posts I'll add my trusted data access tool [JayData] that allows us to leverage native
-SharePoint OData (among other data provider) and see how it fits into the Durandal SPA framework.
+In one of the upcoming posts I'll add my trusted data access tool [JayData] that allows us to work with native
+SharePoint list and libraries through OData and see how it fits into the Durandal SPA framework.
 
- Here's a final word of warning. Before diving into this new and mighty thing called Durandal, remember it's young.
- So weigh the risks and don't miss to dig up the story of Durandal's eponym. You'll see that at the end the
- hero Roland is dead, just the sword survived `;-)`.
+ Here's a final word of warning. Before diving deeper into this new and mighty thing called Durandal,
+ remember it's young. So weigh the risks and don't miss to dig up the story of Durandal's eponym. You'll see that at
+  the end the hero Roland is dead, only the sword survived `;-)`.
 
 
 [Announcing release of ASP.NET and Web Tools 2012.2 Update]: http://weblogs.asp.net/scottgu/archive/2013/02/18/announcing-release-of-asp-net-and-web-tools-2012-2-update.aspx
