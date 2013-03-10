@@ -51,6 +51,9 @@ Hopefully Microsoft will deliver two things in the near future:
 but regardless if Microsoft will fulfill my small wish list or not, luckily you can get JayData running on
 SharePoint 2010 and SharePoint 2013 by using `_vti_bin/listdata.svc` as of today.
 
+**Update:**: As Thomas pointed out since the Feb. 5th update to the [validation policies] IE8 is no longer a
+requirement for SharePoint app.
+
  In order to get you started here are links to two example sites that will allow you to get hands-on. Both require
  that you know your way around in a browser console :), so pick up your favorite one and give it a try.
 
@@ -81,7 +84,7 @@ Note even if this  is an SharePoint hosted app running on SharePoint 2013, becau
 `_vti_bin/listdata.svc` this would work on SP2010 as well.
 
 
-
+[validation policies]: http://msdn.microsoft.com/en-us/library/office/apps/jj220035.aspx
 [thread]: http://social.msdn.microsoft.com/Forums/en-US/appsforsharepoint/thread/9e10f90d-666b-4787-8775-4065d9d8af44/
 [specs]: http://www.odata.org/media/30002/OData.html#metadatarequests
 [this post by Aidan Garnish]: http://www.aidangarnish.net/post/Getting-a-SharePoint-2013-App-Submitted-to-the-Office-Store.aspx
