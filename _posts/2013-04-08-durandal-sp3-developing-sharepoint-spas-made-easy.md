@@ -56,7 +56,7 @@ your favorite console open.
 2. [optimized build:]
 
 
-Without going into the details let see what the Promises demo app is doing when you active the list route (/#lists).
+Without going into the details let see what the Promises demo app is doing when you activate the list route (/#lists).
 
 1. Retrieve information about the lists in the current site via SPServices `GetListCollection` method (with caching)
 2. Retrieve detail information about the selected list via SPServices `GetList` method and build a mapping that can
