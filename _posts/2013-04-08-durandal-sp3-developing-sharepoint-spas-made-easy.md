@@ -19,8 +19,8 @@ SharePoint (2003), 2007, 2010 and 2013.
 
 
 The obvious disadvantage is that web services are deprecated in 2013, so they might go away with the next major
-release. If you are already running on 2010/2013 and don't have support older browser version you might want looking
-into using REST services with [JayData] or [Breeze] instead... but that's worth another story.
+release. If you are already running on 2010/2013 and don't have to support older browser versions you might want
+looking into using REST services with [JayData] or [Breeze] instead... but that's worth another story.
 
 Seeing is believing so here a couple of screen shots using IE versions that roughly matches the SP release time.
 
@@ -43,7 +43,7 @@ apply a DOCTYPE to the pages that host your SPA.
 ####SharePoint 2003 | IE 6:
 
 Sorry, I'm out of historic SharePoint VMs. Please give me a shot if somebody has still access to a
-SP2003 environment.
+SP2003 environment. I'd love to add the missing screen shot.
 
 Now, after hopefully getting you excited, here's the bad news. The demo is using the alpha release **2013.01ALPHA5** of
 [SPServices], so I won't make the demo code available through Github as usual. I'll update this post once the next
@@ -72,9 +72,7 @@ more cached information becomes available.
 ![Optimized build](/img/2013-04-08-OptimizedBuild.jpg)
 
  The development version on the other side shows far more details via the console. That allows you to get familiar
- with Durandal's application life cycle and in addition show your the Json results of `spdata` method calls. Using
- `spdata` as wrapper around SPServices methods allows us to leverage more advanced features like sorting and
- paging in our viewmodel.
+ with Durandal's application life cycle and to inspect the Json result of some `spdata` methods.
 
 ![Development](/img/2013-04-08-Development.jpg)
 
