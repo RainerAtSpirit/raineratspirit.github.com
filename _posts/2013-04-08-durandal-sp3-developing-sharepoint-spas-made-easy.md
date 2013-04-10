@@ -11,7 +11,7 @@ tags: ['SharePoint', 'SPServices', 'Durandal']
 Hi there,
 
 In the last post I introduced you to [Durandal] a SPA Framework, which can be used to create SPAs on top of
-the SharePoint infrastructure. This time we're going to leverage Mark Anderson's [SPServices] as a data service for
+the SharePoint infrastructure. This time we're going to leverage Marc Anderson's [SPServices] as a data service for
 our SPA.
 
 The obvious advantage is that web services are around for a long time, so one SPA (same code base) runs in
