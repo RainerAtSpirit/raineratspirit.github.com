@@ -55,6 +55,9 @@ your favorite console open.
 1. [development version:](http://www.spirit.de/demos/metro/DurandalSP3/index.html#/)
 2. [optimized build:]
 
+**Update 2013/04/11: ** The life demo was updated based on some feedback I got. The list overview now produces a
+configurable row view of lists with meta information like ItemCount and Last Modified. Step 2 and 3 are performed
+once you select a list.
 
 Without going into the details let see what the Promises demo app is doing when you activate the list route (/#lists).
 
