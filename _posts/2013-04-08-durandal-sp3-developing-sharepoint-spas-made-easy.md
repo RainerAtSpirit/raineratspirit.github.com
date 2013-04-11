@@ -55,7 +55,6 @@ your favorite console open.
 1. [development version:](http://www.spirit.de/demos/metro/DurandalSP3/index.html#/)
 2. [optimized build:]
 
-
 Without going into the details let see what the Promises demo app is doing when you activate the list route (/#lists).
 
 1. Retrieve information about the lists in the current site via SPServices `GetListCollection` method (with caching)
@@ -63,6 +62,9 @@ Without going into the details let see what the Promises demo app is doing when 
 be used in SPServices `SPXmlToJson` method (with caching)
 3. Retrieve item information via SPServices `GetListItems` (NO caching)
 
+**Update 2013/04/11: ** The life demo was updated based on some feedback I got. The list overview now produces a
+configurable row view of lists with meta information like ItemCount and Last Modified. Step 2 and 3 are performed
+once you select a list.
 
 By opening up the [optimized build] and filtering the network tab for XHR you can see the three POST requests to
 `lists.asmx` nicely
