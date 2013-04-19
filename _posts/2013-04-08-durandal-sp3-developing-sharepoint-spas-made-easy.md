@@ -83,8 +83,12 @@ After reading so far and hopefully seen the Promises demo in action by yourself,
 of the upcoming promise support in [SPServices]. Once it's part of an official release [SPServices] will become a
 perfect fit for Durandal's life cycle methods.
 
+**Update 2013/04/16** Marc Anderson reposted this article as [SPServices story] and added a bunch of additional,
+valuable information. Do not miss to check it out.
 
 
+[SPServices story]: http://sympmarc.com/2013/04/15/spservices-stories-13-durandal-sp3-developing-sharepoint-spas-made
+-easy/
 [last post]: /2013/02/21/durandal-meets-sharepoint-2013
 [Durandal]: http://www.durandaljs.com
 [JayData]: http://jaydata.org
