@@ -87,8 +87,7 @@ perfect fit for Durandal's life cycle methods.
 valuable information. Do not miss to check it out.
 
 
-[SPServices story]: http://sympmarc.com/2013/04/15/spservices-stories-13-durandal-sp3-developing-sharepoint-spas-made
--easy/
+[SPServices story]: http://sympmarc.com/2013/04/15/spservices-stories-13-durandal-sp3-developing-sharepoint-spas-made-easy/
 [last post]: /2013/02/21/durandal-meets-sharepoint-2013
 [Durandal]: http://www.durandaljs.com
 [JayData]: http://jaydata.org
