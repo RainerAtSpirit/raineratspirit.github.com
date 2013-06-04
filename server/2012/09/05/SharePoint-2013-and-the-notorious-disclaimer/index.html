@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>SharePoint 2013 and the notorious disclaimer</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="SharePoint 2013 and the notorious disclaimer" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">SharePoint 2013 and the notorious disclaimer</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>At the time of this writing you&#8217;ve probably seen something like the below, while browsing SharePoint 2013 blogs or the documentation on MSDN.</p>
+
+<blockquote>
+<p>Disclaimer MONTH DAY 2012: SharePoint 2013 is in preview at this stage, so some specifics and user experiences may change slightly between now and release time.</p>
+</blockquote>
+
+<p>With that in mind we expect having some fun time while trying to get things working using the documentation/examples that are out there. To make things even more exciting Visual studio 2012 and Windows 8 were just released lately. In contrast most examples have been written using prerelease software.</p>
+
+<p>Once you get started with SharePoint apps, you will be in need for examples and you know that <a href='http://code.msdn.microsoft.com/officeapps/'>officeapps</a> is a great starting point. Me, I&#8217;m primarily interested in SharePoint 2013 apps that use client side REST calls to access server side data. Luckily there are already a couple of examples at <a href='http://code.msdn.microsoft.com/officeapps/'>officeapps</a> that cover that area.</p>
+
+<p>Unfortunately most of them fall under the above <code>Disclaimer</code> category and therefore need some tweaking before they work to my liking.</p>
+
+<p>Before moving on</p>
+
+<blockquote>
+<p>Notorious disclaimer September 05 2012: I&#8217;m running the example in a VMWare instance of Win8 plus VS2012, both RTM. Your experience may wary, but that&#8217;s expected.</p>
+</blockquote>
+
+<p>Sorry couldn&#8217;t resist <code>:)</code>. With that said let&#8217;s take a specific example like <a href='http://code.msdn.microsoft.com/officeapps/SharePoint-2013-Use-the-a759e9f8'>Use the chrome control and the cross-domain library (REST)</a> and see what might happen while you testing it out.</p>
+
+<h3 id='issue_1_httpshttp_mixed_content'>Issue 1: HTTPS/HTTP Mixed content</h3>
+
+<p><strong>Step 1:</strong> Download the example, open in Visual studio 2012 and add your SiteURL <img alt='Adding SiteURL' src='/img/2012-09-05-SiteURL.jpg' /></p>
+
+<p><strong>Step 2:</strong> Run the example and launch the app <img alt='Launch App' src='/img/2012-09-05-LaunchApp.jpg' /></p>
+
+<p><strong>Step 3:</strong> If you see an error messages in VS, hit continue <img alt='Continue on VS error' src='/img/2012-09-05-VS$undefined.jpg' /></p>
+
+<p><strong>Step 4:</strong> Switch to IE and confirm &#8220;Show all content&#8221; <img alt='IE message' src='/img/2012-09-05-IEMessage.jpg' /></p>
+
+<p><strong>Step 5:</strong> Finally: Success! <img alt='IE message' src='/img/2012-09-05-Success.jpg' /></p>
+
+<p><strong>What&#8217;s the problem?</strong> Based on the IE message we see that we have a mixed bag of <code>https</code> and <code>http</code> content on our page, which is prevented by the default IE settings. Glancing through the html code reveals that we are loading files from a CDN via <code>http</code> while the web site is running on <code>https</code>.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'>1</span>     <span class='nt'>&lt;script</span>
+<span class='lineno'>2</span> <span class='nt'>        </span><span class='na'>src=</span><span class='s'>&quot;http://ajax.aspnetcdn.com/ajax/4.0/1/MicrosoftAjax.js&quot;</span>
+<span class='lineno'>3</span>         <span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>4</span>     <span class='nt'>&lt;/script&gt;</span>
+<span class='lineno'>5</span>     <span class='nt'>&lt;script</span>
+<span class='lineno'>6</span> <span class='nt'>        </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span>
+<span class='lineno'>7</span>         <span class='na'>src=</span><span class='s'>&quot;http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>8</span>     <span class='nt'>&lt;/script&gt;</span>
+</code></pre>
+</div>
+<p><strong>How to mitigate:</strong> Instead of simply changing the src attribute to <code>src=&quot;https://ajax...&quot;</code>, which would reintroduce the issue if we later switch the web site protocol from <code>https:</code> to <code>http:</code>, let&#8217;s get rid of the protocol all together so that it reads: <code>src=&quot;//ajax...&quot;</code>. If that syntax doesn&#8217;t look familiar to you, check out <a href='http://encosia.com/3-reasons-why-you-should-let-google-host-jquery-for-you/'>3 reasons why you should let Google host jQuery for you</a> to learn more about it.</p>
+
+<h3 id='issue_2_chrome_control_prevents_scroll_bar'>Issue 2: Chrome control prevents scroll bar</h3>
+
+<p><img alt='No scroll bar' src='/img/2012-09-05-NoScrollBar.jpg' /></p>
+
+<p><strong>What&#8217;s the problem?</strong> The chrome control dynamically loads some additional CSS from the <code>host web</code>. So it&#8217;s not your CSS that causes the issues, it&#8217;s the remote CSS.</p>
+
+<p><strong>How to mitigate:</strong> The chrome control injects a <code>link id=&quot;...</code> element inside the <code>&lt;head&gt;</code> section, which ensures that this CSS is evaluated first (see issue 4 for details). That allows us to overwrite conflicting styles in our own CSS file. Let&#8217;s create an app.css file and include it in the html file(s). While on it you might want to clean up a little and get rid of the <code>script</code> element that loads <code>MicrosoftAjax.js</code>. Neither the example nor the chrome control and cross-domain library rely on it.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'>1</span> <span class='nt'>&lt;head&gt;</span>
+<span class='lineno'>2</span>    <span class='nt'>&lt;title&gt;</span>Chrome control host page<span class='nt'>&lt;/title&gt;</span>
+<span class='lineno'>3</span>    <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>type=</span><span class='s'>&quot;text/css&quot;</span> <span class='na'>href=</span><span class='s'>&quot;app.css&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'>4</span>    <span class='nt'>&lt;script </span>
+<span class='lineno'>5</span> <span class='nt'>       </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> 
+<span class='lineno'>6</span>        <span class='na'>src=</span><span class='s'>&quot;//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>7</span>    <span class='nt'>&lt;/script&gt;</span>
+<span class='lineno'>8</span>    ...
+<span class='lineno'>9</span> <span class='nt'>&lt;/head&gt;</span>
+</code></pre>
+</div>
+<p><strong>app.css:</strong></p>
+<div class='highlight'><pre><code class='css'><span class='lineno'>1</span> <span class='nt'>body</span> <span class='p'>{</span>
+<span class='lineno'>2</span>     <span class='k'>overflow-y</span><span class='o'>:</span> <span class='k'>scroll</span>
+<span class='lineno'>3</span> <span class='p'>}</span>
+</code></pre>
+</div>
+<h3 id='issue_3_houston_weve_got_a_problem'>Issue 3: Houston, We&#8217;ve Got a Problem</h3>
+
+<p><strong>Step 1:</strong> Realize that we have a problem. <img alt='No scroll bar' src='/img/2012-09-05-LeakingGlobals.jpg' /></p>
+
+<p><strong>What&#8217;s the problem?</strong> Do we really have a problem here? After the modification done above the example is working and therefore allows grasping the essence of it:</p>
+
+<blockquote>
+<p>This code sample includes a remote webpage that hosts the chrome control and retrieves information from the host web using the cross domain library and Representational State Transfer (REST) in SharePoint 2013 Preview.</p>
+</blockquote>
+
+<p><strong>So again. What&#8217;s the problem?</strong> If you are an experienced HTML5/CSS/JavaScript developer there&#8217;s probably none. You&#8217;d see that there are a couple of issues with the example like</p>
+
+<ol>
+<li>leaking globals</li>
+
+<li>script elements in header</li>
+
+<li>waiting for $(document).ready before code execution</li>
+</ol>
+
+<p>but you&#8217;d simply ignore them and make a mental note to fix them in your own code. You grasped the essence of it and that&#8217;s what count.</p>
+
+<p>Chances are that you&#8217;re coming from a different angle, let&#8217;s say you&#8217;re an experienced .NET or even SharePoint developer and HTML5/CSS/JavaScript is not your prime area of expertise. You make the example work and grasp the essence of it. But because you don&#8217;t know what you don&#8217;t know, you will start replicating the code base&#8230; including the issues.</p>
+
+<p>But hey, we got the <code>notorious disclaimer</code>, so Microsoft may change things later down the road. Maybe they start updating the examples closer to the release date. Yes maybe they do, but we better don&#8217;t <code>wait for || rely on</code> it.</p>
+
+<p><strong>How to mitigate:</strong> Let&#8217;s apply some JavaScript best practice rules and refactor the example. The goal is not to bend it too much, just making it living to the rules without losing the essence.</p>
+
+<p><strong>Step 1</strong>: Move declared global vars and named functions inside <code>$(document).ready</code>. <strong>Catchword:</strong> <a href='https://www.google.de/search?q=Declared+and++implied+globals&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a'>Declared and implied globals</a>.</p>
+
+<p><strong>Before:</strong></p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='kd'>var</span> <span class='nx'>hostweburl</span><span class='p'>;</span>
+<span class='lineno'> 2</span> <span class='kd'>var</span> <span class='nx'>appweburl</span><span class='p'>;</span>
+<span class='lineno'> 3</span> 
+<span class='lineno'> 4</span> <span class='c1'>// Load the required SharePoint libraries</span>
+<span class='lineno'> 5</span> <span class='nx'>$</span><span class='p'>(</span><span class='nb'>document</span><span class='p'>).</span><span class='nx'>ready</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 6</span> <span class='p'>...</span>
+<span class='lineno'> 7</span> <span class='p'>});</span>
+<span class='lineno'> 8</span> 
+<span class='lineno'> 9</span> <span class='c1'>// Function to prepare and issue the request to get</span>
+<span class='lineno'>10</span> <span class='c1'>//  SharePoint data</span>
+<span class='lineno'>11</span> <span class='kd'>function</span> <span class='nx'>execCrossDomainRequest</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>12</span> <span class='p'>..</span>
+</code></pre>
+</div>
+<p><strong>After:</strong></p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='c1'>// Load the required SharePoint libraries</span>
+<span class='lineno'> 2</span> <span class='nx'>$</span><span class='p'>(</span><span class='nb'>document</span><span class='p'>).</span><span class='nx'>ready</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 3</span> <span class='kd'>var</span> <span class='nx'>hostweburl</span><span class='p'>;</span>
+<span class='lineno'> 4</span> <span class='kd'>var</span> <span class='nx'>appweburl</span><span class='p'>;</span>
+<span class='lineno'> 5</span> <span class='p'>...</span>
+<span class='lineno'> 6</span> <span class='c1'>// Function to prepare and issue the request to get</span>
+<span class='lineno'> 7</span> <span class='c1'>//  SharePoint data</span>
+<span class='lineno'> 8</span> <span class='kd'>function</span> <span class='nx'>execCrossDomainRequest</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 9</span> <span class='p'>..</span>
+<span class='lineno'>10</span> 
+<span class='lineno'>11</span> <span class='p'>});</span>
+</code></pre>
+</div>
+<p><strong>Step 2</strong>: Load scripts at the bottom of your html. <strong>Catchword:</strong> <a href='http://developer.yahoo.com/blogs/ydn/posts/2007/07/high_performanc_5/'>High Performance Web Sites: Rule 6</a></p>
+<div class='highlight'><pre><code class='html'><span class='lineno'> 1</span> <span class='cp'>&lt;!DOCTYPE html&gt;</span>
+<span class='lineno'> 2</span> <span class='nt'>&lt;html</span> <span class='na'>xmlns=</span><span class='s'>&quot;http://www.w3.org/1999/xhtml&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 3</span> <span class='nt'>&lt;head&gt;</span>
+<span class='lineno'> 4</span>     <span class='nt'>&lt;title&gt;</span>Chrome control host page<span class='nt'>&lt;/title&gt;</span>
+<span class='lineno'> 5</span>     <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='na'>type=</span><span class='s'>&quot;text/css&quot;</span> <span class='na'>href=</span><span class='s'>&quot;app.css&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'> 6</span> <span class='nt'>&lt;/head&gt;</span>
+<span class='lineno'> 7</span> <span class='nt'>&lt;body&gt;</span>
+<span class='lineno'> 8</span> 
+<span class='lineno'> 9</span>     <span class='c'>&lt;!-- Chrome control placeholder --&gt;</span>
+<span class='lineno'>10</span>     <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;chrome_ctrl_placeholder&quot;</span><span class='nt'>&gt;&lt;/div&gt;</span>
+<span class='lineno'>11</span>     <span class='nt'>&lt;h1</span> <span class='na'>class=</span><span class='s'>&quot;ms-accentText&quot;</span><span class='nt'>&gt;</span>Main content<span class='nt'>&lt;/h1&gt;</span>
+<span class='lineno'>12</span> 
+<span class='lineno'>13</span>     <span class='c'>&lt;!-- This is the placeholder for the announcements --&gt;</span>
+<span class='lineno'>14</span>     <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;renderAnnouncements&quot;</span><span class='nt'>&gt;&lt;/div&gt;</span>
+<span class='lineno'>15</span> 
+<span class='lineno'>16</span>     <span class='c'>&lt;!-- Script tags moved to bottom --&gt;</span>
+<span class='lineno'>17</span>     <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>18</span>     <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;ChromeLoader.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>19</span>     <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;CrossDomainExec.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>20</span> <span class='nt'>&lt;/body&gt;</span>
+<span class='lineno'>21</span> <span class='nt'>&lt;/html&gt;</span>
+</code></pre>
+</div>
+<p><strong>Step 3</strong>: By loading scripts at the bottom, the need to wait for <code>$(document).ready</code> before we can kick off our code vanishes away, so we can speed up load time by switching to an Immediately-Invoked Function Expression <a href='http://benalman.com/news/2010/11/immediately-invoked-function-expression/'>IIFE</a> instead.</p>
+
+<p><strong>Before:</strong></p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'>1</span> <span class='nx'>$</span><span class='p'>(</span><span class='nb'>document</span><span class='p'>).</span><span class='nx'>ready</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>2</span> <span class='p'>...</span>
+<span class='lineno'>3</span> <span class='p'>});</span>
+</code></pre>
+</div>
+<p><strong>After:</strong></p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'>1</span> <span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>2</span> <span class='p'>...</span>
+<span class='lineno'>3</span> <span class='p'>})();</span>
+</code></pre>
+</div>
+<p>There are probably other things that you might want to improve, but with those minor tweaks above, we already covered a lot of ground.</p>
+
+<p>Further readings: <a href='http://net.tutsplus.com/tutorials/javascript-ajax/the-essentials-of-writing-high-quality-javascript/'>The Essentials of Writing High Quality JavaScript</a>, <a href='http://benalman.com/news/2010/11/immediately-invoked-function-expression/'>IIFE</a> and <a href='http://en.wikipedia.org/wiki/Houston,_We&apos;ve_Got_a_Problem'>Okay, Houston, we've had a problem here</a></p>
+
+<h3 id='issue_4_preventing_flash_of_unstyled_content'>Issue 4: Preventing flash of unstyled content</h3>
+
+<p><img alt='No scroll bar' src='/img/2012-09-05-Fouc.jpg' /></p>
+
+<p><strong>What&#8217;s the problem?</strong> Loading the chrome control happens asynchronously using <a href='http://api.jquery.com/jQuery.getScript/'>$.getScript()</a> with <code>renderChrome()</code> as callback. Within <code>renderChrome</code> you first configure the control and then kick it off via <code>nav.setVisible(true) </code>. This will add the dynamic <code>link</code> element that finally loads the remote CSS. So there&#8217;s a time frame after <code>document.ready</code> in which our static HTML content will not be aware of the remote CSS.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'>1</span>    <span class='p'>...</span>
+<span class='lineno'>2</span>    <span class='c1'>// Load the js file and continue to the</span>
+<span class='lineno'>3</span>     <span class='c1'>//   success handler</span>
+<span class='lineno'>4</span>     <span class='nx'>$</span><span class='p'>.</span><span class='nx'>getScript</span><span class='p'>(</span><span class='nx'>scriptbase</span> <span class='o'>+</span> <span class='s2'>&quot;SP.UI.Controls.js&quot;</span><span class='p'>,</span> <span class='nx'>renderChrome</span><span class='p'>)</span>
+<span class='lineno'>5</span> <span class='p'>});</span>
+<span class='lineno'>6</span> 
+<span class='lineno'>7</span> <span class='c1'>//Function to prepare the options and render the control</span>
+<span class='lineno'>8</span> <span class='kd'>function</span> <span class='nx'>renderChrome</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>9</span> <span class='p'>...</span>
+</code></pre>
+</div>
+<p><strong>How to mitigate:</strong> Switching from <code>SP.UI.Controls.js</code> to <code>SP.UI.Controls.debug.js</code> let step us into <code>nav
+.setVisible(true)</code>, where we see how MS constructs the link to <code>defaultcss.ashx</code> and sets up an event listener to determine when the CSS is loaded.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='p'>...</span>
+<span class='lineno'> 2</span> <span class='k'>if</span> <span class='p'>(</span><span class='nx'>visible</span> <span class='o'>&amp;&amp;</span> <span class='o'>!</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>$s_0</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 3</span>             <span class='kd'>var</span> <span class='nx'>$v_0</span> <span class='o'>=</span> <span class='p'>(</span><span class='nb'>document</span><span class='p'>.</span><span class='nx'>getElementsByTagName</span><span class='p'>(</span><span class='s1'>&#39;head&#39;</span><span class='p'>))[</span><span class='mi'>0</span><span class='p'>];</span>
+<span class='lineno'> 4</span>             <span class='kd'>var</span> <span class='nx'>$v_1</span> <span class='o'>=</span> <span class='nb'>document</span><span class='p'>.</span><span class='nx'>createElement</span><span class='p'>(</span><span class='s1'>&#39;link&#39;</span><span class='p'>);</span>
+<span class='lineno'> 5</span> 
+<span class='lineno'> 6</span>             <span class='nx'>$v_1</span><span class='p'>.</span><span class='nx'>setAttribute</span><span class='p'>(</span><span class='s1'>&#39;id&#39;</span><span class='p'>,</span> <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>UI</span><span class='p'>.</span><span class='nx'>Controls</span><span class='p'>.</span><span class='nx'>Navigation</span><span class='p'>.</span><span class='nx'>$2</span> <span class='o'>+</span> <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>UI</span><span class='p'>.</span><span class='nx'>Controls</span><span class='p'>.</span><span class='nx'>Navigation</span><span class='p'>.</span><span class='nx'>$12</span><span class='p'>);</span>
+<span class='lineno'> 7</span>             <span class='nx'>$v_1</span><span class='p'>.</span><span class='nx'>setAttribute</span><span class='p'>(</span><span class='s1'>&#39;rel&#39;</span><span class='p'>,</span> <span class='s1'>&#39;stylesheet&#39;</span><span class='p'>);</span>
+<span class='lineno'> 8</span>             <span class='nx'>$v_1</span><span class='p'>.</span><span class='nx'>setAttribute</span><span class='p'>(</span><span class='s1'>&#39;type&#39;</span><span class='p'>,</span> <span class='s1'>&#39;text/css&#39;</span><span class='p'>);</span>
+<span class='lineno'> 9</span>             <span class='nx'>$v_1</span><span class='p'>.</span><span class='nx'>setAttribute</span><span class='p'>(</span><span class='s1'>&#39;href&#39;</span><span class='p'>,</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>$3_0</span> <span class='o'>+</span> <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>UI</span><span class='p'>.</span><span class='nx'>Controls</span><span class='p'>.</span><span class='nx'>Navigation</span><span class='p'>.</span><span class='nx'>getVersionedLayoutsUrl</span><span class='p'>(</span><span class='s1'>&#39;defaultcss.ashx&#39;</span><span class='p'>));</span>
+<span class='lineno'>10</span> 
+<span class='lineno'>11</span>             <span class='k'>if</span> <span class='p'>(</span><span class='nx'>$v_1</span><span class='p'>.</span><span class='nx'>addEventListener</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>12</span>                         <span class='kd'>var</span> <span class='nx'>$$t_5</span> <span class='o'>=</span> <span class='k'>this</span><span class='p'>;</span>
+<span class='lineno'>13</span> 
+<span class='lineno'>14</span>                         <span class='nx'>$v_1</span><span class='p'>.</span><span class='nx'>addEventListener</span><span class='p'>(</span><span class='s1'>&#39;load&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>15</span>                             <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>UI</span><span class='p'>.</span><span class='nx'>Controls</span><span class='p'>.</span><span class='nx'>Navigation</span><span class='p'>.</span><span class='nx'>$z</span><span class='p'>(</span><span class='nx'>$$t_5</span><span class='p'>,</span> <span class='nx'>visible</span><span class='p'>);</span>
+<span class='lineno'>16</span>                         <span class='p'>},</span> <span class='kc'>false</span><span class='p'>);</span>
+<span class='lineno'>17</span>                     <span class='p'>}</span>
+<span class='lineno'>18</span> <span class='p'>...</span>
+</code></pre>
+</div>
+<p>What&#8217;s good for MS is good for us, so we add a <code>style=&quot;display: none&quot;</code> to the body tag and add our own event handler that changes the style attribute to <code>display: block</code> when the CSS is loaded. As we are already using jQuery this is pretty straight forward.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'>1</span> <span class='p'>...</span>
+<span class='lineno'>2</span>     <span class='nx'>nav</span><span class='p'>.</span><span class='nx'>setVisible</span><span class='p'>(</span><span class='kc'>true</span><span class='p'>);</span>
+<span class='lineno'>3</span>     <span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;#chromeControl_stylesheet&#39;</span><span class='p'>).</span><span class='nx'>on</span><span class='p'>(</span><span class='s1'>&#39;load&#39;</span><span class='p'>,</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>4</span>         <span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;body&#39;</span><span class='p'>).</span><span class='nx'>show</span><span class='p'>();</span>
+<span class='lineno'>5</span>     <span class='p'>})</span>
+</code></pre>
+</div>
+<p>That&#8217;s it for today and as a benefit for people who really made it till the end of this TL;DR, here&#8217;s a link to <a href='https://github.com/RainerAtSpirit/SharePoint-2013-Use-the-a759e9f8'>github</a>, where the code for today&#8217;s post is available. While there take a look at the <a href='https://github.com/RainerAtSpirit/SharePoint-2013-Use-the-a759e9f8/commits/master'>commit history</a> and you&#8217;ll see that for every issue described above there&#8217;s a commit available.</p>
+
+<p>Feel free to clone and send me a pull request if you find other issues.</p>
+
+<p><img alt='Commit history' src='/img/2012-09-05-CommitHistory.jpg' /></p>
+
+<p>You are working on another example, but find applying the above modifications beneficial? Good, make sure to share. I&#8217;m using the shortened URL from <a href='http://code.msdn.microsoft.com/officeapps/'>officeapps</a> as git repository name. Create a git repro using this naming convention and link to your repro from the <a href='http://code.msdn.microsoft.com/officeapps/'>officeapps</a> example Q&amp;A section.</p>
+
+<p><img alt='Naming convention' src='/img/2012-09-05-OfficeAppsUrl.jpg' /></p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-09-05T00:00:00+02:00" datetime="2012-09-05T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>September</abbr></span>
+							<span class="day">05</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint 2013-ref">SharePoint 2013 <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#AutoHosted Apps-ref">AutoHosted Apps <span>5</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/09/03/SharePoint-2013-App-HTTP-Error-405.0" title="View SharePoint 2013 App HTTP Error 405.0">&laquo; SharePoint 2013 App HTTP Error 405.0</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/09/08/mv-sharepoint-2013-apps-a-la-carte" title="View MV* SharePoint 2013 Apps a la carte">MV* SharePoint 2013 Apps a la carte &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/09/05/SharePoint-2013-and-the-notorious-disclaimer" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

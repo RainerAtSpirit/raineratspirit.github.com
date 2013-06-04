@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Goodbye Ferrari, hello Napa?</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Goodbye Ferrari, hello Napa?" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Goodbye Ferrari, hello Napa?</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>Hey there!</p>
+
+<p>If you&#8217;ve seen my series about the SharePoint <strong>DVWP</strong> in <strong><code>Ferrari</code></strong> mode (<a href='http://rainerat.spirit.de/2012/07/15/sharepoint-dvwp-from-workhorse-to-ferrari-in-7-steps/'>Part 1</a>, <a href='http://rainerat.spirit.de/2012/07/20/the-sharepoint-dvwp-in-ferrari-mode-strikes-again/'>Part 2</a>, <a href='http://rainerat.spirit.de/2012/08/01/the-ferrari-meets-jaydata/'>Part 3</a>) you remember that we ended up with a small HTML5/CSS3/JavaScript app that is running on <a href='http://www.spirit.de/demos/metro/zurbv3/MetroStyle.aspx'>SP 2010</a> and <a href='https://spirit2013preview-public.sharepoint.com/zurbv3/MetroStyle.aspx'>SP 2013</a>.</p>
+
+<p>Today we take some of our lessons learned and try to apply them into the brave new world of SP 2013 apps or to be more precise into the world of Napa apps. <em>Please note</em> that I&#8217;m not going to cover the whole SharePoint 2013 App Model, but if you want to learn more about it, spend an hour and watch Jeremy Thake&#8217;s <a href='http://www.made4the.net/archive/2012/08/17/introduction-to-sharepoint-2013-app-model-screencast.aspx'>screencast</a> about that topic.</p>
+
+<p>Why should we talk about Napa apps in the first place? One reason is that Napa apps are the lowest hanging fruits in SP2013 development at least in terms of required infrastructure. You don&#8217;t need to setup an on premise SP2013 development environment and you&#8217;re not required to have Visual studio 2012 installed.</p>
+
+<p>With that said if you want to follow along and haven&#8217;t Napa yet, this <a href='http://msdn.microsoft.com/en-us/library/fp179924(v=office.15).aspx'>Office 365 Developer</a> page will get you started.</p>
+
+<p>Just to get our feet wet let&#8217;s create an OOTB app called &#8216;SharePointApp1&#8217; and run the project without further modification.</p>
+
+<p><strong>Step 1</strong> Add a new project <img alt='Napa Development' src='/img/2012-08-24-NapaDevelopment.jpg' /> <strong>Step 2</strong> Choose App for SharePoint and give it a name <img alt='Napa Development' src='/img/2012-08-24-NapaChooseApp.jpg' /> <strong>Step 3</strong> Press the Run project button and see how the system is doing its job to package, deploy and launch your app <img alt='Napa Development' src='/img/2012-08-24-NapaDistribution.jpg' /> <strong>Step 4</strong> Be impressed with the results of all your hard work :) <img alt='Napa Development' src='/img/2012-08-24-NapaResult.jpg' /></p>
+
+<p>Take a quick glance at the <a href='https://gist.github.com/3436301#file_result_default.aspx'>HTML source</a> of our impressive app. I say impressive because even though the payload is just the User Name it has <strong>644 lines</strong> of code. The reason is that our small &#8216;payload&#8217; is nicely embedded into SP2013, which comes with a price.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'> 1</span> <span class='err'>&lt;</span>%-- The following 4 lines are ASP.NET directives needed when using SharePoint components --%&gt;
+<span class='lineno'> 2</span> <span class='err'>&lt;</span>%@ Page Inherits=&quot;Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; MasterPageFile=&quot;~masterurl/default.master&quot; language=&quot;C#&quot; %&gt;
+<span class='lineno'> 3</span> <span class='err'>&lt;</span>%@ Register Tagprefix=&quot;SharePoint&quot; Namespace=&quot;Microsoft.SharePoint.WebControls&quot; Assembly=&quot;Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; %&gt;
+<span class='lineno'> 4</span> <span class='err'>&lt;</span>%@ Register Tagprefix=&quot;Utilities&quot; Namespace=&quot;Microsoft.SharePoint.Utilities&quot; Assembly=&quot;Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; %&gt;
+<span class='lineno'> 5</span> <span class='err'>&lt;</span>%@ Register Tagprefix=&quot;WebPartPages&quot; Namespace=&quot;Microsoft.SharePoint.WebPartPages&quot; Assembly=&quot;Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; %&gt;
+<span class='lineno'> 6</span> 
+<span class='lineno'> 7</span> <span class='err'>&lt;</span>%-- The markup and script in the following Content element will be placed in the <span class='nt'>&lt;head&gt;</span> of the page --%&gt;
+<span class='lineno'> 8</span> <span class='nt'>&lt;asp:Content</span> <span class='na'>ContentPlaceHolderId=</span><span class='s'>&quot;PlaceHolderAdditionalPageHead&quot;</span> <span class='na'>runat=</span><span class='s'>&quot;server&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 9</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js&quot;</span> <span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>10</span> 
+<span class='lineno'>11</span>     <span class='c'>&lt;!-- Add your CSS styles to the following file --&gt;</span>
+<span class='lineno'>12</span>     <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;Stylesheet&quot;</span> <span class='na'>type=</span><span class='s'>&quot;text/css&quot;</span> <span class='na'>href=</span><span class='s'>&quot;../Content/App.css&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'>13</span> 
+<span class='lineno'>14</span>     <span class='c'>&lt;!-- Add your JavaScript to the following file --&gt;</span>
+<span class='lineno'>15</span>     <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;../Scripts/App.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>16</span> <span class='nt'>&lt;/asp:Content&gt;</span>
+<span class='lineno'>17</span> 
+<span class='lineno'>18</span> <span class='err'>&lt;</span>%-- The markup and script in the following Content element will be placed in the <span class='nt'>&lt;body&gt;</span> of the page --%&gt;
+<span class='lineno'>19</span> <span class='nt'>&lt;asp:Content</span> <span class='na'>ContentPlaceHolderId=</span><span class='s'>&quot;PlaceHolderMain&quot;</span> <span class='na'>runat=</span><span class='s'>&quot;server&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>20</span> 
+<span class='lineno'>21</span>     <span class='nt'>&lt;div&gt;</span>
+<span class='lineno'>22</span>         <span class='nt'>&lt;p</span> <span class='na'>id=</span><span class='s'>&quot;message&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>23</span>             <span class='c'>&lt;!-- The following content will be replaced with the user name when you run the app - see App.js --&gt;</span>
+<span class='lineno'>24</span>             initializing...
+<span class='lineno'>25</span>         <span class='nt'>&lt;/p&gt;</span>
+<span class='lineno'>26</span>     <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>27</span> 
+<span class='lineno'>28</span> <span class='nt'>&lt;/asp:Content&gt;</span>
+</code></pre>
+</div>
+<p>Within the <a href='https://gist.github.com/3436301#file_source_default.aspx'>Source</a> we see some familiar ASP.NET directives with a link to a masterpage and then two <code>&lt;asp:Content&gt;</code> blocks.The <code>PlaceHolderAdditionalPageHead</code> is used to load your app specific CSS and JavaScript. The CSS is of no interest for us at the moment so let&#8217;s take a look at <code>App.js</code> instead.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='kd'>var</span> <span class='nx'>context</span><span class='p'>;</span>
+<span class='lineno'> 2</span> <span class='kd'>var</span> <span class='nx'>web</span><span class='p'>;</span>
+<span class='lineno'> 3</span> <span class='kd'>var</span> <span class='nx'>user</span><span class='p'>;</span>
+<span class='lineno'> 4</span> 
+<span class='lineno'> 5</span> <span class='c1'>// This code runs when the DOM is ready. It ensures the SharePoint</span>
+<span class='lineno'> 6</span> <span class='c1'>// script file sp.js is loaded and then executes sharePointReady()</span>
+<span class='lineno'> 7</span> <span class='nx'>$</span><span class='p'>(</span><span class='nb'>document</span><span class='p'>).</span><span class='nx'>ready</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 8</span>     <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>SOD</span><span class='p'>.</span><span class='nx'>executeFunc</span><span class='p'>(</span><span class='s1'>&#39;sp.js&#39;</span><span class='p'>,</span> <span class='s1'>&#39;SP.ClientContext&#39;</span><span class='p'>,</span> <span class='nx'>sharePointReady</span><span class='p'>);</span>
+<span class='lineno'> 9</span> <span class='p'>});</span>
+<span class='lineno'>10</span> 
+<span class='lineno'>11</span> <span class='c1'>// This function creates a context object which is needed to use the SharePoint object model</span>
+<span class='lineno'>12</span> <span class='kd'>function</span> <span class='nx'>sharePointReady</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>13</span>     <span class='nx'>context</span> <span class='o'>=</span> <span class='k'>new</span> <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>ClientContext</span><span class='p'>.</span><span class='nx'>get_current</span><span class='p'>();</span>
+<span class='lineno'>14</span>     <span class='nx'>web</span> <span class='o'>=</span> <span class='nx'>context</span><span class='p'>.</span><span class='nx'>get_web</span><span class='p'>();</span>
+<span class='lineno'>15</span> 
+<span class='lineno'>16</span>     <span class='nx'>getUserName</span><span class='p'>();</span>
+<span class='lineno'>17</span> <span class='p'>}</span>
+<span class='lineno'>18</span> 
+<span class='lineno'>19</span> <span class='c1'>// This function prepares, loads, and then executes a SharePoint query to get the current users information</span>
+<span class='lineno'>20</span> <span class='kd'>function</span> <span class='nx'>getUserName</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>21</span>     <span class='nx'>user</span> <span class='o'>=</span> <span class='nx'>web</span><span class='p'>.</span><span class='nx'>get_currentUser</span><span class='p'>();</span>
+<span class='lineno'>22</span>     <span class='nx'>context</span><span class='p'>.</span><span class='nx'>load</span><span class='p'>(</span><span class='nx'>user</span><span class='p'>);</span>
+<span class='lineno'>23</span>     <span class='nx'>context</span><span class='p'>.</span><span class='nx'>executeQueryAsync</span><span class='p'>(</span><span class='nx'>onGetUserNameSuccess</span><span class='p'>,</span> <span class='nx'>onGetUserNameFail</span><span class='p'>);</span>
+<span class='lineno'>24</span> <span class='p'>}</span>
+<span class='lineno'>25</span> 
+<span class='lineno'>26</span> <span class='c1'>// This function is executed if the above call is successful</span>
+<span class='lineno'>27</span> <span class='c1'>// It replaces the contents of the &#39;helloString&#39; element with the user name</span>
+<span class='lineno'>28</span> <span class='kd'>function</span> <span class='nx'>onGetUserNameSuccess</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>29</span>     <span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;#message&#39;</span><span class='p'>).</span><span class='nx'>text</span><span class='p'>(</span><span class='s1'>&#39;Hello &#39;</span> <span class='o'>+</span> <span class='nx'>user</span><span class='p'>.</span><span class='nx'>get_title</span><span class='p'>());</span>
+<span class='lineno'>30</span> <span class='p'>}</span>
+<span class='lineno'>31</span> 
+<span class='lineno'>32</span> <span class='c1'>// This function is executed if the above call fails</span>
+<span class='lineno'>33</span> <span class='kd'>function</span> <span class='nx'>onGetUserNameFail</span><span class='p'>(</span><span class='nx'>sender</span><span class='p'>,</span> <span class='nx'>args</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>34</span>     <span class='nx'>alert</span><span class='p'>(</span><span class='s1'>&#39;Failed to get user name. Error:&#39;</span> <span class='o'>+</span> <span class='nx'>args</span><span class='p'>.</span><span class='nx'>get_message</span><span class='p'>());</span>
+<span class='lineno'>35</span> <span class='p'>}</span>
+</code></pre>
+</div>
+<p>Beside the fact that the small code leaks more than half a dozen globals, which makes some of us laugh and some of us cry, we see that <code>getUserName()</code> retrieves the user information from the <code>app web</code> via CSOM and finally <code>onGetUserNameSuccess()</code> renders the <code>Hello username</code> message.</p>
+
+<p><strong>Checkpoint</strong> So far everything was nice and easy I&#8217;d say and you shouldn&#8217;t have an issue if you follow along.</p>
+
+<p>Now let&#8217;s switch gears by <strong>first</strong> getting rid of the SharePoint chrome. Simply copy <a href='https://gist.github.com/3436332#file_source_default.aspx'>Source2</a> and replace your existing default.aspx content in Napa. Running the app will show that the <a href='https://gist.github.com/3436332#file_result_default.aspx'>HTML source2</a> for the page is down to <strong>18 lines</strong>.</p>
+
+<p>By glancing through <a href='https://gist.github.com/3436332#file_source_default.aspx'>Source2</a> you see that we are still using some ASP.NET directives, just the reference to the masterpage has gone. In addition the <code>&lt;asp:Content&gt;</code> blocks have been replaced by some standard HTML5. In <a href='http://rainerat.spirit.de/2012/07/15/sharepoint-dvwp-from-workhorse-to-ferrari-in-7-steps/'>Part 1</a> we stripped down the <strong>DVWP</strong> in a similar manner, so we might call this mode the <strong><code>Naparari</code></strong> <code>:-)</code>.</p>
+
+<p><em>Please note</em> that at this time the JavaScript won&#8217;t work as some required CSOM files are loaded via the masterpage we just removed.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'> 1</span> <span class='err'>&lt;</span>%-- The following 5 lines are ASP.NET directives needed when using SharePoint components --%&gt;
+<span class='lineno'> 2</span> 
+<span class='lineno'> 3</span> <span class='err'>&lt;</span>%@ Page Inherits=&quot;Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; Language=&quot;C#&quot; %&gt;
+<span class='lineno'> 4</span> 
+<span class='lineno'> 5</span> <span class='err'>&lt;</span>%@ Register TagPrefix=&quot;SharePoint&quot; Namespace=&quot;Microsoft.SharePoint.WebControls&quot; Assembly=&quot;Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; %&gt;
+<span class='lineno'> 6</span> <span class='err'>&lt;</span>%@ Import Namespace=&quot;Microsoft.SharePoint&quot; %&gt;
+<span class='lineno'> 7</span> <span class='err'>&lt;</span>%@ Register TagPrefix=&quot;Utilities&quot; Namespace=&quot;Microsoft.SharePoint.Utilities&quot; Assembly=&quot;Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; %&gt;
+<span class='lineno'> 8</span> <span class='err'>&lt;</span>%@ Register TagPrefix=&quot;WebPartPages&quot; Namespace=&quot;Microsoft.SharePoint.WebPartPages&quot; Assembly=&quot;Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&quot; %&gt;
+<span class='lineno'> 9</span> 
+<span class='lineno'>10</span> <span class='cp'>&lt;!DOCTYPE HTML&gt;</span>
+<span class='lineno'>11</span> <span class='nt'>&lt;html&gt;</span>
+<span class='lineno'>12</span> <span class='nt'>&lt;head&gt;</span>
+<span class='lineno'>13</span>     <span class='nt'>&lt;title&gt;</span>
+<span class='lineno'>14</span>         <span class='nt'>&lt;SharePoint:ProjectProperty</span> <span class='na'>Property=</span><span class='s'>&quot;Title&quot;</span> <span class='na'>runat=</span><span class='s'>&quot;server&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'>15</span>     <span class='nt'>&lt;/title&gt;</span>
+<span class='lineno'>16</span>     <span class='c'>&lt;!-- Add your CSS styles to the following file --&gt;</span>
+<span class='lineno'>17</span>     <span class='nt'>&lt;link</span> <span class='na'>rel=</span><span class='s'>&quot;Stylesheet&quot;</span> <span class='na'>type=</span><span class='s'>&quot;text/css&quot;</span> <span class='na'>href=</span><span class='s'>&quot;../Content/App.css&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'>18</span> <span class='nt'>&lt;/head&gt;</span>
+<span class='lineno'>19</span> <span class='nt'>&lt;body&gt;</span>
+<span class='lineno'>20</span>     <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;message&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>21</span>         <span class='c'>&lt;!-- The following content will be replaced with the user name when you run the app - see App.js --&gt;</span>
+<span class='lineno'>22</span>         initializing...
+<span class='lineno'>23</span>     <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>24</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.min.js&quot;</span> <span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>25</span>     <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;../Scripts/App.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>26</span> <span class='nt'>&lt;/body&gt;</span>
+<span class='lineno'>27</span> <span class='nt'>&lt;/html&gt;</span>
+</code></pre>
+</div>
+<p><strong>Second</strong> let&#8217;s make some modification to app.js.</p>
+
+<ol>
+<li>Goal: In addition to the username we want to retrieve the web title from the <code>host web</code></li>
+
+<li>Goal: Instead of adding the required CSOM files, we are switching to <code>OData</code></li>
+
+<li>Goal: While on it let&#8217;s get rid of the globals <code>;-)</code>.</li>
+</ol>
+
+<p>Napa apps like other SharePoint Apps enforces a clear separation between the <code>host web</code>, the web where you install your app, and the <code>app web</code>, the place where your code is actually running.</p>
+
+<p>As an example take a look at my <code>host web</code> URL: https://spirit2013preview.sharepoint.com/sites/dev/</p>
+
+<p>Whenever a Napa app is launched it runs at an <code>app web</code> URL similiar to</p>
+
+<p>https://spirit2013preview<strong>-b0204c96e900db</strong>.sharepoint.com/sites/dev/GoodbyeFerrariHelloNapa/Pages/Default.aspx</p>
+
+<p>You see that an app specific GUID like <strong>-b0204c96e900db</strong> is added to the host header, so for our JavaScript code that is running in the <code>app web</code> there&#8217;s NO way to access information directly in the <code>host web</code> due to cross site scripting restriction.</p>
+
+<p>Let&#8217;s see how our goals can be accomplished in the JavaScript below, which is based on code from <a href='http://msdn.microsoft.com/en-us/library/fp179927(v=office.15).aspx'>MSDN</a>. If you&#8217;re not familiar with the cross-domain library <code>SP.RequestExecutor.js</code> please check it out first.</p>
+
+<p>Goal 1 and 2: The answer to both goals live in the <code>execCrossDomainRequest()</code> function. As you can see we are executing a call against the local <code>SPAppWebUrl</code> <code>/_api/SP.AppContextSite(@target)/</code> OData endpoint and passing in <code>SPHostUrl</code> as <code>@target</code>. Effectivily this will provide us access to the remote <code>SPHostUrl/_api</code> endpoint (through the cross-domain library).</p>
+
+<p>Beside the cross-domain library specific you can now use the same OData syntax that you would use locally e.g. here <code>/web?$expand=CurrentUser</code> is used to retrieve web and at the same time CurrentUser information.</p>
+
+<p>Goal 3: There&#8217;s more than one way to accomplish that, but to be close to the origal version let&#8217;s wrap our code in an Immediately-Invoked Function Expression <a href='http://benalman.com/news/2010/11/immediately-invoked-function-expression/'>IIFE</a>, which you might know as self-executing anonymous function as well.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 2</span>     <span class='kd'>var</span> <span class='nx'>params</span> <span class='o'>=</span> <span class='nx'>getParams</span><span class='p'>(),</span>
+<span class='lineno'> 3</span>         <span class='nx'>scriptbase</span> <span class='o'>=</span> <span class='nx'>params</span><span class='p'>.</span><span class='nx'>SPHostUrl</span> <span class='o'>+</span> <span class='s2'>&quot;/_layouts/15/&quot;</span><span class='p'>;</span>
+<span class='lineno'> 4</span> 
+<span class='lineno'> 5</span> 
+<span class='lineno'> 6</span>     <span class='c1'>// Load the js file and continue to the</span>
+<span class='lineno'> 7</span>     <span class='c1'>//   success event handler.</span>
+<span class='lineno'> 8</span>     <span class='nx'>$</span><span class='p'>.</span><span class='nx'>getScript</span><span class='p'>(</span><span class='nx'>scriptbase</span> <span class='o'>+</span> <span class='s2'>&quot;SP.RequestExecutor.js&quot;</span><span class='p'>,</span> <span class='nx'>execCrossDomainRequest</span><span class='p'>);</span>
+<span class='lineno'> 9</span> 
+<span class='lineno'>10</span> 
+<span class='lineno'>11</span>     <span class='c1'>// Function to prepare and issue the request to get</span>
+<span class='lineno'>12</span>     <span class='c1'>//  SharePoint data.</span>
+<span class='lineno'>13</span>     <span class='kd'>function</span> <span class='nx'>execCrossDomainRequest</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>14</span>         <span class='kd'>var</span> <span class='nx'>executor</span> <span class='o'>=</span> <span class='k'>new</span> <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>RequestExecutor</span><span class='p'>(</span><span class='nx'>params</span><span class='p'>.</span><span class='nx'>SPAppWebUrl</span><span class='p'>);</span>
+<span class='lineno'>15</span> 
+<span class='lineno'>16</span>         <span class='c1'>// Issue the call against the host web.</span>
+<span class='lineno'>17</span>         <span class='c1'>// To get the title using REST we can hit the endpoint:</span>
+<span class='lineno'>18</span>         <span class='c1'>//      app_web_url/_api/SP.AppContextSite(@target)/web/title?@target=&#39;siteUrl&#39;</span>
+<span class='lineno'>19</span>         <span class='c1'>// The response formats the data in the JSON format.</span>
+<span class='lineno'>20</span>         <span class='c1'>// The functions successHandler and errorHandler attend the</span>
+<span class='lineno'>21</span>         <span class='c1'>//      success and error events respectively.</span>
+<span class='lineno'>22</span>         <span class='nx'>executor</span><span class='p'>.</span><span class='nx'>executeAsync</span><span class='p'>(</span>
+<span class='lineno'>23</span>             <span class='p'>{</span>
+<span class='lineno'>24</span>                 <span class='nx'>url</span><span class='o'>:</span>
+<span class='lineno'>25</span>                     <span class='nx'>params</span><span class='p'>.</span><span class='nx'>SPAppWebUrl</span> <span class='o'>+</span>
+<span class='lineno'>26</span>                     <span class='s2'>&quot;/_api/SP.AppContextSite(@target)/web?$expand=CurrentUser&amp;@target=&#39;&quot;</span> <span class='o'>+</span>
+<span class='lineno'>27</span>                     <span class='nx'>params</span><span class='p'>.</span><span class='nx'>SPHostUrl</span> <span class='o'>+</span> <span class='s2'>&quot;&#39;&quot;</span><span class='p'>,</span>
+<span class='lineno'>28</span>                 <span class='nx'>method</span><span class='o'>:</span> <span class='s2'>&quot;GET&quot;</span><span class='p'>,</span>
+<span class='lineno'>29</span>                 <span class='nx'>headers</span><span class='o'>:</span> <span class='p'>{</span> <span class='s2'>&quot;Accept&quot;</span><span class='o'>:</span> <span class='s2'>&quot;application/json; odata=verbose&quot;</span> <span class='p'>},</span>
+<span class='lineno'>30</span>                 <span class='nx'>success</span><span class='o'>:</span> <span class='nx'>successHandler</span><span class='p'>,</span>
+<span class='lineno'>31</span>                 <span class='nx'>error</span><span class='o'>:</span> <span class='nx'>errorHandler</span>
+<span class='lineno'>32</span>             <span class='p'>}</span>
+<span class='lineno'>33</span>         <span class='p'>);</span>
+<span class='lineno'>34</span>     <span class='p'>}</span>
+<span class='lineno'>35</span> 
+<span class='lineno'>36</span>     <span class='c1'>// Function to handle the success event.</span>
+<span class='lineno'>37</span>     <span class='c1'>// Prints the host web&#39;s title to the page.</span>
+<span class='lineno'>38</span>     <span class='kd'>function</span> <span class='nx'>successHandler</span><span class='p'>(</span><span class='nx'>data</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>39</span>         <span class='kd'>var</span> <span class='nx'>jsonObject</span> <span class='o'>=</span> <span class='nx'>JSON</span><span class='p'>.</span><span class='nx'>parse</span><span class='p'>(</span><span class='nx'>data</span><span class='p'>.</span><span class='nx'>body</span><span class='p'>);</span>
+<span class='lineno'>40</span>         <span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;#message&#39;</span><span class='p'>).</span><span class='nx'>html</span><span class='p'>(</span><span class='nx'>jsonObject</span><span class='p'>.</span><span class='nx'>d</span><span class='p'>.</span><span class='nx'>CurrentUser</span><span class='p'>.</span><span class='nx'>Title</span>  <span class='o'>+</span>
+<span class='lineno'>41</span>                     <span class='s1'>&#39;&lt;br/&gt;host web: &lt;b&gt;&#39;</span> <span class='o'>+</span> <span class='nx'>jsonObject</span><span class='p'>.</span><span class='nx'>d</span><span class='p'>.</span><span class='nx'>Title</span> <span class='o'>+</span> <span class='s1'>&#39;&lt;/b&gt;&#39;</span><span class='p'>);</span>
+<span class='lineno'>42</span>     <span class='p'>}</span>
+<span class='lineno'>43</span> 
+<span class='lineno'>44</span>     <span class='c1'>// Function to handle the error event.</span>
+<span class='lineno'>45</span>     <span class='c1'>// Prints the error message to the page.</span>
+<span class='lineno'>46</span>     <span class='kd'>function</span> <span class='nx'>errorHandler</span><span class='p'>(</span><span class='nx'>data</span><span class='p'>,</span> <span class='nx'>errorCode</span><span class='p'>,</span> <span class='nx'>errorMessage</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>47</span>         <span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;#message&#39;</span><span class='p'>).</span><span class='nx'>html</span><span class='p'>(</span><span class='s2'>&quot;Could not complete cross-domain call: &quot;</span> <span class='o'>+</span> <span class='nx'>errorMessage</span><span class='p'>);</span>
+<span class='lineno'>48</span>     <span class='p'>}</span>
+<span class='lineno'>49</span> 
+<span class='lineno'>50</span> 
+<span class='lineno'>51</span>     <span class='c1'>// Returning the params object</span>
+<span class='lineno'>52</span>     <span class='kd'>function</span> <span class='nx'>getParams</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>53</span>         <span class='kd'>var</span> <span class='nx'>params</span> <span class='o'>=</span> <span class='p'>{};</span>
+<span class='lineno'>54</span>         <span class='nx'>location</span><span class='p'>.</span><span class='nx'>search</span><span class='p'>.</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;?&#39;</span><span class='p'>)[</span><span class='mi'>1</span><span class='p'>].</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;&amp;&#39;</span><span class='p'>).</span><span class='nx'>forEach</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>(</span><span class='nx'>param</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>55</span>             <span class='kd'>var</span> <span class='nx'>key</span> <span class='o'>=</span> <span class='nx'>param</span><span class='p'>.</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;=&#39;</span><span class='p'>)[</span><span class='mi'>0</span><span class='p'>],</span>
+<span class='lineno'>56</span>                 <span class='nx'>val</span> <span class='o'>=</span> <span class='nb'>decodeURIComponent</span><span class='p'>(</span><span class='nx'>param</span><span class='p'>.</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;=&#39;</span><span class='p'>)[</span><span class='mi'>1</span><span class='p'>]);</span>
+<span class='lineno'>57</span>             <span class='nx'>params</span><span class='p'>[</span><span class='nx'>key</span><span class='p'>]</span> <span class='o'>=</span> <span class='nx'>val</span><span class='p'>;</span>
+<span class='lineno'>58</span>         <span class='p'>});</span>
+<span class='lineno'>59</span>         <span class='k'>return</span> <span class='nx'>params</span><span class='p'>;</span>
+<span class='lineno'>60</span>     <span class='p'>}</span>
+<span class='lineno'>61</span> 
+<span class='lineno'>62</span> <span class='p'>})();</span>
+</code></pre>
+</div>
+<p>After all that hard work here&#8217;s the <strong>Punchline</strong>:</p>
+
+<h2 id='running_the_example_right_away_wont_work'>Running the example right away won&#8217;t work!</h2>
+
+<p>The reason is that we missed the most important configuration part for SP 2013 apps. Whenever your app requires acccessing information in the <code>host web</code> you have to configure the appropriate permissions. In addition whenever a site admin installs an app, they have to decide if they trust your app or not.</p>
+
+<p>It will be interesting to see how this new concept (new to SharePoint, you&#8217;re probably familiar with it from mobile apps) will pay off in the real world.</p>
+
+<p>For Napa apps there&#8217;s just one additional step required as developer, so let&#8217;s walk trough that process quickly.</p>
+
+<p><strong>Step 1</strong> As a developer you have to explicitly ask for permission for your app <img alt='Napa Development' src='/img/2012-08-24-NapaPermision.jpg' /> <strong>Step 2</strong> As site admin you have to trust the app <img alt='Napa Development' src='/img/2012-08-24-NapaTrust.jpg' /> <strong>Step 3</strong> Finally the desired result: No chrome, user name and (Host)web title. <img alt='Napa Development' src='/img/2012-08-24-NapaRestResult.jpg' /></p>
+
+<p>That&#8217;s it for today and I&#8217;m leaving you with this example, which -while visually not as impressive as the first version- under the hood is clean as hell and hopefully well understood <code>;-)</code>. Take it a starting point for your own Napa apps and let me know how it goes.</p>
+
+<p>One question though: How do you feel about SP apps and the SP marketplace in general? Are you already sold (can&#8217;t wait for it to open, so that you can get rich) or do you have some concerns compared to traditional farm or sandbox solutions?</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-08-24T00:00:00+02:00" datetime="2012-08-24T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>August</abbr></span>
+							<span class="day">24</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#cutting Teeth-ref">
+    		cutting Teeth <span>3</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint 2013-ref">SharePoint 2013 <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#Napa-ref">Napa <span>2</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/08/01/the-ferrari-meets-jaydata" title="View The Ferrari meets JayData">&laquo; The Ferrari meets JayData</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/08/28/napa-app-and-chrome-control" title="View Nappa apps and Chrome Control">Nappa apps and Chrome Control &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/08/24/goodbye-ferrari-hello-napa" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>SharePoint DVWP: from workhorse to Ferrari in 7 steps</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="SharePoint DVWP: from workhorse to Ferrari in 7 steps" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">SharePoint DVWP: from workhorse to Ferrari in 7 steps</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>This is going to be intense and this is going to be fun&#8230;, if you are willing to follow till the end. I&#8217;m going to take the good old Data Form Web Part, better known as <strong>DVWP</strong>, and turn the standard HTML, which is delivered by this reliable workhorse, in some highly optimized HTML5 code: I call it the <strong><code>Ferrari</code></strong> version.</p>
+
+<p>But before we even start, here are some prerequisites:</p>
+
+<ul>
+<li>you worked with the <strong>DVWP</strong> before</li>
+
+<li>you&#8217;re familiar with XML/XSLT</li>
+
+<li>you know who Marc D Anderson is and know his <a href='http://sympmarc.com/tag/dvwp/'>posts about the DVWP</a> inside out</li>
+
+<li>you are familiar with SharePoint Designer, but you are not afraid using a text editor. Notepad will do, but some kind of syntax checking and highlighting would be beneficial. Before you ask: I&#8217;m using <a href='http://www.jetbrains.com/webstorm/'>WebStorm</a> for overall web development and <a href='http://www.altova.com/xmlspy.html'>Altova XML Spy</a> for complex XML/XSLT.</li>
+</ul>
+
+<p>Let&#8217;s get started with something the <strong>DVWP</strong> was build for:</p>
+
+<ul>
+<li>accessing data via a data source</li>
+
+<li>(just to recap: <em>Database</em>, <em>SOAP</em>, <em>REST</em>, <em>XML Files</em> and <em>Linked Data source</em> are supported)</li>
+
+<li>converting the data using XSLT</li>
+
+<li>and finally display the result as part of a SharePoint page.</li>
+</ul>
+
+<p>Go ahead and:</p>
+
+<ol>
+<li>create a new site using the blank site template</li>
+
+<li>create a document library called <code>servicefiles</code> that is used to store our pages</li>
+
+<li>create a subfolder <code>servicefiles/xml</code></li>
+
+<li>and finally create a <code>helloworld.xml</code> file with the following content</li>
+</ol>
+<div class='highlight'><pre><code class='xml'><span class='lineno'>1</span> <span class='cp'>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
+<span class='lineno'>2</span> <span class='nt'>&lt;root&gt;</span>
+<span class='lineno'>3</span> 	<span class='nt'>&lt;title&gt;</span>Hello World<span class='nt'>&lt;/title&gt;</span>
+<span class='lineno'>4</span> <span class='nt'>&lt;/root&gt;</span>
+</code></pre>
+</div>
+<p>Nothing fancy so far, so let&#8217;s move on:</p>
+
+<ol>
+<li>Let&#8217;s created a XML data source for this file</li>
+
+<li>create a web part page called <code>WebPartPage.aspx</code></li>
+
+<li>Place a <strong>DVWP</strong> on it show us the standard content.</li>
+</ol>
+
+<p><strong>Checkpoint:</strong> As said, I assume that you know the <strong>DVWP</strong> inside out. But if not or you&#8217;d prefer not following along right now, don&#8217;t worry. Each of the steps below can be accessed online, so sit back, relax and enjoy the ride. If you wanna get your hands dirty later, you find the <a href='https://github.com/RainerAtSpirit/DVWP-HTML5'>source code</a> at github.</p>
+
+<p>Ok, let&#8217;s move on. By default SPD uses some baked in XSLT to perform the XML/XSLT conversion, which is clearly not the best starting point for us, so let&#8217;s replace the xsl:stylesheet by our own.</p>
+<div class='highlight'><pre><code class='xslt'><span class='lineno'>1</span> <span class='k'>&lt;xsl:stylesheet</span> <span class='na'>version=</span><span class='s'>&quot;1.0&quot;</span> <span class='na'>exclude-result-prefixes=</span><span class='s'>&quot;xsl msxsl ddwrt&quot;</span> <span class='na'>xmlns:ddwrt=</span><span class='s'>&quot;http://schemas.microsoft.com/WebParts/v2/DataView/runtime&quot;</span> <span class='na'>xmlns:asp=</span><span class='s'>&quot;http://schemas.microsoft.com/ASPNET/20&quot;</span> <span class='na'>xmlns:__designer=</span><span class='s'>&quot;http://schemas.microsoft.com/WebParts/v2/DataView/designer&quot;</span> <span class='na'>xmlns:xsl=</span><span class='s'>&quot;http://www.w3.org/1999/XSL/Transform&quot;</span> <span class='na'>xmlns:msxsl=</span><span class='s'>&quot;urn:schemas-microsoft-com:xslt&quot;</span> <span class='na'>xmlns:SharePoint=</span><span class='s'>&quot;Microsoft.SharePoint.WebControls&quot;</span> <span class='na'>xmlns:ddwrt2=</span><span class='s'>&quot;urn:frontpage:internal&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>2</span>     <span class='k'>&lt;xsl:output</span> <span class='na'>method=</span><span class='s'>&quot;html&quot;</span> <span class='na'>indent=</span><span class='s'>&quot;no&quot;</span><span class='nt'>/&gt;</span>
+<span class='lineno'>3</span>     <span class='k'>&lt;xsl:template</span> <span class='na'>match=</span><span class='s'>&quot;/&quot;</span> <span class='na'>xmlns:asp=</span><span class='s'>&quot;http://schemas.microsoft.com/ASPNET/20&quot;</span> <span class='na'>xmlns:__designer=</span><span class='s'>&quot;http://schemas.microsoft.com/WebParts/v2/DataView/designer&quot;</span> <span class='na'>xmlns:SharePoint=</span><span class='s'>&quot;Microsoft.SharePoint.WebControls&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>4</span>         <span class='nt'>&lt;h1&gt;</span><span class='k'>&lt;xsl:value-of</span> <span class='na'>select=</span><span class='s'>&quot;root/title&quot;</span> <span class='nt'>/&gt;&lt;/h1&gt;</span>
+<span class='lineno'>5</span>     <span class='k'>&lt;/xsl:template&gt;</span>
+<span class='lineno'>6</span> <span class='k'>&lt;/xsl:stylesheet&gt;</span>
+</code></pre>
+</div>
+<p>Assuming nothing went wrong, you should see something like this in your browser.</p>
+
+<p><img alt='Empty ASPX Page' src='/img/2012-07-15-sharepoint-dvwp-step_0.jpg' /></p>
+
+<p>For your convenience you have access to the <a href='https://github
+.com/RainerAtSpirit/DVWP-HTML5/blob/master/WebPartPage.aspx'>Source</a>, see the rendered result <a href='http://www.spirit
+.de/demos/gtk/dvwp/ServiceFiles/WebPartPage.aspx'>Live</a> and what&#8217;s more important you can see the <a href='https://gist.github.com/3116685#file_web_part_page.aspx'>HTML source</a> of that page; and yes, right click on the rendered result, view source will work as well.</p>
+
+<p>The size of HTML source will act as our <em>baseline</em>, and a quick look reveals that there are <strong>772</strong> lines of code, which includes our <em>payload</em> of <code>&lt;h1&gt;Hello world&lt;/h1&gt;</code>. You can see that our <em>payload</em> is nicely integrated into a fully-fledged SharePoint theme. As said above this scenario is exactly, what the <strong>DVWP</strong> was built for.</p>
+
+<p><strong>Checkpoint</strong> In a series of small step-by-step modifications this starting point now undergoes optimization, with the goal of creating a slick HTML5 version that uses the same <em>payload</em>.</p>
+
+<ul>
+<li>Ready?</li>
+
+<li>3</li>
+
+<li>2</li>
+
+<li>1</li>
+
+<li>go&#8230;</li>
+</ul>
+
+<p><strong>Step 1</strong> Create an empty aspx page in the same folder (hint: right click is your friend) call it <em>step_1.aspx</em> and copy/paste the existing <strong>DVWP</strong> from <em>WebPartPage.aspx</em> into it.</p>
+
+<p><img alt='Step 1' src='/img/2012-07-15-sharepoint-dvwp-step_1.jpg' /></p>
+
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_1.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_1.aspx'>Live</a>, <a href='https://gist.github.com/3116685#file_step_1.aspx'>HTML source</a></p>
+
+<p>By placing the <strong>DVWP</strong> onto it&#8217;s own empty aspx page we a) removed almost all visible SharePoint chrome and b) reduced the HTML source size to <strong>160</strong> lines. Make a copy of the current page <em>(step_1.aspx)</em> and save as next page <em>(step_2 .aspx)</em>; repeat the same process for the following steps.</p>
+
+<p><strong>Step 2</strong> Getting rid of the Web part properties bar is straight forward and frankly could have been done in our original page as well. Simply open the web part properties and change the Chrome Type to <code>none</code>, which will bring us down to <strong>154</strong> lines.</p>
+
+<p><img alt='Step 2' src='/img/2012-07-15-sharepoint-dvwp-step_2.jpg' /></p>
+
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_2.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_2.aspx'>Live</a>, <a href='https://gist.github.com/3116685#file_step_2.aspx'>HTML source</a></p>
+
+<p><strong>Step 3</strong> After that easy passage in <strong>step 2</strong> let&#8217;s get a little bit more aggressive by getting rid of the <code>asp:ScriptManager</code> tag. You can either delete it in the code view or in design view. If the latter, make sure that you&#8217;ve turned on Visual Aids otherwise you won&#8217;t see it.</p>
+
+<p><img alt='Step 3' src='/img/2012-07-15-sharepoint-dvwp-step_3.jpg' /></p>
+
+<p>You should test this modification immediately in the browser and you&#8217;ll see this error message.</p>
+
+<p><img alt='Step 3 error' src='/img/2012-07-15-sharepoint-dvwp-step_3error.jpg' /></p>
+
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_3.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_3.aspx'>Live</a></p>
+
+<p>How comes? The page looks still good in SPD, doesn&#8217;t it? Somehow the web part seems to have a dependency on the <code>asp:ScriptManager</code> that only shows up in the browser. Being at this point before, you remember that the ScriptManager is responsible for loading all kind of JavaScript files, some of them <code>Async</code> in nature. So by carefully exploring the <strong>DVWP</strong> settings, you come across the following <code>AsyncRefresh=True</code> property. Modifying this to <code>AsyncRefresh=False</code> will ensure that the error message goes away and brings the html down to <strong>124</strong> lines.</p>
+
+<p><img alt='Step 3 error' src='/img/2012-07-15-sharepoint-dvwp-step_3async.jpg' /></p>
+
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_3a.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_3a.aspx'>Live</a>, <a href='https://gist.github.com/3116685#file_step_3a.aspx'>HTML source</a></p>
+
+<p><strong>Checkpoint</strong> Up till now we&#8217;ve used SPD to make modifications, but from this point on SPD is no longer your best friend for dealing with the <strong>DVWP</strong>. This is not the fault of SPD though; we are simply driving the <strong>DVWP</strong> behind the point that&#8217;s supported inside SPD. Therefore I&#8217;d suggest that you now grab your favorite XML/XSLT HTML editor and make further modifications directly in the source code.</p>
+
+<p><strong>One additional warning</strong> By making modifications beyond this point, you will no longer be able to save your site as a site template and create new sites from it, at least not reliable. Most of the time this is not an issue, remember we are going to build a <strong><code>Ferrari</code></strong> and you probably just need one not thousands <code>;-)</code>. But if there&#8217;s ever a need to move your <strong><code>Ferrari</code></strong> around, you can still manually copy the aspx pages or turn them into a Visual studio feature.</p>
+
+<p><strong>Step 4</strong> Looking at the source code of the result in step 3 will immediately trigger our attention to the next optimization target. There is that huge <code>input</code> that hosts the viewstate. All nice and well if you are doing server side stuff, but we don&#8217;t want that, so simply remove the <code>&lt;form ...&gt;</code>and <code>&lt;/forms&gt;</code> tags in the source.</p>
+
+<p>Yeah, I know that might sound a little bit drastic, but give it a try before you judge; and you&#8217;ll be rewarded by seeing the HTML source cutting down to <strong>51</strong> lines.</p>
+
+<p><img alt='Step 3a source' src='/img/2012-07-15-sharepoint-dvwp-step_3asource.jpg' /></p>
+
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_4.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_4.aspx'>Live</a>, <a href='https://gist.github.com/3116685#file_step_4.aspx'>HTML source</a></p>
+
+<p><strong>Step 5</strong> Let&#8217;s see if we can still use some SharePoint controls at the server side after our drastic <strong>step 4</strong>; and in addition let&#8217;s cleanup the current header.</p>
+
+<ul>
+<li>change the static title to a dynamic one (see below)</li>
+
+<li>update the doctype <code>&lt;!DOCTYPE html&gt;</code> and <code>&lt;html&gt;</code> tag</li>
+
+<li>remove existing <code>&lt;style&gt;</code> tag</li>
+</ul>
+<div class='highlight'><pre><code class='html'><span class='lineno'>1</span> <span class='nt'>&lt;title&gt;&lt;SharePoint:ListItemProperty</span> <span class='na'>Property=</span><span class='s'>&quot;BaseName&quot;</span> <span class='na'>maxlength=</span><span class='s'>&quot;40&quot;</span> <span class='na'>runat=</span><span class='s'>&quot;server&quot;</span><span class='nt'>/&gt;&lt;/title&gt;</span>`
+</code></pre>
+</div>
+<p>As you can see below the <code>&lt;title&gt;</code> information is correctly showing the current&#8217;s page name; and by cleaning up we are down to <strong>20</strong> lines.</p>
+
+<p><img alt='Step 5' src='/img/2012-07-15-sharepoint-dvwp-step_5.jpg' /></p>
+
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_5.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_5.aspx'>Live</a>, <a href='https://gist.github.com/3116685#file_step_5.aspx'>HTML source</a></p>
+
+<p><strong>Step 6</strong> Now have a look at the HTML5 source after all the optimization. Not too bad I&#8217;d say, but still there&#8217;s room for improvement. See the highlighted namespaces in the <em>payload</em>. This will be our next target.</p>
+
+<p><img alt='Step 5 source' src='/img/2012-07-15-sharepoint-dvwp-step_5source.jpg' /></p>
+
+<p>Truth told, we might have tackled those namespaces earlier, but now that our HTML becomes smaller, it is far easier to spot that they are not required.</p>
+
+<p>This one is pretty straight forward, just modify the XSLT slightly. Here&#8217;s the reformatted version that defines all <code>exclude-result-prefixes</code> correctly and removes the namespaces in <code>&lt;xsl:template match=&quot;/&quot;</code>.</p>
+<div class='highlight'><pre><code class='xslt'><span class='lineno'> 1</span> <span class='k'>&lt;xsl:stylesheet</span> <span class='na'>version=</span><span class='s'>&quot;1.0&quot;</span>
+<span class='lineno'> 2</span> <span class='na'>exclude-result-prefixes=</span><span class='s'>&quot;ddwrt asp __designer xsl msxsl SharePoint ddwrt2&quot;</span>
+<span class='lineno'> 3</span> <span class='na'>xmlns:ddwrt=</span><span class='s'>&quot;http://schemas.microsoft.com/WebParts/v2/DataView/runtime&quot;</span>
+<span class='lineno'> 4</span> <span class='na'>xmlns:asp=</span><span class='s'>&quot;http://schemas.microsoft.com/ASPNET/20&quot;</span>
+<span class='lineno'> 5</span> <span class='na'>xmlns:__designer=</span><span class='s'>&quot;http://schemas.microsoft.com/WebParts/v2/DataView/designer&quot;</span>
+<span class='lineno'> 6</span> <span class='na'>xmlns:xsl=</span><span class='s'>&quot;http://www.w3.org/1999/XSL/Transform&quot;</span>
+<span class='lineno'> 7</span> <span class='na'>xmlns:msxsl=</span><span class='s'>&quot;urn:schemas-microsoft-com:xslt&quot;</span>
+<span class='lineno'> 8</span> <span class='na'>xmlns:SharePoint=</span><span class='s'>&quot;Microsoft.SharePoint.WebControls&quot;</span>
+<span class='lineno'> 9</span> <span class='na'>xmlns:ddwrt2=</span><span class='s'>&quot;urn:frontpage:internal&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>10</span>     <span class='k'>&lt;xsl:output</span> <span class='na'>method=</span><span class='s'>&quot;html&quot;</span> <span class='na'>indent=</span><span class='s'>&quot;no&quot;</span><span class='nt'>/&gt;</span>
+<span class='lineno'>11</span>     <span class='k'>&lt;xsl:template</span> <span class='na'>match=</span><span class='s'>&quot;/&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>12</span>         <span class='nt'>&lt;h1&gt;</span><span class='k'>&lt;xsl:value-of</span> <span class='na'>select=</span><span class='s'>&quot;root/title&quot;</span> <span class='nt'>/&gt;&lt;/h1&gt;</span>
+<span class='lineno'>13</span>     <span class='k'>&lt;/xsl:template&gt;</span>
+<span class='lineno'>14</span> <span class='k'>&lt;/xsl:stylesheet&gt;</span>
+</code></pre>
+</div>
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_6.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_6.aspx'>Live</a>, <a href='https://gist.github.com/3116685#file_step_6.aspx'>HTML source</a></p>
+
+<p><strong>Step 7</strong> Not much room for optimization left, correct? But there&#8217;s one thing that annoys me most, when looking at the current state of things. Take a look at our XSLT stylesheet above, there&#8217;s clearly <strong>NO</strong> <code>&lt;table class&quot;....&gt;&lt;/table&gt;</code> in there, this code is injected by the <strong>DVWP</strong> instead.</p>
+
+<p><img alt='Step 6 source' src='/img/2012-07-15-sharepoint-dvwp-step_6source.jpg' /></p>
+
+<p>The not that well known property <code>SuppressWebPartChrome</code> (<a href='http://msdn.microsoft.com/en-us/library/microsoft.sharepoint.webpartpages.webpart.suppresswebpartchrome.aspx'>see MSDN</a>) will help us getting rid of this extra <code>WebPartChrome</code>. <em>Please note</em> that this only works if the <strong>DVWP</strong> lives outside a web part zone, so you can&#8217;t use this for standard implemenations like our initial <code>WebPartPage.aspx</code>.</p>
+
+<p>You reach the finishing line by adding <code>SuppressWebPartChrome=&quot;True&quot;</code> to the web part properties, which brings us to</p>
+
+<p><strong>16</strong> lines of <strong>clean HTML5</strong> code or The <strong><code>Ferrari</code></strong> version</p>
+
+<p><img alt='Step 7 source' src='/img/2012-07-15-sharepoint-dvwp-step_7.jpg' /></p>
+
+<p><a href='https://github.com/RainerAtSpirit/DVWP-HTML5/blob/master/step_7.aspx'>Source</a>, <a href='http://www.spirit.de/demos/gtk/dvwp/ServiceFiles/step_7.aspx'>Live</a>, <a href='https://gist.github.com/3116685#file_step_7.aspx'>HTML source</a></p>
+
+<p>Boy, that was probably just another <strong>TL;DR</strong>, but if you made it till here, you might have picked up one or two things about the <strong>DVWP</strong> that you&#8217;d consider &#8216;Good to know&#8217;.</p>
+
+<p>I&#8217;d be glad to hear from you about the experiences you make, while testing this out.</p>
+
+<p>BTW if you are looking for inspiration, where to go from here, take a look at this Metro demo, which is a HTML5 client app that was build using two <strong>DVWPs</strong>&#8230;, but&#8217;s that&#8217;s worth another story, so stay tuned!</p>
+
+<p><img alt='Metro demo' src='/img/2012-07-15-sharepoint-dvwp-metro.jpg' /> <a href='http://www.spirit.de/demos/metro/ServiceFiles/DynMetroStyle.aspx'>Live</a></p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-07-15T00:00:00+02:00" datetime="2012-07-15T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>July</abbr></span>
+							<span class="day">15</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint-ref">SharePoint <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#DVWP-ref">DVWP <span>2</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/07/13/metro-javascript-app---strongly-typed" title="View Metro JavaScript App - strongly typed?">&laquo; Metro JavaScript App - strongly typed?</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/07/20/the-sharepoint-dvwp-in-ferrari-mode-strikes-again" title="View The SharePoint DVWP in Ferrari mode strikes again">The SharePoint DVWP in Ferrari mode strikes again &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/07/15/sharepoint-dvwp-from-workhorse-to-ferrari-in-7-steps" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

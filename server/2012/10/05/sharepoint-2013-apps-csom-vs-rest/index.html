@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>SharePoint 2013 apps: CSOM vs. REST?</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="SharePoint 2013 apps: CSOM vs. REST?" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">SharePoint 2013 apps: CSOM vs. REST?</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>Hi there,</p>
+
+<p>Have your seen Microsoft&#8217;s <a href='http://www.typescriptlang.org/'>TypeScript</a> preview already? Are you curious how that will help you building SharePoint 2013 apps? Eager to get your hands dirty? So the good news is that by simply following the steps outlined in the <a href='http://rainerat.spirit.de/2012/09/08/mv-sharepoint-2013-apps-a-la-carte/'>last blog</a>, this time using the TypeScript <a href='http://www.typescriptlang.org/Samples/#TodoMVC'>ToDoMVC example</a> as your <em>a la carte</em> selection, you will be up and running in minutes.</p>
+
+<p><img alt='TypeScript SharePoint 2013 app' src='/img/2012-10-05-TypeScriptToDo.jpg' /></p>
+
+<p>Great starting point, but what&#8217;s next? How can we access data that is stored inside SharePoint? No server side code is allowed in the app model, so your options are CSOM or REST. Which one is the better approach? Does the type of App you build has an influence? <strong>Just to recap</strong> you can choose between SharePoint-hosted, Autohosted and Provider-hosted. Other than the typical consultant answer <em>it depends</em> <code>;-)</code> here are some reasons why I&#8217;m always using <strong>REST</strong>.</p>
+
+<p>On the server side:</p>
+
+<ul>
+<li>SharePoint 2010 already provides <code>listdata.svc</code> (OData v2) -&gt; Start building list-based CRUD solutions today</li>
+
+<li>SharePoint 2013 adds the new OData v3 <code>_api</code> endpoint -&gt; Function support in OData v3 allows Microsoft to expose the whole range of CSOM functionality via REST</li>
+
+<li>You can control access to external OData services by using <a href='http://zimmergren.net/technical/sharepoint-2013-business-connectivity-services-bcs-improvements-introduction'>Business Connectivity Services</a></li>
+
+<li>VS2012 makes it easier than ever to produce OData v2/v3 services based on your own data sources</li>
+
+<li><a href='http://lightswitchhelpwebsite.com/Blog/tabid/61/EntryId/133/A-LightSwitch-Netflix-OData-Mash-up.aspx'>LightSwitch</a> eases the creation of server side mash-ups and expose them via OData</li>
+
+<li><a href='http://www.odata.org/ecosystem'>OData ecosystem</a> provides access to data outside of the SharePoint context</li>
+
+<li>Earlier this year Microsoft announced that OData becomes an <a href='http://www.microsoft.com/en-us/news/press/2012/may12/05-24ODataPR.aspx'>OASIS Standard</a></li>
+</ul>
+
+<p>On the client side:</p>
+
+<ul>
+<li>
+<p>HTML5/JavaScript apps are extremely popular nowadays and languages that compile into JavaScript like <a href='http://coffeescript.org/'>CoffeeScript</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> help to transition from server side languages to JavaScript</p>
+
+<blockquote>
+<p>CoffeeScript is to Ruby as TypeScript is to Java/C#/C++.</p>
+</blockquote>
+
+<p>Luke Hoban (co-creator of TypeScript)</p>
+</li>
+
+<li>
+<p>SPAs are the perfect fit for mobile application</p>
+</li>
+
+<li>
+<p>Client side libraries like <a href='http://datajs.codeplex.com/documentation'>data.js</a> or <a href='http://jaydata.org/documentation'>jaydata.js</a> provide an abstraction layer for OData, so you don&#8217;t have to deal with the OData <a href='http://www.odata.org/documentation/uri-conventions'>URI Conventions</a> on your own.</p>
+</li>
+</ul>
+
+<p>So at the end of the day you learn OData and a couple of client side app pattern once, and then you can reuse this knowledge over and over again&#8230; even outside of SharePoint.</p>
+
+<p>With that said, we still need to figure out how to access data that is stored in SharePoint from our remote hosted web, don&#8217;t we?</p>
+
+<p>The following drawing summarizes what&#8217;s going on when you run an Autohosted or Provider-hosted app.</p>
+
+<p>You end up with three places where data can be stored.</p>
+
+<ol>
+<li>In the remote web</li>
+
+<li>In the app web</li>
+
+<li>In the host web</li>
+</ol>
+
+<p><img alt='Access data using SP.RequestExecutor' src='/img/2012-10-05-AccessData.jpg' /></p>
+
+<p>In a client-only application direct accessing data in the app web (2.) and host web (3.) from your remote app (1.) is prohibited by <a href='http://en.wikipedia.org/wiki/Cross-site_scripting'>cross-site-script</a> restrictions. That where Microsoft&#8217;s <code>SP.RequestExecutor.js</code> library comes into play. As you can see in the drawing under the hood the system creates an IFrame in the remote web to a specific page in the app/host web (AppWebProxy.aspx), so in effect you&#8217;re &#8220;remote call&#8221; is a local call that tunnels through the IFrame to the remote site.</p>
+
+<p>Accessing data in the host web is further secured by OAuth, so in order to access information in the host web your application has to be configured correctly using the AppManifest.xml file. Last but not least you are allowed to configure the <a href='http://msdn.microsoft.com/en-us/library/fp179892(v=office.15).aspx'>App authorization policy type</a> e.g. if you app needs elevated privileges.</p>
+
+<p><img alt='appmanifest.xml' src='/img/2012-10-05-AppManifest.jpg' /></p>
+
+<p>In the default App for SharePoint 2013 Autohosted and Provider-hosted templates, Microsoft provides the <code>Tokenhelper.cs</code> file to deal with the whole App authentication and authorization process. Good news is, you don&#8217;t even have to deal with that if you are creating a client side only app. Once you&#8217;ve access to the app web you can use the <code>SP.AppContextSite(@hostweb)/</code> <code>_api</code> function to access information from the host web. <code>SP.AppContextSite()</code> will then ensure that you are accessing the host data in compliance to the permissions you&#8217;ve configured.</p>
+
+<p>Here&#8217;s some minimalistic code that retrieves information from the app web and the host web and logs title and url on success.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='kd'>function</span> <span class='nx'>execCrossDomainRequest</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 2</span>     <span class='c1'>// executor: The RequestExecutor object</span>
+<span class='lineno'> 3</span>     <span class='c1'>// Initialize the RequestExecutor with the app web URL.</span>
+<span class='lineno'> 4</span>     <span class='kd'>var</span> <span class='nx'>executor</span> <span class='o'>=</span> <span class='k'>new</span> <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>RequestExecutor</span><span class='p'>(</span><span class='nx'>appweburl</span><span class='p'>);</span>
+<span class='lineno'> 5</span> 
+<span class='lineno'> 6</span>     <span class='c1'>// Retrieve information from the app web</span>
+<span class='lineno'> 7</span>     <span class='nx'>executor</span><span class='p'>.</span><span class='nx'>executeAsync</span><span class='p'>(</span>
+<span class='lineno'> 8</span>       <span class='p'>{</span>
+<span class='lineno'> 9</span>           <span class='nx'>url</span><span class='o'>:</span>
+<span class='lineno'>10</span>               <span class='nx'>appweburl</span> <span class='o'>+</span>
+<span class='lineno'>11</span>               <span class='s2'>&quot;/_api/web&quot;</span><span class='p'>,</span>
+<span class='lineno'>12</span>           <span class='nx'>method</span><span class='o'>:</span> <span class='s2'>&quot;GET&quot;</span><span class='p'>,</span>
+<span class='lineno'>13</span>           <span class='nx'>headers</span><span class='o'>:</span> <span class='p'>{</span> <span class='s2'>&quot;Accept&quot;</span><span class='o'>:</span> <span class='s2'>&quot;application/json; odata=verbose&quot;</span> <span class='p'>},</span>
+<span class='lineno'>14</span>           <span class='nx'>success</span><span class='o'>:</span> <span class='nx'>successHandler</span><span class='p'>,</span>
+<span class='lineno'>15</span>           <span class='nx'>error</span><span class='o'>:</span> <span class='nx'>errorHandler</span>
+<span class='lineno'>16</span>       <span class='p'>}</span>
+<span class='lineno'>17</span>     <span class='p'>);</span>
+<span class='lineno'>18</span> 
+<span class='lineno'>19</span>     <span class='c1'>// Retrieve information from the host web</span>
+<span class='lineno'>20</span>     <span class='nx'>executor</span><span class='p'>.</span><span class='nx'>executeAsync</span><span class='p'>(</span>
+<span class='lineno'>21</span>         <span class='p'>{</span>
+<span class='lineno'>22</span>             <span class='nx'>url</span><span class='o'>:</span>
+<span class='lineno'>23</span>                 <span class='nx'>appweburl</span> <span class='o'>+</span>
+<span class='lineno'>24</span>                 <span class='s2'>&quot;/_api/SP.AppContextSite(@hostweb)/web/?@hostweb=&#39;&quot;</span> <span class='o'>+</span> <span class='nx'>hostweburl</span> <span class='o'>+</span> <span class='s2'>&quot;&#39;&quot;</span><span class='p'>,</span>
+<span class='lineno'>25</span>             <span class='nx'>method</span><span class='o'>:</span> <span class='s2'>&quot;GET&quot;</span><span class='p'>,</span>
+<span class='lineno'>26</span>             <span class='nx'>headers</span><span class='o'>:</span> <span class='p'>{</span> <span class='s2'>&quot;Accept&quot;</span><span class='o'>:</span> <span class='s2'>&quot;application/json; odata=verbose&quot;</span> <span class='p'>},</span>
+<span class='lineno'>27</span>             <span class='nx'>success</span><span class='o'>:</span> <span class='nx'>successHandler</span><span class='p'>,</span>
+<span class='lineno'>28</span>             <span class='nx'>error</span><span class='o'>:</span> <span class='nx'>errorHandler</span>
+<span class='lineno'>29</span>         <span class='p'>}</span>
+<span class='lineno'>30</span>     <span class='p'>);</span>
+<span class='lineno'>31</span> <span class='p'>}</span>
+<span class='lineno'>32</span> 
+<span class='lineno'>33</span> <span class='kd'>function</span> <span class='nx'>successHandler</span><span class='p'>(</span><span class='nx'>data</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>34</span>     <span class='kd'>var</span> <span class='nx'>result</span> <span class='o'>=</span> <span class='nx'>JSON</span><span class='p'>.</span><span class='nx'>parse</span><span class='p'>(</span><span class='nx'>data</span><span class='p'>.</span><span class='nx'>body</span><span class='p'>).</span><span class='nx'>d</span><span class='p'>;</span>
+<span class='lineno'>35</span>     <span class='nx'>console</span><span class='p'>.</span><span class='nx'>log</span><span class='p'>(</span><span class='s1'>&#39;Title: &#39;</span> <span class='o'>+</span> <span class='nx'>result</span><span class='p'>.</span><span class='nx'>Title</span> <span class='o'>+</span> <span class='s1'>&#39; Url: &#39;</span> <span class='o'>+</span> <span class='nx'>result</span><span class='p'>.</span><span class='nx'>Url</span><span class='p'>);</span>
+<span class='lineno'>36</span> <span class='p'>}</span>
+</code></pre>
+</div>
+<p>Trying to run this code using an OOTB template won&#8217;t work and the various error messages you might see can be tracked down to the fact that the <code>appweburl</code> is <code>undefined</code>.</p>
+
+<p><img alt='appweburl undefined' src='/img/2012-10-05-MissingAppWeb.jpg' /></p>
+
+<p><strong>How comes?</strong> By default the Autohosted or Provider-hosted template have an empty app web. If the app web is empty SharePoint doesn&#8217;t create the app web for you. But as you can see in the diagram above without an app web, there&#8217;s no way to retrieve information for a client side solution. An NO, replacing <code>appweburl</code> through <code>hostweburl</code>to bypass the app web completely like in the following code example won&#8217;t work.</p>
+
+<p><img alt='hostweb not allowed here' src='/img/2012-10-05-Hostweb.jpg' /></p>
+
+<p>Instead the system returns the following error message.</p>
+
+<p><img alt='Error message' src='/img/2012-10-05-Error.jpg' /></p>
+
+<p><strong>How to mitigate?</strong> The solution is as simple as adding an <code>Empty Element</code> to the app web. This will force SharePoint to create the app web and you&#8217;ve got your missing stepping stone into the host web.</p>
+
+<p><img alt='Mission accomplished' src='/img/2012-10-05-MissionAccomplished.jpg' /></p>
+
+<p>Mission accomplished and for those of you who made it till the end here&#8217;s the link for today&#8217;s <a href='https://github.com/RainerAtSpirit/TypeScript.Autohosted.App'>github repro</a>.</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-10-05T00:00:00+02:00" datetime="2012-10-05T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>October</abbr></span>
+							<span class="day">05</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint 2013-ref">SharePoint 2013 <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#AutoHosted Apps-ref">AutoHosted Apps <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#REST-ref">REST <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#TypeScript-ref">TypeScript <span>1</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/09/08/mv-sharepoint-2013-apps-a-la-carte" title="View MV* SharePoint 2013 Apps a la carte">&laquo; MV* SharePoint 2013 Apps a la carte</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2013/01/19/more-about-rest-in-sharepoint" title="View More about REST in SharePoint 2010/2013">More about REST in SharePoint 2010/2013 &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/10/05/sharepoint-2013-apps-csom-vs-rest" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

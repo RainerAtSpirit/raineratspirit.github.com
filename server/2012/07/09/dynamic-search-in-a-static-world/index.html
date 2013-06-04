@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Dynamic search in a static world</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Dynamic search in a static world" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Dynamic search in a static world</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>While adding search to a new blog might not be the most important thing to do, it gave me perfect excuse to work a little with Jekyll liquid and AngularJS. There was no need to reinvent the wheel as <a href='http://edwardhotchkiss.com/blog/2012/03/11/jekyll-live-search-with-angular.js/'>Edward Hotchkiss</a> already implemented something pretty similiar. Therefore here are just the major differences, I expect that you&#8217;re familiar with <a href='http://edwardhotchkiss.com/blog/2012/03/11/jekyll-live-search-with-angular.js/'>Edward&#8217;s post</a>, if not please read it first. The implementation is based on AngularJS v1.0.1 and by using a small liquid condition scripts are only loaded on the search page.</p>
+
+<p>Here&#8217;s the relevant excerpt from default.html.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'>1</span> {% if page.title == &#39;Search&#39; %}
+<span class='lineno'>2</span>     <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;http://code.angularjs.org/angular-1.0.1.min.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>3</span>     <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span> <span class='na'>src=</span><span class='s'>&quot;/js/JekyllApp.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>4</span> {% endif %}
+</code></pre>
+</div>
+<p>Edward Hotchkiss is making an XHR call to retrieve the RSS-feed <code>feed.xml</code> and then parses the xml. This is a pretty straight forward implementation, but I wanted to omit this extra XHR call and &#8216;bootstrap&#8217; the information into the initial page. Therefore a liquid helper is used to create an JavaScript array with the relevant post information. This has the additional advantage that you can leverage liquid filter like <code>strip_html | truncate : 120 </code> (on the server side!) to clean up and cut down potentially large information.</p>
+
+<p>One goal was to having a search box on every page. The Controller was enhanced so that the <code>$scope
+.searchText = &#39;&#39;</code> can now be passed in via querystring as well.</p>
+
+<p>BTW: You can give it a try on all blog pages, to see it in action.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='cm'>/**</span>
+<span class='lineno'> 2</span> <span class='cm'> * Setup Module with `highlight` filter</span>
+<span class='lineno'> 3</span> <span class='cm'> */</span>
+<span class='lineno'> 4</span> 
+<span class='lineno'> 5</span> <span class='kd'>var</span> <span class='nx'>JekyllApp</span> <span class='o'>=</span> <span class='nx'>angular</span><span class='p'>.</span><span class='nx'>module</span><span class='p'>(</span><span class='s1'>&#39;JekyllApp&#39;</span><span class='p'>,</span> <span class='p'>[],</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>$routeProvider</span><span class='p'>,</span> <span class='nx'>$locationProvider</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 6</span>     <span class='nx'>$locationProvider</span><span class='p'>.</span><span class='nx'>html5Mode</span><span class='p'>(</span><span class='kc'>false</span><span class='p'>);</span>
+<span class='lineno'> 7</span> <span class='p'>});</span>
+<span class='lineno'> 8</span> 
+<span class='lineno'> 9</span> <span class='nx'>JekyllApp</span><span class='p'>.</span><span class='nx'>filter</span><span class='p'>(</span><span class='s1'>&#39;highlight&#39;</span><span class='p'>,</span> <span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>10</span>     <span class='k'>return</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>text</span><span class='p'>,</span> <span class='nx'>filter</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>11</span>         <span class='k'>if</span> <span class='p'>(</span><span class='nx'>filter</span> <span class='o'>===</span> <span class='s1'>&#39;&#39;</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>12</span>             <span class='k'>return</span> <span class='nx'>text</span><span class='p'>;</span>
+<span class='lineno'>13</span>         <span class='p'>}</span>
+<span class='lineno'>14</span>         <span class='k'>else</span> <span class='p'>{</span>
+<span class='lineno'>15</span>             <span class='k'>return</span> <span class='nx'>text</span><span class='p'>.</span><span class='nx'>replace</span><span class='p'>(</span><span class='k'>new</span> <span class='nb'>RegExp</span><span class='p'>(</span><span class='nx'>filter</span><span class='p'>,</span> <span class='s1'>&#39;gi&#39;</span><span class='p'>),</span> <span class='s1'>&#39;&lt;span class=&quot;match&quot;&gt;$&amp;&lt;/span&gt;&#39;</span><span class='p'>);</span>
+<span class='lineno'>16</span>         <span class='p'>}</span>
+<span class='lineno'>17</span>     <span class='p'>};</span>
+<span class='lineno'>18</span> <span class='p'>});</span>
+<span class='lineno'>19</span> 
+<span class='lineno'>20</span> <span class='cm'>/**</span>
+<span class='lineno'>21</span> <span class='cm'> * Inject required $objects into our Controller</span>
+<span class='lineno'>22</span> <span class='cm'> */</span>
+<span class='lineno'>23</span> 
+<span class='lineno'>24</span> <span class='nx'>JekyllSearchController</span><span class='p'>.</span><span class='nx'>$inject</span> <span class='o'>=</span> <span class='p'>[</span><span class='s1'>&#39;$scope&#39;</span><span class='p'>,</span> <span class='s1'>&#39;$location&#39;</span><span class='p'>,</span> <span class='s1'>&#39;$window&#39;</span><span class='p'>];</span>
+<span class='lineno'>25</span> 
+<span class='lineno'>26</span> <span class='kd'>function</span> <span class='nx'>JekyllSearchController</span><span class='p'>(</span><span class='nx'>$scope</span><span class='p'>,</span> <span class='nx'>$location</span><span class='p'>,</span> <span class='nx'>$window</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>27</span>     <span class='c1'>// Optionally passing in a search term via q=XXX</span>
+<span class='lineno'>28</span>     <span class='c1'>// $location.search won&#39;t work without html5Mode false using window.location.search instead</span>
+<span class='lineno'>29</span>     <span class='c1'>// $scope.searchText =  $location.search().q || &quot;&quot;;</span>
+<span class='lineno'>30</span>     <span class='c1'>// Todo: Consider switching back to $location.search once it supports html5Mode false</span>
+<span class='lineno'>31</span>     <span class='nx'>$scope</span><span class='p'>.</span><span class='nx'>searchText</span> <span class='o'>=</span> <span class='s1'>&#39;&#39;</span><span class='p'>;</span>
+<span class='lineno'>32</span>     <span class='kd'>var</span> <span class='nx'>search</span> <span class='o'>=</span> <span class='nb'>window</span><span class='p'>.</span><span class='nx'>location</span><span class='p'>.</span><span class='nx'>search</span><span class='p'>;</span>
+<span class='lineno'>33</span>     <span class='k'>if</span> <span class='p'>(</span><span class='nx'>search</span><span class='p'>.</span><span class='nx'>indexOf</span><span class='p'>(</span><span class='s1'>&#39;?q=&#39;</span><span class='p'>)</span> <span class='o'>&gt;</span> <span class='o'>-</span><span class='mi'>1</span> <span class='o'>||</span> <span class='nx'>search</span><span class='p'>.</span><span class='nx'>indexOf</span><span class='p'>(</span><span class='s1'>&#39;&amp;q=&#39;</span><span class='p'>)</span> <span class='o'>&gt;</span> <span class='o'>-</span><span class='mi'>1</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>34</span>         <span class='kd'>var</span> <span class='nx'>params</span> <span class='o'>=</span> <span class='p'>{};</span>
+<span class='lineno'>35</span>         <span class='nx'>angular</span><span class='p'>.</span><span class='nx'>forEach</span><span class='p'>(</span><span class='nx'>search</span><span class='p'>.</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;?&#39;</span><span class='p'>)[</span><span class='mi'>1</span><span class='p'>].</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;&amp;&#39;</span><span class='p'>),</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>param</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>36</span>             <span class='nx'>params</span><span class='p'>[</span><span class='nx'>param</span><span class='p'>.</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;=&#39;</span><span class='p'>)[</span><span class='mi'>0</span><span class='p'>]]</span> <span class='o'>=</span> <span class='nx'>param</span><span class='p'>.</span><span class='nx'>split</span><span class='p'>(</span><span class='s1'>&#39;=&#39;</span><span class='p'>)[</span><span class='mi'>1</span><span class='p'>];</span>
+<span class='lineno'>37</span>         <span class='p'>});</span>
+<span class='lineno'>38</span>         <span class='nx'>$scope</span><span class='p'>.</span><span class='nx'>searchText</span> <span class='o'>=</span> <span class='nx'>params</span><span class='p'>.</span><span class='nx'>q</span> <span class='o'>||</span> <span class='s1'>&#39;&#39;</span><span class='p'>;</span>
+<span class='lineno'>39</span>     <span class='p'>}</span>
+<span class='lineno'>40</span> 
+<span class='lineno'>41</span>     <span class='nx'>$scope</span><span class='p'>.</span><span class='nx'>externalLink</span> <span class='o'>=</span> <span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>42</span>         <span class='c1'>// Todo: Figure out the correct AngularJS way for a page reload on href click</span>
+<span class='lineno'>43</span>         <span class='c1'>// https://github.com/angular/angular.js/issues/1102</span>
+<span class='lineno'>44</span>         <span class='nx'>$window</span><span class='p'>.</span><span class='nx'>location</span><span class='p'>.</span><span class='nx'>href</span> <span class='o'>=</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>post</span><span class='p'>.</span><span class='nx'>url</span><span class='p'>;</span>
+<span class='lineno'>45</span>     <span class='p'>};</span>
+<span class='lineno'>46</span>     <span class='nx'>$scope</span><span class='p'>.</span><span class='nx'>posts</span> <span class='o'>=</span> <span class='nx'>JekyllApp</span><span class='p'>.</span><span class='nx'>posts</span><span class='p'>;</span>
+<span class='lineno'>47</span> <span class='p'>}</span>
+</code></pre>
+</div>
+<p>There are a couple of things that I didn&#8217;t grasp fully at the moment I&#8217;ve to admit, like</p>
+
+<ul>
+<li>why <code>$location.search()</code> only works with <code>$locationProvider.html5mode(true)</code> or</li>
+
+<li>why AngularJS doesn&#8217;t have an easy (to discover) method that allows a full page reload on href click</li>
+</ul>
+
+<p>so I&#8217;d be happy if somebody could fill the gaps. In the meantime workarounds are used, so querystring <code>q</code> is determined in a good old fashioned way and there&#8217;s a thread on the <a href='https://groups.google.com/forum/#!msg/angular/zu5RMEWWyPQ/1yiOm9p5CCkJ'>angular groups</a> that discusses page reload.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'> 1</span> <span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 2</span>    <span class='c1'>// Using liquid to populate JeykllApp.posts array</span>
+<span class='lineno'> 3</span>    <span class='nx'>JekyllApp</span><span class='p'>.</span><span class='nx'>posts</span> <span class='o'>=</span> <span class='p'>{</span><span class='o'>%</span> <span class='nx'>include</span> <span class='nx'>Helper</span><span class='o'>/</span><span class='nx'>JekyllAppPosts</span> <span class='o'>%</span><span class='p'>}</span>
+<span class='lineno'> 4</span> <span class='nt'>&lt;/script&gt;</span>
+<span class='lineno'> 5</span> 
+<span class='lineno'> 6</span> <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;search-container&quot;</span> <span class='na'>class=</span><span class='s'>&quot;entrance&quot;</span> <span class='na'>ng-app=</span><span class='s'>&quot;JekyllApp&quot;</span> <span class='na'>ng-controller=</span><span class='s'>&quot;JekyllSearchController&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 7</span>   <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;entrance-item&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 8</span>     <span class='nt'>&lt;p&gt;&lt;input</span> <span class='na'>id=</span><span class='s'>&quot;searchText&quot;</span> <span class='na'>type=</span><span class='s'>&quot;search&quot;</span> <span class='na'>placeholder=</span><span class='s'>&quot;Live Search Posts...&quot;</span> <span class='na'>ng-model-instant</span> <span class='na'>ng-model=</span><span class='s'>&quot;searchText&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'> 9</span>   <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>10</span>   <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;entrance-item&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>11</span>     <span class='nt'>&lt;ul&gt;</span>
+<span class='lineno'>12</span>       <span class='nt'>&lt;li</span> <span class='na'>ng-repeat=</span><span class='s'>&quot;post in posts | filter:searchText&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'>13</span>          <span class='nt'>&lt;span</span> <span class='na'>ng-bind-html-unsafe=</span><span class='s'>&quot;post.date | date:&#39;MMM d, y&#39; | highlight:searchText&quot;</span><span class='nt'>&gt;&lt;/span&gt;</span> <span class='ni'>&amp;raquo;</span>
+<span class='lineno'>14</span>         <span class='nt'>&lt;a</span> <span class='na'>ng-href=</span><span class='s'>&quot;{{ post.url }}&quot;</span> <span class='na'>ng-click=</span><span class='s'>&quot;externalLink()&quot;</span>
+<span class='lineno'>15</span>            <span class='na'>ng-bind-html-unsafe=</span><span class='s'>&quot;post.title | highlight:searchText&quot;</span><span class='nt'>&gt;&lt;/a&gt;</span>
+<span class='lineno'>16</span>           <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;preview&quot;</span> <span class='na'>ng-bind-html-unsafe=</span><span class='s'>&quot;post.content | highlight:searchText&quot;</span><span class='nt'>&gt;&lt;/div&gt;</span>
+<span class='lineno'>17</span>       <span class='nt'>&lt;/li&gt;</span>
+<span class='lineno'>18</span>     <span class='nt'>&lt;/ul&gt;</span>
+<span class='lineno'>19</span>   <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>20</span> <span class='nt'>&lt;/div&gt;</span>
+</code></pre>
+</div>
+<p>So where&#8217;s that magic <code>include Helper/JekyllAppPosts</code> coming from? This is where my very first liquid expression :) kicks in and returns an array with title, url, date and content information.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'>1</span> [{% for post in site.posts %}
+<span class='lineno'>2</span> {&quot;title&quot; : &quot;{{ post.title }}&quot;,
+<span class='lineno'>3</span> &quot;url&quot; : &quot;{{ post.url }}&quot;,
+<span class='lineno'>4</span> &quot;date&quot; : &quot;{{ post.date | date_to_string }}&quot;,
+<span class='lineno'>5</span> &quot;content&quot; : &quot;{{ post.content |  strip_html | truncate : 120 }}&quot;}{% if forloop.rindex0 != 0 %},{% endif %}
+<span class='lineno'>6</span> {% endfor %}
+<span class='lineno'>7</span> ];
+</code></pre>
+</div>
+<p>All in all the implementation was pretty straight forward, even when there were a couple of gotchas.</p>
+
+<p>On very last gotcha I run into and that I&#8217;d like to share, is that on my local box jekyll is running with liquid 2.3 whatever, which allows you to use <code>{% raw %}</code>, while github is using liquid 2.2 whatever and therefore the older <code>{% literal %}</code> expression is used. After being hit by that one I finally understood Edward&#8217;s <code>LeftCurley</code> setting in _config.yml and <strong>I feel his pain</strong>.</p>
+
+<p>Anyway as a rule of thumb, don&#8217;t use those tags for the time being and rewrite the code instead. There are some instructions from <a href='http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags'>Khaja Minhajuddin</a> that doesn&#8217;t require plug-ins.</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-07-09T00:00:00+02:00" datetime="2012-07-09T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>July</abbr></span>
+							<span class="day">09</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#cutting Teeth-ref">
+    		cutting Teeth <span>3</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#AngularJS-ref">AngularJS <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Jekyll-ref">Jekyll <span>1</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/07/06/winjs--namespace" title="View WinJS.Namespace.define gotcha">&laquo; WinJS.Namespace.define gotcha</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/07/13/metro-javascript-app---strongly-typed" title="View Metro JavaScript App - strongly typed?">Metro JavaScript App - strongly typed? &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/07/09/dynamic-search-in-a-static-world" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

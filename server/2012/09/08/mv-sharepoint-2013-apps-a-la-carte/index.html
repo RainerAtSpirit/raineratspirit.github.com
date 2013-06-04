@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>MV* SharePoint 2013 Apps a la carte</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="MV* SharePoint 2013 Apps a la carte" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">MV* SharePoint 2013 Apps a la carte</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>Hey there,</p>
+
+<p>Welcome to our small SharePoint App restaurant, where we serve the best client side MV* <em>crossover</em> SharePoint apps worldwide. So what make us so special and what do I mean when saying MV* <em>crossover</em> app?</p>
+
+<p>As you already know you can use the Visual studio 2012 <code>App for SharePoint 2013</code> template to create app flavors like <code>SharePoint-hosted</code>, <code>Autohosted</code> or <code>Provider-hosted</code>, which can be used as starting point for creating your own apps. And there is this world of client side single page application (SPA) that can be easily mixed into it. If you&#8217;ve ever have written some SPA before, you&#8217;ll know that you&#8217;re in the need to structure your apps real soon, otherwise you&#8217;ll start writing unmaintainable Spaghetti code.</p>
+
+<p>That&#8217;s where Model View Controller, Model View Presenter, Model View View Model or short MV* libraries like <a href='http://knockoutjs.com/'>Knockout</a>, <a href='http://backbonejs.org/'>backbone.js</a>&#8230; or frameworks like <a href='http://dojotoolkit.org/'>dojo</a>, <a href='http://yuilibrary.com/'>yui</a>&#8230; come into play. They help you, and I&#8217;m going to quote John Papa&#8217;s words here:</p>
+
+<blockquote>
+<p>Turn your code from <a href='http://johnpapa.net/spapost6'>Spaghetti to Ravioli</a>.</p>
+</blockquote>
+
+<p>With that said without further hassle, here&#8217;s what we are going to serve today. Even better find all background information needed to help you get started when cooking your own.</p>
+
+<p><img alt='SharePoint 2013 ToDo App' src='/img/2012-09-08-ToDosApp.jpg' /></p>
+
+<p>If you haven&#8217;t made up your mind yet, which MV* style is the right one for you, drop by <a href='http://todomvc.com/'>http://todomvc.com/</a>.</p>
+
+<blockquote>
+<p>Developers these days are spoiled with choice when it comes to selecting an MV* framework for structuring and organizing their JavaScript web apps.</p>
+
+<p>Backbone, Ember, AngularJS, Spine&#8230; the list of new and stable solutions continues to grow, but just how do you decide on which to use in a sea of so many options?</p>
+
+<p>To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.</p>
+</blockquote>
+
+<p>Want to find out what makes it a framework or library and if one or another better suits your needs? Make sure that you don&#8217;t miss Stephen Sanderson&#8217;s <a href='http://blog.stevensanderson.com/2012/08/01/rich-javascript-applications-the-seven-frameworks-throne-of-js-2012/'>the Seven Frameworks</a> post.</p>
+
+<p>Enough theory let&#8217;s get hands-on to see <em>What needs to be done</em>. Each todo below has some instructions and screen shots, but I won&#8217;t dig into too much code today. Don&#8217;t worry though, because</p>
+
+<ol>
+<li>The <a href='https://github.com/RainerAtSpirit/ToDoMVC'>ToDoMVC example is available at github</a>, so clone it and use it as starting point for your own apps</li>
+
+<li>Each todo has an associated git tag that let you checkout the example at this specific point</li>
+
+<li>Links to git diffs are available, whenever there&#8217;s a need for some details</li>
+</ol>
+
+<h3 id='todo_1_create_sharepoint_2013_autohosted_app'>Todo 1: Create SharePoint 2013 Autohosted app</h3>
+
+<p>Let&#8217;s start by creating an App for SharePoint 2013 in Visual Studio 2012 and use Autohosted for the hosting type.</p>
+
+<p><img alt='Create App for SharePoint' src='/img/2012-09-08-CreateApp.jpg' /></p>
+
+<p><img alt='Create App for SharePoint' src='/img/2012-09-08-Autohosted.jpg' /></p>
+
+<p><img alt='Create App for SharePoint' src='/img/2012-09-08-CleanTheStageBefore.jpg' /></p>
+
+<h3 id='todo_2_clean_the_stage'>Todo 2: Clean the stage</h3>
+
+<p>The defaults above don&#8217;t do us any good as we are going to create a client side SPA. Let&#8217;s get rid of all Properties and References, and then delete the Pages directory and the TokenHelper.cs file. This will leave us with a really clean stage, which we can build on. <em>Please note</em> that at this point the example isn&#8217;t doing anything. <img alt='Create App for SharePoint' src='/img/2012-09-08-CleanTheStageAfter.jpg' /></p>
+
+<h3 id='todo_3_select_from_the_todomv_menu'>Todo 3: Select from the ToDoMV* menu</h3>
+
+<p>Picking something from the ToDoMV* menu is completely up to your personal taste, but it probably helps if you already have some experience with the library/framework you chose.</p>
+
+<p>If you&#8217;ve seen/read <a href='http://rainerat.spirit.de/2012/08/01/the-ferrari-meets-jaydata/'>The Ferrari meets JayData</a>, you&#8217;re probably not astonished why my pick for today is the Knockout + RequireJS example from the labs section.</p>
+
+<p>Regardless of what you&#8217;ve picked, here are the steps to get it working.</p>
+
+<p><strong>Step 1:</strong> Choose from the menu. <img alt='Create App for SharePoint' src='/img/2012-09-08-ChooseFromTheMenu.jpg' /></p>
+
+<p><strong>Step2:</strong> Copy the files into the web project. <img alt='Create App for SharePoint' src='/img/2012-09-08-PickFiles.jpg' /></p>
+
+<p><strong>Step3:</strong> Copy the asset directory that holds common files for all todo examples. <img alt='Create App for SharePoint' src='/img/2012-09-08-PickAssets.jpg' /></p>
+
+<p><strong>Step4:</strong> Update the appmanifest.xml so that it points to your index.html (or whatever start page you&#8217;ve created/copied). <img alt='Create App for SharePoint' src='/img/2012-09-08-UpdateAppManifest.jpg' /></p>
+
+<p><strong>Step 5:</strong> When done press F5 start the app and enjoy the results.</p>
+
+<p><strong>Please note</strong>: If you are seeing a <code>405.0 error</code> instead, make sure to apply the settings described in this post <a href='http://rainerat.spirit.de/2012/09/03/SharePoint-2013-App-HTTP-Error-405.0/'>SharePoint 2013 App HTTP Error 405.0</a> <img alt='Create App for SharePoint' src='/img/2012-09-08-FirstResult.jpg' /></p>
+
+<h3 id='todo_4_add_the_chrome_control'>Todo 4: Add the chrome control</h3>
+
+<p>Adding the chrome control is a two-step process.</p>
+
+<p><strong>Step 1:</strong> Add the chrome_ctrl_placeholder div to index.html <a href='https://github.com/RainerAtSpirit/ToDoMVC/commit/df8de9a1644fc75fbfa9289d1a9440b04bcbcf9a#diff-1'>Todo 4 Step Diff 1</a> <img alt='Create App for SharePoint' src='/img/2012-09-08-index.jpg' /></p>
+
+<p><strong>Step 2:</strong> Add the required chrome control JavaScript to your code. <a href='https://github.com/RainerAtSpirit/ToDoMVC/commit/df8de9a1644fc75fbfa9289d1a9440b04bcbcf9a#diff-3'>Todo 4 Step Diff 2</a> <img alt='Create App for SharePoint' src='/img/2012-09-08-addcode.jpg' /></p>
+
+<p>Depending on the example you&#8217;ve picked, running this right away might lead to some error messages, which needs to be resolved before moving on. With the <a href='http://knockoutjs.com/'>Knockout</a> + <a href='http://requirejs.org/'>RequireJS</a> example I&#8217;m running into this. <img alt='Create App for SharePoint' src='/img/2012-09-08-MissingJQuery.jpg' /></p>
+
+<p>Reason is that this example doesn&#8217;t use jQuery at all&#8230; up till now. So let&#8217;s add it following the <a href='http://requirejs.org/'>RequireJS</a> way and while on it let&#8217;s make sure that we try loading from a CDN first before serving our own local copy.</p>
+
+<p><img alt='Create App for SharePoint' src='/img/2012-09-08-mainjs.jpg' /></p>
+
+<p><img alt='Create App for SharePoint' src='/img/2012-09-08-Cosmetics.jpg' /></p>
+
+<h3 id='todo_5_cosmetic_changes'>Todo 5: Cosmetic changes</h3>
+
+<p>There are only a couple of <a href='https://github.com/RainerAtSpirit/ToDoMVC/commit/76e784704f62b3399dfd251b7435ed841d9301b4'>minor tweaks</a> left like adding an AppIcon, changing the body and/or chrome-control width before we&#8217;re satisfied with the result. <img alt='Create App for SharePoint' src='/img/2012-09-08-MissionAccomplished.jpg' /></p>
+
+<p>That&#8217;s it for today, you&#8217;ve just cooked your <strong>first MV* SharePoint 2013 app</strong>.</p>
+
+<p>Is there more to it? Sure! Here are a couple of suggestions that you might want to try out:</p>
+
+<ul>
+<li>Store todos in a SharePoint list instead of local storage</li>
+
+<li>Store todos in SQL azure</li>
+
+<li>Store todos in your own provider-hosted data-store</li>
+
+<li>&#8230; fill in the blanks with your own ideas</li>
+</ul>
+
+<p>As long as you like cooking/coding/building/architecting, I don&#8217;t see any shortcoming of opportunities while SharePoint 2013 is making it to the market.</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-09-08T00:00:00+02:00" datetime="2012-09-08T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>September</abbr></span>
+							<span class="day">08</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint 2013-ref">SharePoint 2013 <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#AutoHosted Apps-ref">AutoHosted Apps <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#MV*-ref">MV* <span>2</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/09/05/SharePoint-2013-and-the-notorious-disclaimer" title="View SharePoint 2013 and the notorious disclaimer">&laquo; SharePoint 2013 and the notorious disclaimer</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/10/05/sharepoint-2013-apps-csom-vs-rest" title="View SharePoint 2013 apps: CSOM vs. REST?">SharePoint 2013 apps: CSOM vs. REST? &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/09/08/mv-sharepoint-2013-apps-a-la-carte" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Durandal SP3: Developing SharePoint SPAs made easy</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Durandal SP3: Developing SharePoint SPAs made easy" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Durandal SP3: Developing SharePoint SPAs made easy</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>Hi there,</p>
+
+<p>In the last post I introduced you to <a href='http://www.durandaljs.com'>Durandal</a> a SPA Framework, which can be used to create SPAs on top of the SharePoint infrastructure. This time we&#8217;re going to leverage Marc Anderson&#8217;s <a href='http://spservices.codeplex.com/'>SPServices</a> as a data service for our SPA.</p>
+
+<p>The obvious advantage is that web services are around for a long time, so one SPA (same code base) runs in SharePoint (2003), 2007, 2010 and 2013.</p>
+
+<p>The obvious disadvantage is that web services are deprecated in 2013, so they might go away with the next major release. If you are already running on 2010/2013 and don&#8217;t have to support older browser versions you might want looking into using REST services with <a href='http://jaydata.org'>JayData</a> or <a href='http://www.breezejs.com'>Breeze</a> instead&#8230; but that&#8217;s worth another story.</p>
+
+<p>Seeing is believing so here a couple of screen shots using IE versions that roughly matches the SP release time.</p>
+
+<h4 id='sharepoint_2013__ie_10'>SharePoint 2013 | IE 10:</h4>
+
+<p><img alt='SP2013 IE10 demo' src='/img/2013-04-08-SP2013Demo.jpg' /></p>
+
+<h4 id='sharepoint_2010__ie_8'>SharePoint 2010 | IE 8:</h4>
+
+<p><img alt='SP2010 IE8 demo' src='/img/2013-04-08-SP2010Demo.jpg' /></p>
+
+<h4 id='sharepoint_2007__ie_7'>SharePoint 2007 | IE 7:</h4>
+
+<p>In SP2007 you&#8217;ll notice some issues with the CSS that is used in the SPA otherwise it&#8217;s fully functional. That is less an issue with IE7, but more with SP2007 that is running pages in Quirks mode. A quick workaround would be to apply a DOCTYPE to the pages that host your SPA.</p>
+
+<p><img alt='SP2007 IE6 demo' src='/img/2013-04-08-SP2007Demo.jpg' /></p>
+
+<h4 id='sharepoint_2003__ie_6'>SharePoint 2003 | IE 6:</h4>
+
+<p>Sorry, I&#8217;m out of historic SharePoint VMs. Please give me a shot if somebody has still access to a SP2003 environment. I&#8217;d love to add the missing screen shot.</p>
+
+<p>Now, after hopefully getting you excited, here&#8217;s the bad news. The demo is using the alpha release <strong>2013.01ALPHA5</strong> of <a href='http://spservices.codeplex.com/'>SPServices</a>, so I won&#8217;t make the demo code available through Github as usual. I&#8217;ll update this post once the next official version of SPServices has been released and tested with Durandal SP3.</p>
+
+<p><strong>Update 2013/06/04:</strong> And here&#8217;s the link to the <a href='https://github.com/RainerAtSpirit/Blog-Durandal-SP3'>github repo</a></p>
+
+<p>The good news is that there are two public available pages that allows you to go hands-on. Both are best viewed with your favorite console open.</p>
+
+<ol>
+<li><a href='http://www.spirit.de/demos/metro/DurandalSP3/index.html#/'>development version:</a></li>
+
+<li><a href='http://www.spirit.de/demos/metro/DurandalSP3/WebPartPage2010.aspx#/'>optimized build:</a></li>
+</ol>
+
+<p>Without going into the details lets see what the Promises demo app is doing when you activate the list route (/#lists).</p>
+
+<ol>
+<li>Retrieve information about the lists in the current site via SPServices <code>GetListCollection</code> method (with caching)</li>
+
+<li>Retrieve detail information about the selected list via SPServices <code>GetList</code> method and build a mapping that can be used in SPServices <code>SPXmlToJson</code> method (with caching)</li>
+
+<li>Retrieve item information via SPServices <code>GetListItems</code> (NO caching)</li>
+</ol>
+
+<p><strong>Update 2013/04/11:</strong> The live demo was updated based on some feedback I got. The list overview now produces a configurable row view of lists with meta information like ItemCount and Last Modified. Step 2 and 3 are performed once you select a list.</p>
+
+<p>By opening up the <a href='http://www.spirit.de/demos/metro/DurandalSP3/WebPartPage2010.aspx#/'>optimized build</a> and filtering the network tab for XHR you can see the three POST requests to <code>lists.asmx</code> nicely lined up. Once you start selecting other lists, you&#8217;ll noticed that the number of XHR requests decrease as more and more cached information becomes available.</p>
+
+<p><img alt='Optimized build' src='/img/2013-04-08-OptimizedBuild.jpg' /></p>
+
+<p>The development version on the other side shows far more details via the console. That allows you to get familiar with Durandal&#8217;s application life cycle and to inspect the Json result of some <code>spdata</code> methods.</p>
+
+<p><img alt='Development' src='/img/2013-04-08-Development.jpg' /></p>
+
+<p>After reading so far and hopefully seen the Promises demo in action by yourself, I hope that you share my excitement of the upcoming promise support in <a href='http://spservices.codeplex.com/'>SPServices</a>. Once it&#8217;s part of an official release <a href='http://spservices.codeplex.com/'>SPServices</a> will become a perfect fit for Durandal&#8217;s life cycle methods.</p>
+
+<p><strong>Update 2013/04/16</strong> Marc Anderson reposted this article as <a href='http://sympmarc.com/2013/04/15/spservices-stories-13-durandal-sp3-developing-sharepoint-spas-made-easy/'>SPServices story</a> and added a bunch of additional, valuable information. Do not miss to check it out.</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2013-04-08T00:00:00+02:00" datetime="2013-04-08T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>April</abbr></span>
+							<span class="day">08</span>
+							<span class="year">2013</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint-ref">SharePoint <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#SPServices-ref">SPServices <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Durandal-ref">Durandal <span>2</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2013/02/21/durandal-meets-sharepoint-2013" title="View Durandal meets SharePoint 2013">&laquo; Durandal meets SharePoint 2013</a></li>
+							
+							
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2013/04/08/durandal-sp3-developing-sharepoint-spas-made-easy" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

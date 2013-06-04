@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Nappa apps and Chrome Control</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Nappa apps and Chrome Control" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Nappa apps and Chrome Control</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>Let&#8217;s assume you&#8217;ve</p>
+
+<p>a) read Ted Pattison&#8217;s blog <a href='http://blog.tedpattison.net/Lists/Posts/Post.aspx?List=9d54806e-14ca-456d-a62a-b903c9dda841&amp;ID=17&amp;utm_source=twitterfeed&amp;utm_medium=twitter&amp;Web=dbc8a5bc-c0d9-412c-8929-177a045a5351'>My first weekend in Napa</a> and got Microsoft&#8217;s invite</p>
+
+<blockquote>
+<p>But then I think about this new breed of SharePoint developer that Mike Morton described to me. A developer that&#8217;s never never used SharePoint before and has never seen a SharePoint dinosaur like me (except maybe in a museum). This developers has a very high IQ and has tons of experience with things like .NET, C#, JavaScript and jQuery</p>
+</blockquote>
+
+<p>b) seen my <a href='http://rainerat.spirit.de/2012/08/24/goodbye-ferrari-hello-napa/'>previous post</a> that turned the OOTB Nappa masterpage template into an easier to handle HTML5 template</p>
+
+<p>Just to recap. In the template we removed the reference to the masterpage, which is normally responsible to load the chrome for Nappa apps, because we didn&#8217;t like the overhead that comes with it. According to the invite you&#8217;ve never seen SharePoint before (feel free to read on even if you have) and you&#8217;re wondering if you&#8217;re now supposed to turn the minimalistic Nappa template (see below) into something that looks like a SharePoint app on your own.</p>
+
+<p><img alt='First Result' src='/img/2012-08-24-NapaRestResult.jpg' /></p>
+
+<p>Don&#8217;t wonder any longer, you don&#8217;t <code>;-)</code> and even better there are just a few changes necessary. Without the masterpage reference our current Nappa template behaves more like a hosted HTML5 app and for that kind of SharePoint app Microsoft already offers <strong><a href='http://msdn.microsoft.com/en-us/library/fp179916(v=office.15).aspx'>the client chrome control</a></strong>.</p>
+
+<p>For the eager of you here are the 5 steps that provide you access to a clean Nappa template that uses <a href='http://msdn.microsoft.com/en-us/library/fp179916(v=office.15).aspx'>the client chrome control</a>:</p>
+
+<p><strong>Step 1:</strong> Create a new Nappa app <img alt='Create Nappe App' src='/img/2012-08-28-ChromeControl-New-App.jpg' /> <strong>Step 2:</strong> Replace default.aspx content with <a href='https://raw.github.com/gist/3436332/39aa1959e8a39b86509a387c1cba242b9d05e629/SourceDefault.aspx'>this default.aspx content</a> <img alt='default.aspx' src='/img/2012-08-28-ChromeControl-Default-Aspx.jpg' /> <strong>Step 3:</strong> Replace apps.js content with <a href='https://raw.github.com/gist/3498247/2fa274af932028e97b6091226f360298670fff4e/app.js'>this app.js content</a> <img alt='app.js' src='/img/2012-08-28-ChromeControl-App-JS.jpg' /> <strong>Step 4:</strong> Change permission to allow read access to web <img alt='permissions' src='/img/2012-08-28-ChromeControl-Permission.jpg' /> <strong>Step 5:</strong> . Trust the app <img alt='trust' src='/img/2012-08-28-ChromeControl-Trust.jpg' /> <strong>Step 6:</strong> Party time: A clean Nappa App template with client chrome control <img alt='result' src='/img/2012-08-28-ChromeControl-Result.jpg' /></p>
+
+<p>The chrome configuration is done in the <code>renderChrome()</code> function and is following the settings in this MSDN <a href='http://msdn.microsoft.com/en-us/library/fp179916(v=office.15).aspx'>the client chrome control</a> article. <strong>Please note</strong> that the MSDN settings assume that you create a couple of additional pages otherwise the links won&#8217;t work.</p>
+
+<p>One minor issue that I&#8217;ve noticed it that without further modifications the MSDN version might lead to some flash of unstyled content (<a href='http://en.wikipedia.org/wiki/Flash_of_unstyled_content'>fouc</a>). One way to prevent that is to change our HTML in default.aspx to <code>&lt;div
+id=&quot;message&quot; style=&quot;display: none&quot;&gt;</code> to hide our message div by default. In our code we then bind to the load event of the dynamically injected stylesheet and leverage <code>$(&#39;#message&#39;).show();</code> to show the message.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'>1</span> <span class='kd'>var</span> <span class='nx'>nav</span> <span class='o'>=</span> <span class='k'>new</span> <span class='nx'>SP</span><span class='p'>.</span><span class='nx'>UI</span><span class='p'>.</span><span class='nx'>Controls</span><span class='p'>.</span><span class='nx'>Navigation</span><span class='p'>(</span>
+<span class='lineno'>2</span>                         <span class='s2'>&quot;chrome_ctrl_placeholder&quot;</span><span class='p'>,</span>
+<span class='lineno'>3</span>                         <span class='nx'>options</span>
+<span class='lineno'>4</span>                   <span class='p'>);</span>
+<span class='lineno'>5</span> <span class='nx'>nav</span><span class='p'>.</span><span class='nx'>setVisible</span><span class='p'>(</span><span class='kc'>true</span><span class='p'>);</span>
+<span class='lineno'>6</span> <span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;#chromeControl_stylesheet&#39;</span><span class='p'>).</span><span class='nx'>on</span><span class='p'>(</span><span class='s1'>&#39;load&#39;</span><span class='p'>,</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>7</span>     <span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;#message&#39;</span><span class='p'>).</span><span class='nx'>show</span><span class='p'>();</span>
+<span class='lineno'>8</span> <span class='p'>})</span>
+</code></pre>
+</div>
+<p>With those modification you should have a nice clean starting template for your HTML5 Nappa apps.</p>
+
+<p>Let&#8217;s party!</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-08-28T00:00:00+02:00" datetime="2012-08-28T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>August</abbr></span>
+							<span class="day">28</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint 2013-ref">SharePoint 2013 <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#Napa-ref">Napa <span>2</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/08/24/goodbye-ferrari-hello-napa" title="View Goodbye Ferrari, hello Napa?">&laquo; Goodbye Ferrari, hello Napa?</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/09/03/SharePoint-2013-App-HTTP-Error-405.0" title="View SharePoint 2013 App HTTP Error 405.0">SharePoint 2013 App HTTP Error 405.0 &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/08/28/napa-app-and-chrome-control" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

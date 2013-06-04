@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Durandal meets SharePoint 2013</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Durandal meets SharePoint 2013" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Durandal meets SharePoint 2013</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>One of the benefits of the new SharePoint 2013 app model is that we are nowadays allowed to live on the cutting edge of technology. At least if you build Autohosted or Providerhosted apps. If that what you&#8217;re doing make sure to read Scott&#8217;s <a href='http://weblogs.asp.net/scottgu/archive/2013/02/18/announcing-release-of-asp-net-and-web-tools-2012-2-update.aspx'>Announcing release of ASP.NET and Web Tools 2012.2 Update</a>, install the bits and then explore some of the new MVC4 <a href='http://www.asp.net/single-page-application/overview/templates'>templates</a>.</p>
+
+<p>Next step would be to look at Ananu&#8217;s blog <a href='http://aanuwizard.com/2012/11/19/article-12-from-30-how-to-use-mvc-web-project-for-auto-hosted-and-provider-hosted-sharepoint-apps/'>aanuwizard</a> as it has step-by-step instructions for you how to add a MVC4 project to your SharePoint 2013 apps.</p>
+
+<p>But how can you survive building single page application (SPA) in SharePoint if you are</p>
+
+<ul>
+<li>still running on SharePoint 2010 or</li>
+
+<li>creating SharePoint-hosted SharePoint 2013 apps</li>
+</ul>
+
+<p>Let me introduce you to <a href='http://durandaljs.com/'>Durandal</a>, a pretty young SPA framework, which is named after a famous French sword. As it states on the web site</p>
+
+<blockquote>
+<p>Your search for a SPA framework ends here.</p>
+</blockquote>
+
+<p>Durandal claims to be <strong>comfortable</strong></p>
+
+<blockquote>
+<p>We didn&#8217;t try to re-invent the wheel. Durandal is built on libs you know and love like jQuery, Knockout and RequireJS. There&#8217;s little to learn and building apps feels comfortable and familiar. Dive in and enjoy.</p>
+</blockquote>
+
+<p>Durandal claims to run <strong>Anyone and Everyone</strong></p>
+
+<blockquote>
+<p>In the end, Durandal is just a collection of JavaScript libraries, so you don&#8217;t need anything special to use it. Hop on over to our github repo and fork away. You can just grab the contents of the App folder and use it to kickstart your own project.</p>
+</blockquote>
+
+<p>Alright let&#8217;s test these statements by throwing Durandal into a SharePoint-hosted SharePoint 2013 app and see how it goes.</p>
+
+<p>Before we start here&#8217;s a screen shot of the final result as teaser. There&#8217;s an <a href='https://spirit2013preview-eb1020d742cee2.sharepoint.com/DurandalSharePoint-hosted/Pages/Default.aspx?SPHostUrl=https%3A%2F%2Fspirit2013preview-public.sharepoint.com&amp;SPLanguage=en-US&amp;SPClientTag=4&amp;SPProductNumber=15.0.4454.1011&amp;SPAppWebUrl=https%3A%2F%2FSpirit2013Preview-eb1020d742cee2.sharepoint.com%2FDurandalSharePoint-hosted'>online version</a> as well and the VS template can be forked from <a href='https://github.com/RainerAtSpirit/Durandal.SharePoint-hosted'>github</a>.</p>
+
+<p><img alt='Final app running online' src='/img/2013-02-21--finalResult.jpg' /></p>
+
+<p>We are starting by opening up the MVC4 Durandal starter template and creating an OOTB SharePoint 2013 app of type SharePoint-hosted. Files in the MVC Content and Script folder can be copied straight away, because there are already corresponded modules in the SP template. Create a new module named <code>App</code>, copy all App files from MVC4 app and make sure to exclude <code>App/Durandal/amd/optimizer.exe</code> from the project. By default SP won&#8217;t allow upload of <code>.exe</code> files. Do NOT delete that file, we&#8217;ll need it later.</p>
+
+<p><img alt='Creating an App module' src='/img/2013-02-21--App-Module.jpg' /></p>
+
+<p>In the next step we&#8217;re copying the necessary bits from <code>Index.cshtml</code> and <code>_splash.cshtml</code> into our <code>Default.aspx</code> and adjust them to the aspx syntax.</p>
+
+<p><img alt='Modifying default.aspx' src='/img/2013-02-21--Default.aspx.jpg' /></p>
+
+<p>In order to substitute the MVC4 BundleConfig settings for CSS and JavaScript files you must have <a href='http://visualstudiogallery.msdn.microsoft.com/07d54d12-7133-4e15-becb-6f451ea3bea6'>Web Essentials 2012</a> installed. If not, this is a good time to install it otherwise the next step won&#8217;t work.</p>
+
+<p><img alt='BundleConfig settings' src='/img/2013-02-21--BundleConfig.jpg' /> <img alt='Using WebEssentials' src='/img/2013-02-21--WebEssentials.jpg' /></p>
+
+<p>Hit F5, wait till the upload has finished and you should see something similar like this.</p>
+
+<p><img alt='Running in developer mode' src='/img/2013-02-21--FirstStab.jpg' /></p>
+
+<p>Not that bad for a first stab I&#8217;d say, you&#8217;ve reached Durandal&#8217;s development mode. All AMD files will be served individually and in addition we are getting a whole amount of logging messages in the console. That&#8217;s the place where later down the road you&#8217;d spend most of your time, so make yourself familiar. Today we simply heading forward to production, but before we do that let&#8217;s make a small adjustment to Durandal&#8217;s navigation bar because at the moment it&#8217;s overlaying the default SharePoint top nav. If you are already familiar with Durandal&#8217;s app structure the next two steps are obvious. If not here are some readings that get you started:</p>
+
+<ul>
+<li><a href='http://durandaljs.com/pages/docs'>Durandal docs</a></li>
+
+<li><a href='http://www.johnpapa.net/hottowel/'>John Papa</a></li>
+
+<li><a href='http://stephenwalther.com/archive/2013/02/08/using-durandal-to-create-single-page-apps.aspx'>Stephen Walter</a></li>
+</ul>
+
+<p>In order to address the positioning of the navbar remove the <code>navbar-fixed-top</code> class in <code>views/shell.html</code>.</p>
+
+<p><img alt='Modifying nav settings' src='/img/2013-02-21--Shell.html.jpg' /></p>
+
+<p>And now a scary moment. Let&#8217;s create an optimized version of our app by going down to a command line and run <code>optimizer.exe</code>. Remember, that was the file that we excluded earlier in the process from our project, but of course it&#8217;s still sitting in the file system. As long as you stick with Durandal&#8217;s defaults this tool will help you creating an optimized <code>main-built.js</code> file.</p>
+
+<p><img alt='Running optimizer' src='/img/2013-02-21--Optimizer.jpg' /></p>
+
+<p>In the last step comment|uncomment the appropriate parts in default.aspx that are responsible for loading <code>main-build.js</code> and you should be good to go.</p>
+
+<p><img alt='Switching from dev to prod mode' src='/img/2013-02-21--finalDefault.jpg' /></p>
+
+<p>Looks like we accomplished our mission for today and from my first impressions I&#8217;d say that Durandal can fulfill the promise of <em>Your search for a SPA framework ends here.</em> In one of the upcoming posts I&#8217;ll add my trusted data access tool <a href='http://jaydata.org'>JayData</a> that allows us to work with native SharePoint list and libraries through OData and see how it fits into the Durandal SPA framework.</p>
+
+<p>Here&#8217;s a final word of warning. Before diving deeper into this new and mighty thing called Durandal, remember it&#8217;s young. So weigh the risks and don&#8217;t miss to dig up the story of Durandal&#8217;s eponym. You&#8217;ll see that at the end the hero Roland is dead, only the sword survived <code>;-)</code>.</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2013-02-21T00:00:00+01:00" datetime="2013-02-21T00:00:00+01:00" pubdate>
+							<span class="month"><abbr>February</abbr></span>
+							<span class="day">21</span>
+							<span class="year">2013</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint 2013-ref">SharePoint 2013 <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#SharePoint-hosted Apps-ref">SharePoint-hosted Apps <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#MV*-ref">MV* <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Durandal-ref">Durandal <span>2</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2013/01/19/more-about-rest-in-sharepoint" title="View More about REST in SharePoint 2010/2013">&laquo; More about REST in SharePoint 2010/2013</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2013/04/08/durandal-sp3-developing-sharepoint-spas-made-easy" title="View Durandal SP3: Developing SharePoint SPAs made easy">Durandal SP3: Developing SharePoint SPAs made easy &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2013/02/21/durandal-meets-sharepoint-2013" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

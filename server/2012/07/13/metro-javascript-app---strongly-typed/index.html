@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Metro JavaScript App - strongly typed?</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Metro JavaScript App - strongly typed?" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Metro JavaScript App - strongly typed?</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>Let&#8217;s face it, even when I choose to build Metro style apps with HTML5, JavaScript and CSS because I love the dynamic nature of this environment, there are times when I&#8217;m a little bit jealous of that strong typed stuff that you get in that boring C#/XAML world <code>;-)</code>.</p>
+
+<p>Let see if we can take an existing application like Jeremy Foster&#8217;s excellent <a href='http://codefoster.com/post/2012/06/13/netflixstage1.aspx'>A Metro Netflix browser in HTML/JS - The Hub page</a>, add some magic (<a href='http://jaydata.org/'>JayData</a>) to it and see if that helps reducing my jealousy .</p>
+
+<p>Start by downloading Jeremy&#8217;s code that is attached to the blog. While on it don&#8217;t miss to download and install <a href='http://www.fiddler2.com/fiddler2/version.asp'>Fiddler 4</a> and the <a href='http://www.fiddler2.com/Fiddler2/extensions.asp'>Windows 8 AppContainer Loopback Utility</a>.</p>
+
+<p>Simply follow the Jeremy&#8217;s instructions, fire up fiddler and run the code.</p>
+
+<p><strong>Checkpoint:</strong> Make sure that you see some titles coming back from Netflix. <img alt='Fiddler Response' src='/img/metro-javascript-app---strong-typed-fiddler.jpg' /></p>
+
+<p>Looking at fiddler you should see something like the above. Notice the response size of about 740K. At the moment we are not leveraging OData to its full extend. I know that if you&#8217;re an OData expert you already spoted a way to reduce the response by using server side projection. But wait, maybe there are others that aren&#8217;t experts yet, so we come back to this a little later.</p>
+
+<p>Next download the latest version of <code>JayData</code> and <code>JaySvcUtil</code> from the <a href='http://jaydata.org/download'>download area</a>. Extract both files into two separate directories, we don&#8217;t want all of them lingering around in our projcect directory, we cherry pick instead the bare minimum.</p>
+
+<p>So from the JayData directory add the following files into the project&#8217;s <strong>js</strong> directory</p>
+
+<ul>
+<li>JayData-vsdoc.js</li>
+
+<li>JayData.js</li>
+
+<li>datajs-1.0.2.js</li>
+</ul>
+
+<p>Open up your preferred command line and navigate to the <code>JaySvcUtil</code> directory. <code>JaySvcUtil.exe</code> is command line utility that allows converting OData $metada information into a strongly typed JavaScript object. While it has several switches for fine tuning, we only require three of them.</p>
+
+<ul>
+<li><code>-m</code> $metadata url of your service e.g http://odata.netflix.com/catalog/$metadata</li>
+
+<li><code>-n</code> Namespace e.g. here Netflix</li>
+
+<li><code>-o</code> output file e.g. Netflix.js</li>
+</ul>
+<div class='highlight'><pre><code class='bash'>Rainer@METRORP ~/Downloads/JaySvcUtil
+<span class='nv'>$ </span>JaySvcUtil.exe -m <span class='s1'>&#39;http://odata.netflix.com/catalog/$metadata&#39;</span> -o Netflix.js -n <span class='s1'>&#39;Netflix&#39;</span>
+</code></pre>
+</div>
+<p>If everything went smoothly the system should have generated your &#8216;Netflix.js&#8217; file. Depending on the complexity of your service you might receive a couple of warning messages, which - most of the time - can safely be ignored. Please add the newly created &#8216;YourOutputFile.js&#8217; to the project&#8217;s <strong>js</strong> directory as well.</p>
+
+<p>Your default.html should now look like this:</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'> 1</span> <span class='cp'>&lt;!DOCTYPE html&gt;</span>
+<span class='lineno'> 2</span> <span class='nt'>&lt;html&gt;</span>
+<span class='lineno'> 3</span> <span class='nt'>&lt;head&gt;</span>
+<span class='lineno'> 4</span>     <span class='nt'>&lt;meta</span> <span class='na'>charset=</span><span class='s'>&quot;utf-8&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'> 5</span>     <span class='nt'>&lt;title&gt;</span>NetflixBrowser<span class='nt'>&lt;/title&gt;</span>
+<span class='lineno'> 6</span> 
+<span class='lineno'> 7</span>     <span class='c'>&lt;!-- WinJS references --&gt;</span>
+<span class='lineno'> 8</span>     <span class='nt'>&lt;link</span> <span class='na'>href=</span><span class='s'>&quot;//Microsoft.WinJS.1.0.RC/css/ui-dark.css&quot;</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'> 9</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;//Microsoft.WinJS.1.0.RC/js/base.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>10</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;//Microsoft.WinJS.1.0.RC/js/ui.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>11</span> 
+<span class='lineno'>12</span>     <span class='c'>&lt;!-- NetflixBrowser references --&gt;</span>
+<span class='lineno'>13</span>     <span class='nt'>&lt;link</span> <span class='na'>href=</span><span class='s'>&quot;/css/default.css&quot;</span> <span class='na'>rel=</span><span class='s'>&quot;stylesheet&quot;</span> <span class='nt'>/&gt;</span>
+<span class='lineno'>14</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;/js/default.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>15</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;/js/navigator.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>16</span> 
+<span class='lineno'>17</span>     <span class='c'>&lt;!-- JayData references --&gt;</span>
+<span class='lineno'>18</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;/js/datajs-1.0.2.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>19</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;/js/JayData.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>20</span>     <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;/js/netflix.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+<span class='lineno'>21</span> 
+<span class='lineno'>22</span> <span class='nt'>&lt;/head&gt;</span>
+<span class='lineno'>23</span> <span class='nt'>&lt;body&gt;</span>
+<span class='lineno'>24</span>     <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;contenthost&quot;</span> <span class='na'>data-win-control=</span><span class='s'>&quot;Application.PageControlNavigator&quot;</span> <span class='na'>data-win-options=</span><span class='s'>&quot;{home: &#39;/pages/home/home.html&#39;}&quot;</span><span class='nt'>&gt;&lt;/div&gt;</span>
+<span class='lineno'>25</span>     <span class='c'>&lt;!-- &lt;div id=&quot;appbar&quot; data-win-control=&quot;WinJS.UI.AppBar&quot;&gt;</span>
+<span class='lineno'>26</span> <span class='c'>        &lt;button data-win-control=&quot;WinJS.UI.AppBarCommand&quot; data-win-options=&quot;{id:&#39;cmd&#39;, label:&#39;Command&#39;, icon:&#39;placeholder&#39;}&quot;&gt;&lt;/button&gt;</span>
+<span class='lineno'>27</span> <span class='c'>    &lt;/div&gt; --&gt;</span>
+<span class='lineno'>28</span> <span class='nt'>&lt;/body&gt;</span>
+<span class='lineno'>29</span> <span class='nt'>&lt;/html&gt;</span>
+</code></pre>
+</div>
+<p><strong>Checkpoint:</strong> Run the app just to see if all files can be loaded and no error occurs. <img alt='Netflix.js errors' src='/img/metro-javascript-app---strong-typed-params.jpg' /></p>
+
+<p>While doing that in my case Visual studio was complaining about some errors in <code>Netflix.js</code> and right so. You can see that there are a couple of mistyped <code>..., params : , ...</code> in the code begining at line 166. If that the case for you as well go ahead and remove them. Not quite sure if that&#8217;s Netflix or an JayData issue, but it&#8217;s reported to JayData.</p>
+
+<p>Alright almost done with the setup phase. Let&#8217;s open up <code>js/home.js</code> and</p>
+
+<ol>
+<li>get rid of the current WinJS.xhr call</li>
+
+<li>add some references to the JayData files to get Intellisense support.</li>
+</ol>
+
+<p>You&#8217;re home.js should look like below. Remember that you need to compile once to get Intellisense picking up the changes.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='c1'>/// &lt;reference path=&quot;/js/jaydata.js&quot; /&gt;</span>
+<span class='lineno'> 2</span> <span class='c1'>/// &lt;reference path=&quot;/js/jaydata-vsdoc.js&quot; /&gt;</span>
+<span class='lineno'> 3</span> <span class='c1'>/// &lt;reference path=&quot;/js/netflix.js&quot; /&gt;</span>
+<span class='lineno'> 4</span> <span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 5</span>  <span class='s2'>&quot;use strict&quot;</span><span class='p'>;</span>
+<span class='lineno'> 6</span> 
+<span class='lineno'> 7</span>  <span class='nx'>WinJS</span><span class='p'>.</span><span class='nx'>UI</span><span class='p'>.</span><span class='nx'>Pages</span><span class='p'>.</span><span class='nx'>define</span><span class='p'>(</span><span class='s2'>&quot;/pages/home/home.html&quot;</span><span class='p'>,</span> <span class='p'>{</span>
+<span class='lineno'> 8</span>      <span class='c1'>// This function is called whenever a user navigates to this page. It</span>
+<span class='lineno'> 9</span>      <span class='c1'>// populates the page elements with the app&#39;s data.</span>
+<span class='lineno'>10</span>      <span class='nx'>ready</span><span class='o'>:</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>element</span><span class='p'>,</span> <span class='nx'>options</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>11</span> 
+<span class='lineno'>12</span>          <span class='kd'>var</span> <span class='nx'>titlesListGrouped</span> <span class='o'>=</span> <span class='k'>new</span> <span class='nx'>WinJS</span><span class='p'>.</span><span class='nx'>Binding</span><span class='p'>.</span><span class='nx'>List</span><span class='p'>().</span><span class='nx'>createGrouped</span><span class='p'>(</span>
+<span class='lineno'>13</span>              <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>i</span><span class='p'>)</span> <span class='p'>{</span> <span class='k'>return</span> <span class='nx'>i</span><span class='p'>.</span><span class='nx'>title</span><span class='p'>.</span><span class='nx'>charAt</span><span class='p'>(</span><span class='mi'>0</span><span class='p'>).</span><span class='nx'>toUpperCase</span><span class='p'>();</span> <span class='p'>},</span>
+<span class='lineno'>14</span>              <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>i</span><span class='p'>)</span> <span class='p'>{</span> <span class='k'>return</span> <span class='p'>{</span> <span class='nx'>firstLetter</span><span class='o'>:</span> <span class='nx'>i</span><span class='p'>.</span><span class='nx'>title</span><span class='p'>.</span><span class='nx'>charAt</span><span class='p'>(</span><span class='mi'>0</span><span class='p'>).</span><span class='nx'>toUpperCase</span><span class='p'>()</span> <span class='p'>};</span> <span class='p'>}</span>
+<span class='lineno'>15</span>          <span class='p'>);</span>
+<span class='lineno'>16</span> 
+<span class='lineno'>17</span>          <span class='kd'>var</span> <span class='nx'>list</span> <span class='o'>=</span> <span class='nx'>q</span><span class='p'>(</span><span class='s2'>&quot;#list&quot;</span><span class='p'>).</span><span class='nx'>winControl</span><span class='p'>;</span>
+<span class='lineno'>18</span>          <span class='nx'>list</span><span class='p'>.</span><span class='nx'>itemDataSource</span> <span class='o'>=</span> <span class='nx'>titlesListGrouped</span><span class='p'>.</span><span class='nx'>dataSource</span><span class='p'>;</span>
+<span class='lineno'>19</span>          <span class='nx'>list</span><span class='p'>.</span><span class='nx'>itemTemplate</span> <span class='o'>=</span> <span class='nx'>q</span><span class='p'>(</span><span class='s2'>&quot;#template&quot;</span><span class='p'>);</span>
+<span class='lineno'>20</span>          <span class='nx'>list</span><span class='p'>.</span><span class='nx'>groupDataSource</span> <span class='o'>=</span> <span class='nx'>titlesListGrouped</span><span class='p'>.</span><span class='nx'>groups</span><span class='p'>.</span><span class='nx'>dataSource</span><span class='p'>;</span>
+<span class='lineno'>21</span>          <span class='nx'>list</span><span class='p'>.</span><span class='nx'>groupHeaderTemplate</span> <span class='o'>=</span> <span class='nx'>q</span><span class='p'>(</span><span class='s2'>&quot;#headertemplate&quot;</span><span class='p'>);</span>
+<span class='lineno'>22</span> 
+<span class='lineno'>23</span>      <span class='p'>}</span>
+<span class='lineno'>24</span>  <span class='p'>});</span>
+<span class='lineno'>25</span> <span class='p'>})();</span>
+</code></pre>
+</div>
+<p>Now, roll drum&#8230; here&#8217;s the magic moment <code>:)</code>, type in <code>Netflix.context.</code> and you should see Intellisene kicking in. Before we move on let&#8217;s celebrate by leaving the computer and doing whatever you prefer to do when you celebrate.</p>
+
+<p><img alt='Intellisense' src='/img/metro-javascript-app---strong-typed-Intellisense.jpg' /></p>
+
+<p>Alright, back to work! Your first goal would be to come up with an equivalent of the original WinJS.xhr call</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='nx'>WinJS</span><span class='p'>.</span><span class='nx'>xhr</span><span class='p'>({</span> <span class='nx'>url</span><span class='o'>:</span> <span class='s2'>&quot;http://odata.netflix.com/Catalog/Titles?$format=json&amp;$top=200&quot;</span> <span class='p'>})</span>
+<span class='lineno'> 2</span>     <span class='p'>.</span><span class='nx'>then</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>(</span><span class='nx'>xhr</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 3</span>         <span class='kd'>var</span> <span class='nx'>titles</span> <span class='o'>=</span> <span class='nx'>JSON</span><span class='p'>.</span><span class='nx'>parse</span><span class='p'>(</span><span class='nx'>xhr</span><span class='p'>.</span><span class='nx'>response</span><span class='p'>).</span><span class='nx'>d</span><span class='p'>;</span>
+<span class='lineno'> 4</span>         <span class='nx'>titles</span><span class='p'>.</span><span class='nx'>forEach</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>(</span><span class='nx'>i</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 5</span>             <span class='nx'>titlesListGrouped</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span>
+<span class='lineno'> 6</span>                 <span class='nx'>title</span><span class='o'>:</span> <span class='nx'>i</span><span class='p'>.</span><span class='nx'>ShortName</span><span class='p'>,</span>
+<span class='lineno'> 7</span>                 <span class='nx'>imageUrl</span><span class='o'>:</span> <span class='nx'>i</span><span class='p'>.</span><span class='nx'>BoxArt</span><span class='p'>.</span><span class='nx'>LargeUrl</span>
+<span class='lineno'> 8</span>             <span class='p'>});</span>
+<span class='lineno'> 9</span>         <span class='p'>});</span>
+<span class='lineno'>10</span>     <span class='p'>});</span>
+</code></pre>
+</div>
+<p>Converting this is pretty straight forward. <code>Netflix.context</code> is already aware of the URL and JayData will add the appropriate Request-Header, so that the Odata service returns Json. That leaves us with teaching the system that we would like to retrieve 200 Titles. By looking at the available methods for <code>Netflix.context.Titles</code> we notice the <code>take()</code>method, which probably sounds familiar to many of you. There are several other methods like <code>include()</code>, <code>filter()</code>, <code>orderBy()</code>, <code>skip()</code>, <code>map()</code> and <code>forEach</code> that are all part of the JavaScript Language Query. If you never heard of any of those or want to learn more about it check them out at <a href='http://jaydata.org/blog/javascript-language-query-jslq-101'>(JSLQ) 101</a> and come back later.</p>
+
+<p>The last thing we need to do is reusing the logic of the original forEach loop to push the results into <code>titlesListGrouped</code>.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'>1</span> <span class='nx'>Netflix</span><span class='p'>.</span><span class='nx'>context</span><span class='p'>.</span><span class='nx'>Titles</span>
+<span class='lineno'>2</span>     <span class='p'>.</span><span class='nx'>take</span><span class='p'>(</span><span class='mi'>200</span><span class='p'>)</span>
+<span class='lineno'>3</span>     <span class='p'>.</span><span class='nx'>forEach</span><span class='p'>(</span><span class='kd'>function</span><span class='p'>(</span><span class='nx'>item</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>4</span>         <span class='nx'>titlesListGrouped</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span>
+<span class='lineno'>5</span>             <span class='nx'>title</span><span class='o'>:</span> <span class='nx'>item</span><span class='p'>.</span><span class='nx'>title</span><span class='p'>,</span>
+<span class='lineno'>6</span>             <span class='nx'>imageUrl</span><span class='o'>:</span> <span class='nx'>item</span><span class='p'>.</span><span class='nx'>BoxArt</span><span class='p'>.</span><span class='nx'>LargeUrl</span>
+<span class='lineno'>7</span>         <span class='p'>});</span>
+<span class='lineno'>8</span>     <span class='p'>})</span>
+</code></pre>
+</div>
+<p><em>Please note</em> that at the time of this writing, while there is an JayData deferred.js adapter available for jQuery there&#8217;s NO WinJS aware adapter&#8230; yet. So at the moment you won&#8217;t be able to create promises and use <code>.then()</code> or <code>.done()</code>.</p>
+
+<p><strong>Checkpoint:</strong> Run the code and make sure that you <strong>still</strong> see titles coming back from Netflix. Alright how does that feel so far? Without being an OData expert you just conducted an OData query, without leaving the comfort zone of Visual Studio and its Intellisene. Not too shabby I&#8217;d say. But we&#8217;ll take it even a step further and try making our OData request a little bit more precise.</p>
+
+<p>Can we do that? Of course we can by leveraging the <code>.map</code> method; and you&#8217;ll see, which benefits that brings in just a moment. <em>Please note</em> that I couldn&#8217;t bring Intellisense to show available properties for <code>item</code>, but when you look at the Json returned by the service in Fiddler, you can see that we map <code>title: item.ShortName</code> and <code>BoxArt: item.BoxArt</code> and return that as an anonymous object. So in the forEach loop we access those as <code>item.title</code> and <code>item.BoxArt</code>.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='nx'>Netflix</span><span class='p'>.</span><span class='nx'>context</span><span class='p'>.</span><span class='nx'>Titles</span>
+<span class='lineno'> 2</span>     <span class='p'>.</span><span class='nx'>map</span><span class='p'>(</span><span class='kd'>function</span><span class='p'>(</span><span class='nx'>item</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 3</span>         <span class='k'>return</span> <span class='p'>{</span>
+<span class='lineno'> 4</span>             <span class='nx'>title</span><span class='o'>:</span> <span class='nx'>item</span><span class='p'>.</span><span class='nx'>ShortName</span><span class='p'>,</span>
+<span class='lineno'> 5</span>             <span class='nx'>BoxArt</span><span class='o'>:</span> <span class='nx'>item</span><span class='p'>.</span><span class='nx'>BoxArt</span>
+<span class='lineno'> 6</span>         <span class='p'>};</span>
+<span class='lineno'> 7</span>     <span class='p'>})</span>
+<span class='lineno'> 8</span>     <span class='p'>.</span><span class='nx'>take</span><span class='p'>(</span><span class='mi'>200</span><span class='p'>)</span>
+<span class='lineno'> 9</span>     <span class='p'>.</span><span class='nx'>forEach</span><span class='p'>(</span><span class='kd'>function</span><span class='p'>(</span><span class='nx'>item</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>10</span>         <span class='nx'>titlesListGrouped</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span>
+<span class='lineno'>11</span>             <span class='nx'>title</span><span class='o'>:</span> <span class='nx'>item</span><span class='p'>.</span><span class='nx'>title</span><span class='p'>,</span>
+<span class='lineno'>12</span>             <span class='nx'>imageUrl</span><span class='o'>:</span> <span class='nx'>item</span><span class='p'>.</span><span class='nx'>BoxArt</span><span class='p'>.</span><span class='nx'>LargeUrl</span>
+<span class='lineno'>13</span>         <span class='p'>});</span>
+<span class='lineno'>14</span>     <span class='p'>})</span>
+</code></pre>
+</div>
+<p><img alt='Fiddler 140K' src='/img/metro-javascript-app---strong-typed-fiddler140k.jpg' /> If you are now running the application and watch Fiddler you see that the return set is way smaller than before. We are down from <strong>740K</strong> to about <strong>140K</strong>. So by using the strongly typed Netflix object you not only gained the benefit of Intellisense support, you somehow became an OData expert as well <code>;-)</code>. Closer watching the URL in Fiddler reveals that there&#8217;s a new <code>$select=ShortName,BoxArt</code> parameter that was added by JayData, so now the projection is accomplished at the server side and no longer at the client.</p>
+
+<p>That&#8217;s it for today and truth told I feel my jealousy about strongly typed C#/XAML fading away and my excitement about JavaScript grow. But everybody&#8217;s different, so here are two choices if you want to move on with Jeremy&#8217;s Metro app:</p>
+
+<ol>
+<li>
+<p>You can get rid of all JayData files you&#8217;ve added and apply the knowledge about the <code>$select</code> parameter to enhance the original WinJS code manually. You will see the same performance benefits that we got here.</p>
+
+<p>Just so that you know, there&#8217;s nothing wrong with this approach, really.</p>
+</li>
+
+<li>
+<p>But maybe you want to stay a little with JayData and see how it pays off.</p>
+</li>
+</ol>
+
+<p>For those of you, who are on the fence line, it might be good to know that JayData supports a couple of other formats that can be all accessed using the same <strong>JSQL</strong> you started getting familiar with.</p>
+
+<blockquote>
+<p>Facebook Query Language, SqlLite, Yahoo Open Data Tables, InMemoryDB, WebSQL, IndexedDb</p>
+</blockquote>
+
+<p>and there are more in the pipeline</p>
+
+<p>I&#8217;d be glad to hear from you about your decission and the reasoning behind it.</p>
+
+<p>PS: For the impatient ones that wants to start immediately with JayData version of Jeremy&#8217;s Metro example feel free to <a href='https://github.com/RainerAtSpirit/JayData-Netflix'>clone this repo</a>.</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-07-13T00:00:00+02:00" datetime="2012-07-13T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>July</abbr></span>
+							<span class="day">13</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#JayData-ref">JayData <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Win8-ref">Win8 <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#WinJS-ref">WinJS <span>2</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/07/09/dynamic-search-in-a-static-world" title="View Dynamic search in a static world">&laquo; Dynamic search in a static world</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/07/15/sharepoint-dvwp-from-workhorse-to-ferrari-in-7-steps" title="View SharePoint DVWP: from workhorse to Ferrari in 7 steps">SharePoint DVWP: from workhorse to Ferrari in 7 steps &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/07/13/metro-javascript-app---strongly-typed" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+

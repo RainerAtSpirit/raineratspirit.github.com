@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>The Ferrari meets JayData</title>
+	<meta name="author" content="Rainer Wittmann">
+	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="The Ferrari meets JayData" type="application/atom+xml">
+	
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+<div id="logowrap">
+    <div class="textlogo"><a href="/" title="Goin' back home">&lt;: &gt;</a></div>
+</div>
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<nav class="nav-global">
+                   	<ul>
+						<!--<li class="logo"><a href="/">RainerAtSpirit's blog</a></li>-->
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+                        
+                        <li class="search">
+                            <form action="/search.html" method="get">
+                                <input type="search" placeholder="search Posts..." id="q" name="q"
+                                       onkeypress="if(event.keyCode==13) {this.submit();}" class="ng-pristine ng-valid">
+                            </form>
+                        </li>
+                        
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">The Ferrari meets JayData</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p>Good morning, good afternoon, good evening to you.</p>
+
+<p>Welcome back to a new episode in the <strong><code>Ferrari</code></strong> series. For those of you who remember what I call the <strong><code>Ferrari</code></strong> read on; all other please make yourself familiar with <a href='http://rainerat.spirit.de/2012/07/15/sharepoint-dvwp-from-workhorse-to-ferrari-in-7-steps/'>Part 1</a> and <a href='http://rainerat.spirit.de/2012/07/20/the-sharepoint-dvwp-in-ferrari-mode-strikes-again/'>Part 2</a> in this series before moving on.</p>
+
+<p>In <a href='http://rainerat.spirit.de/2012/07/20/the-sharepoint-dvwp-in-ferrari-mode-strikes-again/'>Part 2</a> we ended up with a HTML5 app that shows a nice metro style tile view of SharePoint lists and libraries. This time we want to enhance the solutions so that it retrieves items through SharePoint&#8217;s OData service. Sorry SP2007 we&#8217;ve to leave you behind as this service was first introduced in SP2010. Don&#8217;t worry too much though; using REST is forward thinking as SP2013 will expose a whole new <a href='http://msdn.microsoft.com/en-us/library/fp142385(v=office.15).aspx'>REST API</a> that will greatly expanding the existing capabilities.</p>
+
+<p>In the simplest form you could make <code>XHR</code> calls to the service endpoint at <code>_vti_bin/listdata.svc</code>, but we&#8217;re not going down that route. Instead we&#8217;re using <a href='http://jaydata.org'>JayData</a> for doing the heavy lifting. While being relatively new to the market JayData brings an astonishing range of capabilities to the table, one of them is the abstracting of underlying storage provider. Yes, you heard me right; OData is just one of the supported storage provider, see <a href='http://jaydata.org/providers'>JayData provider</a> for a full list. Once you learned a little bit about <a href='http://jaydata.org/blog/javascript-language-query-jslq-101'>JSLQ</a> the JavaScript Query Language you will (probably) never go back talking to any storage provider on your own.</p>
+
+<p>After settling on <a href='http://jaydata.org'>JayData</a> the next choice is about a client framework that helps us building our dynamic UI. JayData comes with a bunch of modules that offers integration into various third party frameworks and <code>knockout</code> is one of them. <em>A word of warning</em> take everything that you see me doing with <code>knockout</code> with some grain of salt, as I haven&#8217;t worked with it before. The last piece of software that I want to bring to the table is of course RequireJS. We are going to build a JavaScript app and based on my experience there&#8217;s simply no way of writing one without it.</p>
+
+<p>So without further hassle we are now going to build a pretty straight forward three tier navigation, which BTW will align us nicely with the Metro-style design guides; and nah, we won&#8217;t do Metro style left &lt;-&gt; right scrolling, this is still a web app not Window 8 Metro ;-). For the eager of you here are the links to the live demos:</p>
+
+<p><a href='http://www.spirit.de/demos/metro/zurbv3/MetroStyle.aspx'>Live on SP 2010</a></p>
+
+<p><a href='https://spirit2013preview-public.sharepoint.com/zurbv3/MetroStyle.aspx'>Live on SP 2013</a></p>
+
+<p><strong>First tier:</strong> Entry screen consists of a Tile View (green) and a Login View (yellow). The whole page can be served anonymously, but in order to see the next tier you&#8217;ve to log on. You probably heard me saying that before &#8220;SharePoint OData service won&#8217;t work anonymously&#8221;.</p>
+
+<p><img alt='Tile View' src='/img/2012-08-01-TileView.jpg' /></p>
+
+<p>The following HTML is used as by Knockout to produce the Tile View.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'> 1</span> <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;row&quot;</span> <span class='na'>id=</span><span class='s'>&quot;tileVM&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 2</span>     <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;twelve columns tiles&quot;</span>
+<span class='lineno'> 3</span>          <span class='na'>data-bind=</span><span class='s'>&quot;foreach: TileData, updateTilesOnce: true&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 4</span>         <span class='nt'>&lt;div</span> <span class='na'>class=</span><span class='s'>&quot;live-tile&quot;</span> <span class='na'>data-stops=</span><span class='s'>&quot;100%&quot;</span> <span class='na'>data-speed=</span><span class='s'>&quot;750&quot;</span> <span class='na'>data-delay=</span><span class='s'>&quot;-1&quot;</span>
+<span class='lineno'> 5</span>              <span class='na'>data-bind=</span><span class='s'>&quot;class: color + &#39; &#39; + size,</span>
+<span class='lineno'> 6</span> <span class='s'>                        attr: {&#39;data-mode&#39;: mode ? mode : &#39;&#39;, &#39;data-direction&#39;: direction} ,</span>
+<span class='lineno'> 7</span> <span class='s'>                        click: $root.goToDetail&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 8</span>             <span class='nt'>&lt;span</span> <span class='na'>class=</span><span class='s'>&quot;tile-title&quot;</span> <span class='na'>data-bind=</span><span class='s'>&quot;text: title&quot;</span><span class='nt'>&gt;&lt;/span&gt;</span>
+<span class='lineno'> 9</span>             <span class='nt'>&lt;span</span> <span class='na'>class=</span><span class='s'>&quot;badge&quot;</span> <span class='na'>data-bind=</span><span class='s'>&quot;text: count&quot;</span><span class='nt'>&gt;&lt;/span&gt;</span>
+<span class='lineno'>10</span> 
+<span class='lineno'>11</span>             <span class='nt'>&lt;div&gt;</span>
+<span class='lineno'>12</span>                 <span class='nt'>&lt;img</span> <span class='na'>class=</span><span class='s'>&quot;micon&quot;</span> <span class='na'>data-bind=</span><span class='s'>&quot;attr: {src: icon}&quot;</span><span class='nt'>/&gt;</span>
+<span class='lineno'>13</span>             <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>14</span>             <span class='nt'>&lt;div&gt;</span>
+<span class='lineno'>15</span>                 <span class='nt'>&lt;h3</span> <span class='na'>data-bind=</span><span class='s'>&quot;text: backTitle&quot;</span><span class='nt'>&gt;&lt;/h3&gt;</span>
+<span class='lineno'>16</span>                 <span class='nt'>&lt;span</span> <span class='na'>class=</span><span class='s'>&quot;prettyDate&quot;</span> <span class='na'>data-bind=</span><span class='s'>&quot;attr: {title: prettyDate}&quot;</span><span class='nt'>&gt;&lt;/span&gt;</span>
+<span class='lineno'>17</span>             <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>18</span>         <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>19</span>     <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>20</span> <span class='nt'>&lt;/div&gt;</span>
+</code></pre>
+</div>
+<p>And here&#8217;s the <code>TileViewModel</code> as RequireJS module leveraging the revealing module pattern. I&#8217;ve seen John Papa <a href='http://johnpapa.net/spapost2'>mentioning this pattern</a> more than once. BTW feel free to provide feedback about your favorite way to structure knockout apps.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='nx'>define</span> <span class='p'>([</span><span class='s1'>&#39;knockout&#39;</span><span class='p'>,</span> <span class='s1'>&#39;helper&#39;</span><span class='p'>],</span> <span class='kd'>function</span> <span class='p'>(</span> <span class='nx'>ko</span><span class='p'>,</span> <span class='nx'>fn</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 2</span>     <span class='s2'>&quot;use strict&quot;</span><span class='p'>;</span>
+<span class='lineno'> 3</span> 
+<span class='lineno'> 4</span>     <span class='k'>return</span> <span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 5</span>         <span class='c1'>// ko observables</span>
+<span class='lineno'> 6</span>         <span class='kd'>var</span> <span class='nx'>userId</span> <span class='o'>=</span> <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>observable</span> <span class='p'>().</span><span class='nx'>subscribeTo</span> <span class='p'>(</span><span class='s1'>&#39;userId&#39;</span><span class='p'>),</span>
+<span class='lineno'> 7</span>             <span class='nx'>selectedList</span> <span class='o'>=</span> <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>observable</span> <span class='p'>().</span><span class='nx'>subscribeTo</span> <span class='p'>(</span><span class='s1'>&#39;selectedList&#39;</span><span class='p'>),</span>
+<span class='lineno'> 8</span>             <span class='nx'>TileData</span> <span class='o'>=</span> <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>observableArray</span> <span class='p'>([]),</span>
+<span class='lineno'> 9</span>         <span class='c1'>// functions</span>
+<span class='lineno'>10</span>             <span class='nx'>goToDetail</span><span class='p'>;</span>
+<span class='lineno'>11</span> 
+<span class='lineno'>12</span>         <span class='c1'>// end of var declaration</span>
+<span class='lineno'>13</span> 
+<span class='lineno'>14</span>         <span class='nx'>goToDetail</span> <span class='o'>=</span> <span class='kd'>function</span> <span class='p'>(</span> <span class='nx'>tile</span><span class='p'>,</span> <span class='nx'>event</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>15</span>             <span class='k'>if</span> <span class='p'>(</span> <span class='nx'>userId</span> <span class='p'>()</span> <span class='o'>!==</span> <span class='s1'>&#39;anonymous&#39;</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>16</span> 
+<span class='lineno'>17</span>                 <span class='nx'>selectedList</span> <span class='p'>(</span><span class='nx'>fn</span><span class='p'>.</span><span class='nx'>cleanup</span> <span class='p'>(</span><span class='nx'>tile</span><span class='p'>.</span><span class='nx'>title</span><span class='p'>));</span>
+<span class='lineno'>18</span>                 <span class='nx'>location</span><span class='p'>.</span><span class='nx'>hash</span> <span class='o'>=</span> <span class='s1'>&#39;/view/&#39;</span> <span class='o'>+</span> <span class='nx'>selectedList</span> <span class='p'>();</span>
+<span class='lineno'>19</span>             <span class='p'>}</span>
+<span class='lineno'>20</span>             <span class='k'>else</span> <span class='p'>{</span>
+<span class='lineno'>21</span>                 <span class='nx'>alert</span> <span class='p'>(</span><span class='s1'>&#39; Make sure to log on.&#39;</span><span class='p'>);</span>
+<span class='lineno'>22</span>             <span class='p'>}</span>
+<span class='lineno'>23</span>         <span class='p'>};</span>
+<span class='lineno'>24</span> 
+<span class='lineno'>25</span>         <span class='c1'>// Bootstrap</span>
+<span class='lineno'>26</span>         <span class='nx'>TileData</span> <span class='p'>(</span><span class='nx'>app</span><span class='p'>.</span><span class='nx'>tilesData</span><span class='p'>.</span><span class='nx'>tiles</span><span class='p'>.</span><span class='nx'>tile</span><span class='p'>);</span>
+<span class='lineno'>27</span> 
+<span class='lineno'>28</span> 
+<span class='lineno'>29</span>         <span class='c1'>// Return public methods</span>
+<span class='lineno'>30</span>         <span class='k'>return</span><span class='p'>{</span>
+<span class='lineno'>31</span>             <span class='nx'>userId</span> <span class='o'>:</span> <span class='nx'>userId</span><span class='p'>,</span>
+<span class='lineno'>32</span>             <span class='nx'>TileData</span> <span class='o'>:</span> <span class='nx'>TileData</span><span class='p'>,</span>
+<span class='lineno'>33</span>             <span class='nx'>goToDetail</span> <span class='o'>:</span> <span class='nx'>goToDetail</span>
+<span class='lineno'>34</span>         <span class='p'>};</span>
+<span class='lineno'>35</span>     <span class='p'>};</span>
+<span class='lineno'>36</span> <span class='p'>});</span>
+</code></pre>
+</div>
+<p>Our trusted DVWP produces the required <code>app.tilesData.tiles.tile</code> array that is used to bootstrap the <code>TileData</code> observableArray. I&#8217;m not going to cover the required XSLT here as this is just a variation what we did in <a href='http://rainerat.spirit.de/2012/07/20/the-sharepoint-dvwp-in-ferrari-mode-strikes-again/'>Part 2</a>, but if you want to deep dive again take a look at this gist <a href='https://gist.github
+.com/3227125#L150'>DVWP&#8217;s settings and XSLT</a>.</p>
+
+<p>Here&#8217;s the HTML for the login area and the related LogonViewModel.</p>
+<div class='highlight'><pre><code class='html'><span class='lineno'> 1</span>  <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;logonVM&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 2</span>     <span class='nt'>&lt;div</span> <span class='na'>data-bind=</span><span class='s'>&quot;visible: userId() !== &#39;anonymous&#39; &quot;</span> <span class='na'>style=</span><span class='s'>&quot;display: none;&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 3</span>         You&#39;re logged on as: <span class='nt'>&lt;span</span> <span class='na'>class=</span><span class='s'>&quot;success label&quot;</span> <span class='na'>data-bind=</span><span class='s'>&quot;text: userId&quot;</span><span class='nt'>&gt;&lt;/span&gt;</span>
+<span class='lineno'> 4</span>     <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'> 5</span>     <span class='nt'>&lt;div</span> <span class='na'>data-bind=</span><span class='s'>&quot;visible: userId() === &#39;anonymous&#39; &quot;</span> <span class='na'>style=</span><span class='s'>&quot;display: none;&quot;</span><span class='nt'>&gt;</span>
+<span class='lineno'> 6</span>         <span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;#&quot;</span> <span class='na'>data-bind=</span><span class='s'>&quot;attr: {href: loginURL}&quot;</span> <span class='na'>class=</span><span class='s'>&quot;button&quot;</span><span class='nt'>&gt;</span> Sign
+<span class='lineno'> 7</span>             in<span class='nt'>&lt;/a&gt;</span>
+<span class='lineno'> 8</span>         with username: <span class='nt'>&lt;span</span> <span class='na'>class=</span><span class='s'>&quot;secondary label&quot;</span><span class='nt'>&gt;</span>ODataDemo<span class='nt'>&lt;/span&gt;</span> password: <span class='nt'>&lt;span</span> <span class='na'>class=</span><span class='s'>&quot;secondary label&quot;</span><span class='nt'>&gt;</span>OData!Demo<span class='nt'>&lt;/span&gt;</span>
+<span class='lineno'> 9</span>     <span class='nt'>&lt;/div&gt;</span>
+<span class='lineno'>10</span> <span class='nt'>&lt;/div&gt;</span>
+</code></pre>
+</div><div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='nx'>define</span> <span class='p'>([</span><span class='s1'>&#39;knockout&#39;</span><span class='p'>],</span> <span class='kd'>function</span> <span class='p'>(</span> <span class='nx'>ko</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 2</span>     <span class='s2'>&quot;use strict&quot;</span><span class='p'>;</span>
+<span class='lineno'> 3</span> 
+<span class='lineno'> 4</span>     <span class='k'>return</span> <span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 5</span>         <span class='kd'>var</span> <span class='nx'>userId</span> <span class='o'>=</span> <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>observable</span> <span class='p'>(</span><span class='nx'>app</span><span class='p'>.</span><span class='nx'>configMap</span><span class='p'>.</span><span class='nx'>userId</span><span class='p'>).</span><span class='nx'>publishOn</span> <span class='p'>(</span><span class='s1'>&#39;userId&#39;</span><span class='p'>),</span>
+<span class='lineno'> 6</span>             <span class='nx'>loginURL</span><span class='p'>;</span>
+<span class='lineno'> 7</span> 
+<span class='lineno'> 8</span>         <span class='nx'>loginURL</span> <span class='o'>=</span> <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>computed</span> <span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 9</span>             <span class='k'>return</span> <span class='s1'>&#39;../_layouts/Authenticate.aspx?Source=&#39;</span> <span class='o'>+</span> <span class='nb'>encodeURIComponent</span> <span class='p'>(</span><span class='nx'>location</span><span class='p'>.</span><span class='nx'>pathname</span><span class='p'>)</span> <span class='o'>+</span> <span class='nx'>location</span><span class='p'>.</span><span class='nx'>hash</span><span class='p'>;</span>
+<span class='lineno'>10</span>         <span class='p'>});</span>
+<span class='lineno'>11</span> 
+<span class='lineno'>12</span>         <span class='c1'>// Return public methods</span>
+<span class='lineno'>13</span>         <span class='k'>return</span> <span class='p'>{</span>
+<span class='lineno'>14</span>             <span class='nx'>userId</span> <span class='o'>:</span> <span class='nx'>userId</span><span class='p'>,</span>
+<span class='lineno'>15</span>             <span class='nx'>loginURL</span> <span class='o'>:</span> <span class='nx'>loginURL</span>
+<span class='lineno'>16</span>         <span class='p'>}</span>
+<span class='lineno'>17</span>     <span class='p'>}</span>
+<span class='lineno'>18</span> <span class='p'>});</span>
+</code></pre>
+</div>
+<p><strong>Second tier:</strong> The Login View (yellow) will show your username once you&#8217;re logged in and by clicking on one of the tiles you&#8217;ll see 10 items of the chosen list or library. Bear in mind that this is a demo, but adding paging, sorting and filtering per data source <strong>in the UI</strong> would be a pretty straight forward as they are already implemented in the ListingViewModel.</p>
+
+<p><img alt='Listing View' src='/img/2012-08-01-ListingView.jpg' /></p>
+
+<p><strong>Third tier:</strong> By clicking on one of the level 2 tiles you&#8217;ll see the full detail information on the right. One of the benefits of working with OData is that is allows you to get multiple related information in single call, which greatly simplifies your life as client side app developer.</p>
+
+<p>From the <a href='http://www.odata.org/documentation/uri-conventions/#ExpandSystemQueryOption'>OData website</a></p>
+
+<blockquote>
+<p>A URI with a $expand System Query Option indicates that Entries associated with the Entry or Collection of Entries identified by the Resource Path section of the URI must be represented inline (i.e. eagerly loaded). For example, if you want to identify a category and its products, you could use two URIs (and execute two requests), one for /Categories(1) and one for /Categories(1)/Products. The &#8216;$expand&#8217; option allows you to identify related Entries with a single URI such that a graph of Entries could be retrieved with a single HTTP request.</p>
+</blockquote>
+
+<p><img alt='Detail View' src='/img/2012-08-01-DetailView.jpg' /></p>
+
+<p>For this demo I haven&#8217;t separated the Listing and the Detail view and the Detail view is just an un-styled list of properties for the current item. For a larger application it would probably make sense to separate the views and work the detail view a little bit out <code>;-)</code>.</p>
+
+<p>To see the full html and JS that is involved take a look at <a href='https://gist.github.com/3227125'>this gist</a>, I&#8217;m going to concentrate on the parts that deal with the JayData configuration here.</p>
+
+<p>But before we can do that, we need to take quick look how all the various VMs are integrated by RequireJS. As in almost every standard RequireJS app there&#8217;s a <code>main.js</code> file that allows you to configure various aspects and then kick off your app.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='nx'>require</span><span class='p'>.</span><span class='nx'>config</span><span class='p'>({</span>
+<span class='lineno'> 2</span>    <span class='c1'>//By default load any module IDs from js/lib</span>
+<span class='lineno'> 3</span>     <span class='nx'>baseUrl</span> <span class='o'>:</span> <span class='s1'>&#39;libs&#39;</span><span class='p'>,</span>
+<span class='lineno'> 4</span>     <span class='nx'>paths</span> <span class='o'>:</span> <span class='p'>{</span>
+<span class='lineno'> 5</span>        <span class='c1'>// Try loading from CDN first</span>
+<span class='lineno'> 6</span>        <span class='p'>...</span>
+<span class='lineno'> 7</span> 
+<span class='lineno'> 8</span> <span class='nx'>require</span><span class='p'>([</span><span class='s1'>&#39;app&#39;</span><span class='p'>],</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>app</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 9</span>     <span class='c1'>// we can safely kick of the app even before document.ready</span>
+<span class='lineno'>10</span>     <span class='nx'>app</span><span class='p'>.</span><span class='nx'>init</span><span class='p'>();</span>
+<span class='lineno'>11</span> <span class='p'>});</span>
+</code></pre>
+</div>
+<p>Within app.js we define dependencies on the various VMs that you&#8217;ve seen earlier and within the <code>init</code> method we use <code>ko.applyBindings()</code> to bind them to the corresponding element in the DOM. As said I&#8217;m new to knockout, so I leave it to the experts if that&#8217;s a recommend pattern or not. At least it&#8217;s working, so it can&#8217;t be totally wrong ;-). Path.js is used as a light alternative to sammy.js in order to setup some URL rules. As you can see Ryan Niemeyer&#8217;s excellent <a href='http://www.knockmeout.net/2012/05/using-ko-native-pubsub.html'>postbox</a> -a native ko pubsub sytem- is used to notify subscribers whenever changes occur.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span> <span class='nx'>define</span> <span class='p'>([</span><span class='s1'>&#39;jquery&#39;</span><span class='p'>,</span> <span class='s1'>&#39;knockout&#39;</span><span class='p'>,</span> <span class='s1'>&#39;LogonVM&#39;</span><span class='p'>,</span> <span class='s1'>&#39;TileVM&#39;</span><span class='p'>,</span> <span class='s1'>&#39;ListingVM&#39;</span><span class='p'>,</span> <span class='s1'>&#39;postbox&#39;</span><span class='p'>,</span> <span class='s1'>&#39;path&#39;</span><span class='p'>,</span> <span class='s1'>&#39;appData&#39;</span><span class='p'>,</span> <span class='s1'>&#39;kocBH&#39;</span> <span class='p'>],</span>
+<span class='lineno'> 2</span>     <span class='kd'>function</span> <span class='p'>(</span> <span class='nx'>$</span><span class='p'>,</span> <span class='nx'>ko</span><span class='p'>,</span> <span class='nx'>LogonVM</span><span class='p'>,</span> <span class='nx'>TileVM</span><span class='p'>,</span> <span class='nx'>ListingVM</span><span class='p'>,</span> <span class='nx'>postbox</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 3</span>         <span class='s2'>&quot;use strict&quot;</span><span class='p'>;</span>
+<span class='lineno'> 4</span> 
+<span class='lineno'> 5</span>         <span class='kd'>var</span> <span class='nx'>init</span> <span class='o'>=</span> <span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'> 6</span> 
+<span class='lineno'> 7</span>             <span class='c1'>// Exposing ko as global</span>
+<span class='lineno'> 8</span>             <span class='nb'>window</span><span class='p'>.</span><span class='nx'>ko</span> <span class='o'>=</span> <span class='nb'>window</span><span class='p'>.</span><span class='nx'>ko</span> <span class='o'>||</span> <span class='nx'>ko</span><span class='p'>;</span>
+<span class='lineno'> 9</span>             <span class='kd'>var</span> <span class='nx'>$tileContainer</span> <span class='o'>=</span> <span class='nx'>$</span> <span class='p'>(</span><span class='s1'>&#39;#tileVM&#39;</span><span class='p'>);</span>
+<span class='lineno'>10</span> 
+<span class='lineno'>11</span>             <span class='c1'>// Configuring JayData to use current site&#39;s Odata service</span>
+<span class='lineno'>12</span>             <span class='nx'>app</span><span class='p'>.</span><span class='nx'>context</span> <span class='o'>=</span> <span class='k'>new</span> <span class='nx'>app</span><span class='p'>.</span><span class='nx'>MetroStyleDataContext</span> <span class='p'>({</span> <span class='nx'>name</span> <span class='o'>:</span> <span class='s1'>&#39;oData&#39;</span><span class='p'>,</span> <span class='nx'>oDataServiceHost</span> <span class='o'>:</span> <span class='s1'>&#39;../_vti_bin/listdata.svc&#39;</span> <span class='p'>});</span>
+<span class='lineno'>13</span> 
+<span class='lineno'>14</span>             <span class='c1'>// binding ko to the appropriate container</span>
+<span class='lineno'>15</span>             <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>applyBindings</span> <span class='p'>(</span><span class='k'>new</span> <span class='nx'>TileVM</span> <span class='p'>(),</span> <span class='nb'>document</span><span class='p'>.</span><span class='nx'>getElementById</span> <span class='p'>(</span><span class='s1'>&#39;tileVM&#39;</span><span class='p'>));</span>
+<span class='lineno'>16</span>             <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>applyBindings</span> <span class='p'>(</span><span class='k'>new</span> <span class='nx'>LogonVM</span> <span class='p'>(),</span> <span class='nb'>document</span><span class='p'>.</span><span class='nx'>getElementById</span> <span class='p'>(</span><span class='s1'>&#39;logonVM&#39;</span><span class='p'>));</span>
+<span class='lineno'>17</span>             <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>applyBindings</span> <span class='p'>(</span><span class='k'>new</span> <span class='nx'>ListingVM</span> <span class='p'>(),</span> <span class='nb'>document</span><span class='p'>.</span><span class='nx'>getElementById</span> <span class='p'>(</span><span class='s1'>&#39;listingVM&#39;</span><span class='p'>));</span>
+<span class='lineno'>18</span> 
+<span class='lineno'>19</span>             <span class='c1'>// Client-side routes. Path exposed as global via shim configuration</span>
+<span class='lineno'>20</span>             <span class='kd'>function</span> <span class='nx'>toggleTiles</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>21</span>                 <span class='kd'>var</span> <span class='nx'>isVisible</span> <span class='o'>=</span> <span class='nx'>$tileContainer</span><span class='p'>.</span><span class='nx'>css</span> <span class='p'>(</span><span class='s1'>&#39;display&#39;</span><span class='p'>)</span> <span class='o'>===</span> <span class='s1'>&#39;block&#39;</span><span class='p'>;</span>
+<span class='lineno'>22</span>                 <span class='nx'>isVisible</span> <span class='o'>?</span> <span class='nx'>$tileContainer</span><span class='p'>.</span><span class='nx'>slideUp</span> <span class='p'>(</span><span class='mi'>300</span><span class='p'>)</span> <span class='o'>:</span> <span class='nx'>$tileContainer</span><span class='p'>.</span><span class='nx'>slideDown</span> <span class='p'>(</span><span class='mi'>300</span><span class='p'>);</span>
+<span class='lineno'>23</span>             <span class='p'>}</span>
+<span class='lineno'>24</span> 
+<span class='lineno'>25</span>             <span class='nx'>Path</span><span class='p'>.</span><span class='nx'>map</span> <span class='p'>(</span><span class='s2'>&quot;#/view/:list&quot;</span><span class='p'>).</span><span class='nx'>to</span> <span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>26</span>                 <span class='nx'>postbox</span><span class='p'>.</span><span class='nx'>publish</span> <span class='p'>(</span><span class='s1'>&#39;selectedList&#39;</span><span class='p'>,</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>params</span><span class='p'>.</span><span class='nx'>list</span><span class='p'>);</span>
+<span class='lineno'>27</span>             <span class='p'>}).</span><span class='nx'>enter</span> <span class='p'>(</span><span class='nx'>toggleTiles</span><span class='p'>);</span>
+<span class='lineno'>28</span> 
+<span class='lineno'>29</span>             <span class='nx'>Path</span><span class='p'>.</span><span class='nx'>map</span> <span class='p'>(</span><span class='s2'>&quot;(#)&quot;</span><span class='p'>).</span><span class='nx'>to</span> <span class='p'>(</span><span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span>
+<span class='lineno'>30</span>                 <span class='nx'>postbox</span><span class='p'>.</span><span class='nx'>publish</span> <span class='p'>(</span><span class='s1'>&#39;selectedList&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>);</span>
+<span class='lineno'>31</span>             <span class='p'>}).</span><span class='nx'>enter</span> <span class='p'>(</span><span class='nx'>toggleTiles</span><span class='p'>);</span>
+<span class='lineno'>32</span> 
+<span class='lineno'>33</span>             <span class='nx'>Path</span><span class='p'>.</span><span class='nx'>listen</span> <span class='p'>();</span>
+<span class='lineno'>34</span>         <span class='p'>};</span>
+<span class='lineno'>35</span> 
+<span class='lineno'>36</span>         <span class='k'>return</span> <span class='p'>{</span>
+<span class='lineno'>37</span>             <span class='nx'>init</span> <span class='o'>:</span> <span class='nx'>init</span>
+<span class='lineno'>38</span>         <span class='p'>}</span>
+<span class='lineno'>39</span> 
+<span class='lineno'>40</span>     <span class='p'>});</span>
+</code></pre>
+</div>
+<p>Boy, Rainer! All those talk about RequireJS and knockout basics. I&#8217;m already familiar with it, so where&#8217;s the beef? You promised to tell us about JayData, didn&#8217;t you?</p>
+
+<p>Yes I did and here you go.</p>
+
+<p><strong>Part 1</strong>: Retrieving ListingView date via OData service.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span>  <span class='nx'>postbox</span><span class='p'>.</span><span class='nx'>subscribe</span> <span class='p'>(</span><span class='s2'>&quot;selectedList&quot;</span><span class='p'>,</span> <span class='kd'>function</span> <span class='p'>(</span> <span class='nx'>newValue</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 2</span>     <span class='k'>if</span> <span class='p'>(</span> <span class='nx'>app</span><span class='p'>.</span><span class='nx'>configMap</span><span class='p'>.</span><span class='nx'>userId</span> <span class='o'>===</span> <span class='s1'>&#39;anonymous&#39;</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 3</span>         <span class='k'>return</span> <span class='nx'>alert</span> <span class='p'>(</span><span class='s1'>&#39;Make sure to log on.&#39;</span><span class='p'>);</span>
+<span class='lineno'> 4</span>     <span class='p'>}</span>
+<span class='lineno'> 5</span>     <span class='k'>if</span> <span class='p'>(</span> <span class='nx'>newValue</span> <span class='o'>!==</span> <span class='s1'>&#39;&#39;</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 6</span>         <span class='c1'>// Clean out existing itemDetail</span>
+<span class='lineno'> 7</span>         <span class='nx'>itemDetail</span> <span class='p'>([]);</span>
+<span class='lineno'> 8</span>         <span class='kd'>var</span> <span class='nx'>base</span> <span class='o'>=</span> <span class='nx'>app</span><span class='p'>.</span><span class='nx'>context</span><span class='p'>[</span><span class='nx'>newValue</span><span class='p'>],</span>
+<span class='lineno'> 9</span>             <span class='nx'>myBase</span> <span class='o'>=</span> <span class='nx'>_</span><span class='p'>.</span><span class='nx'>extend</span> <span class='p'>({},</span> <span class='nx'>base</span><span class='p'>),</span>
+<span class='lineno'>10</span>             <span class='nx'>sortExp</span> <span class='o'>=</span> <span class='s1'>&#39;it.&#39;</span> <span class='o'>+</span> <span class='nx'>orderBy</span> <span class='p'>();</span>
+<span class='lineno'>11</span> 
+<span class='lineno'>12</span>         <span class='k'>if</span> <span class='p'>(</span> <span class='nx'>orderAsc</span> <span class='p'>()</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>13</span>             <span class='nx'>_</span><span class='p'>.</span><span class='nx'>extend</span> <span class='p'>(</span><span class='nx'>myBase</span><span class='p'>,</span> <span class='nx'>myBase</span><span class='p'>.</span><span class='nx'>orderBy</span> <span class='p'>(</span><span class='nx'>sortExp</span><span class='p'>));</span>
+<span class='lineno'>14</span>         <span class='p'>}</span>
+<span class='lineno'>15</span>         <span class='k'>else</span> <span class='p'>{</span>
+<span class='lineno'>16</span>             <span class='nx'>_</span><span class='p'>.</span><span class='nx'>extend</span> <span class='p'>(</span><span class='nx'>myBase</span><span class='p'>,</span> <span class='nx'>myBase</span><span class='p'>.</span><span class='nx'>orderByDescending</span> <span class='p'>(</span><span class='nx'>sortExp</span><span class='p'>));</span>
+<span class='lineno'>17</span>         <span class='p'>}</span>
+<span class='lineno'>18</span>         <span class='nx'>_</span><span class='p'>.</span><span class='nx'>each</span> <span class='p'>(</span><span class='nx'>includeArray</span> <span class='p'>(),</span> <span class='kd'>function</span> <span class='p'>(</span> <span class='nx'>inc</span> <span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>19</span>             <span class='nx'>_</span><span class='p'>.</span><span class='nx'>extend</span> <span class='p'>(</span><span class='nx'>myBase</span><span class='p'>,</span> <span class='nx'>myBase</span><span class='p'>.</span><span class='nx'>include</span> <span class='p'>(</span><span class='nx'>inc</span><span class='p'>));</span>
+<span class='lineno'>20</span>         <span class='p'>});</span>
+<span class='lineno'>21</span>         <span class='nx'>myBase</span><span class='p'>.</span><span class='nx'>map</span> <span class='p'>(</span><span class='nx'>chooseMap</span> <span class='p'>(</span><span class='nx'>newValue</span><span class='p'>))</span>
+<span class='lineno'>22</span>             <span class='p'>.</span><span class='nx'>take</span> <span class='p'>(</span><span class='nx'>take</span> <span class='p'>())</span>
+<span class='lineno'>23</span>             <span class='p'>.</span><span class='nx'>toArray</span> <span class='p'>(</span><span class='nx'>allItems</span><span class='p'>);</span>
+<span class='lineno'>24</span>     <span class='p'>}</span>
+<span class='lineno'>25</span>     <span class='k'>else</span> <span class='p'>{</span>
+<span class='lineno'>26</span>         <span class='c1'>// Clean out existing allItems</span>
+<span class='lineno'>27</span>         <span class='nx'>allItems</span> <span class='p'>([]);</span>
+<span class='lineno'>28</span>         <span class='c1'>// Clean out existing itemDetail</span>
+<span class='lineno'>29</span>         <span class='nx'>itemDetail</span> <span class='p'>([]);</span>
+<span class='lineno'>30</span>     <span class='p'>}</span>
+<span class='lineno'>31</span> <span class='p'>});</span>
+</code></pre>
+</div>
+<p>Within ListingViewModel.js you find the above <code>postbox.subscriber</code> that listen to any change in the <code>selectedList</code> channel. After checking if there&#8217;s a non empty value and that the user is already logged in <a href='http://jaydata.org'>JayData</a> takes over.</p>
+
+<ol>
+<li>
+<p><code>app.context</code> knows about all lists and libraries, so here we use <code>base</code> to select a specific one <code>var base = app.context[newValue]</code></p>
+</li>
+
+<li>
+<p><code>orderBy()</code> or <code>orderByDescending()</code> are using the default sorting criteria . This can be modified during runtime by updating the <code>OrderAsc</code> and <code>OrderBy</code> observables.</p>
+</li>
+
+<li>
+<p><code>include()</code> in OData terms maps to the OData <code>$expand</code> verb. Default settings here are <code>CreatedBy</code> and <code>ModifiedBy</code>. There&#8217;s a <code>includeArray()</code> observabelArray that is used to store the ones you&#8217;re interested in.</p>
+</li>
+
+<li>
+<p><code>map()</code> mapping or projection is another important feature that allows you to select specific fields instead of retrieving all information. The <a href='https://gist.github.com/3237820#L43'><code>chooseMap()</code> method</a> is used to retrieve a small set of fields based on their availability e.g. <code>Title</code> vs. <code>Name</code> vs <code>URL</code>.</p>
+</li>
+
+<li>
+<p><code>take()</code> allows you to restrict the number of items returned by the system. Again a observable is used to store the default.</p>
+</li>
+
+<li>
+<p><code>toArray()</code> and finally this method is used to update the <code>allItems</code> observableArray. For those of you that are curious how that works under the cover, take a look at the <a href='http://jaydata
+.org/blog/how-to-use-jaydata-with-knockoutjs'>following blog post</a>.</p>
+</li>
+</ol>
+
+<p><strong>Part 2</strong>: Retrieving the Detail View data for a selected item.</p>
+<div class='highlight'><pre><code class='javascript'><span class='lineno'> 1</span>  <span class='nx'>showDetails</span> <span class='o'>=</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>currItem</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 2</span>     <span class='kd'>var</span> <span class='nx'>currentList</span> <span class='o'>=</span> <span class='nx'>selectedList</span><span class='p'>();</span>
+<span class='lineno'> 3</span> 
+<span class='lineno'> 4</span>     <span class='nx'>app</span><span class='p'>.</span><span class='nx'>context</span><span class='p'>[</span><span class='nx'>currentList</span><span class='p'>]</span>
+<span class='lineno'> 5</span>         <span class='p'>.</span><span class='nx'>single</span><span class='p'>(</span><span class='kd'>function</span> <span class='p'>(</span><span class='nx'>item</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'> 6</span>             <span class='k'>return</span> <span class='nx'>item</span><span class='p'>.</span><span class='nx'>Id</span> <span class='o'>==</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>Id</span>
+<span class='lineno'> 7</span>         <span class='p'>},</span>
+<span class='lineno'> 8</span>         <span class='p'>{</span><span class='nx'>Id</span> <span class='o'>:</span> <span class='nx'>currItem</span><span class='p'>.</span><span class='nx'>Id</span><span class='p'>},</span>
+<span class='lineno'> 9</span>         <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>item</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>10</span>             <span class='kd'>var</span> <span class='nx'>keyValue</span> <span class='o'>=</span> <span class='p'>[];</span>
+<span class='lineno'>11</span>             <span class='nx'>_</span><span class='p'>.</span><span class='nx'>each</span><span class='p'>(</span><span class='nx'>item</span><span class='p'>.</span><span class='nx'>toJSON</span><span class='p'>(),</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>val</span><span class='p'>,</span> <span class='nx'>key</span><span class='p'>)</span> <span class='p'>{</span>
+<span class='lineno'>12</span>                 <span class='nx'>keyValue</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s2'>&quot;key&quot;</span> <span class='o'>:</span> <span class='nx'>key</span><span class='p'>,</span> <span class='s2'>&quot;val&quot;</span> <span class='o'>:</span> <span class='nx'>val</span><span class='p'>});</span>
+<span class='lineno'>13</span>             <span class='p'>});</span>
+<span class='lineno'>14</span>             <span class='nx'>itemDetail</span><span class='p'>([]);</span>
+<span class='lineno'>15</span>             <span class='nx'>ko</span><span class='p'>.</span><span class='nx'>utils</span><span class='p'>.</span><span class='nx'>arrayPushAll</span><span class='p'>(</span><span class='nx'>itemDetail</span><span class='p'>(),</span> <span class='nx'>keyValue</span><span class='p'>);</span>
+<span class='lineno'>16</span>             <span class='nx'>itemDetail</span><span class='p'>.</span><span class='nx'>valueHasMutated</span><span class='p'>();</span>
+<span class='lineno'>17</span>         <span class='p'>});</span>
+<span class='lineno'>18</span> <span class='p'>};</span>
+</code></pre>
+</div>
+<p>Come on, that&#8217;s almost too easy isn&#8217;t it? This time we&#8217;re using <a href='http://jaydata.org/blog/javascript-language-query-jslq-101'>JSLQ</a>`s <code>.single</code> method to retrieve ONE item based on a unique criteria, here the <code>currItem.Id</code>. Whenever the system returns the information it&#8217;s converted to JSON. Underscore&#8217;s <code>each</code> method allows us to push the returned key/value pairs into the keyValue array. Whenever done we use <code>ko.utils.arrayPushAll</code> to update the <code>itemDetails()</code> observable and <code>valueHasMutated()</code> to notify it about the changes.</p>
+
+<p>As you can see, we haven&#8217;t dealt a bit with the native OData protocol and when you take a look at what&#8217;s going over the wire you&#8217;ll be surprised how complex it can get. But luckily that is of no concern for us any longer as we only have to deal with <a href='http://jaydata.org/blog/javascript-language-query-jslq-101'>JSLQ</a>.</p>
+
+<p>That&#8217;s it for today, but before you ask I wanna cover two questions that I feel coming up:</p>
+
+<p>Would you choose JayData for another project?</p>
+
+<p>That&#8217;s a clear YES. JayData is something that&#8217;s better than sliced bread. Luckily it&#8217;s already invented.</p>
+
+<p>Would you choose knockout for another project?</p>
+
+<p>Yes&#8230; most likely. After reading some of the stuff over at the <a href='http://knockoutjs.com/'>knockout site</a> itself, but more important over at <a href='http://www.knockmeout.net/'>Ryan Niemeyer&#8217;s blog</a>, I found it pretty straight forward to work with. By being the only overall framework that JayData supports as module at the moment, it&#8217;s the natural choice for the time being. With that said, there are already Sencha and Titanium modules out there, so maybe there&#8217;s a JayData backbone module one day&#8230; at that point feel free to ask me that question again.</p>
+
+<p>One last thing, you can find the code for the 2010 demo site on <a href='https://github
+.com/RainerAtSpirit/FerrariMeetsJayData'>github</a>. You have to update the appdata.js in order to work in your environment. Checkout <a href='http://localhost:4000/2012/07/13/metro-javascript-app---strongly-typed/'>this post</a> that guides you through the required steps with <code>JaySvcUtil</code>.</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-08-01T00:00:00+02:00" datetime="2012-08-01T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>August</abbr></span>
+							<span class="day">01</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#Good to know-ref">
+    		Good to know <span>13</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#SharePoint-ref">SharePoint <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#Knockout-ref">Knockout <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#JayData-ref">JayData <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#RequireJS-ref">RequireJS <span>1</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="RainerAtSpirit" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/RainerAtSpirit" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					<div class="comment">
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'raineratspirit'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+					</div>
+				</div><!-- misc-content -->
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/2012/07/20/the-sharepoint-dvwp-in-ferrari-mode-strikes-again" title="View The SharePoint DVWP in Ferrari mode strikes again">&laquo; The SharePoint DVWP in Ferrari mode strikes again</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/2012/08/24/goodbye-ferrari-hello-napa" title="View Goodbye Ferrari, hello Napa?">Goodbye Ferrari, hello Napa? &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<!--<li class="contact"><address><span class="author fn n">Rainer Wittmann</span> - <span class="fn email">R.Wittmann@spirit.de</span></address></li>-->
+						<li class="github"><a href="http://github.com/RainerAtSpirit/" rel="me">github.com/RainerAtSpirit</a></li>
+						<li class="twitter"><a href="http://twitter.com/RainerAtSpirit/" rel="me">twitter.com/RainerAtSpirit</a></li>
+                        <li class="rss"><a href="/atom.xml">Subscribe to RSS Feed</a></li>
+						<!--<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>-->
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="https://github.com/jekyllbootstrap/theme-the-program">the_program</a><br />
+                    Based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a><br />
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+				</p>
+
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/2012/08/01/the-ferrari-meets-jaydata" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+  
+  
+</body>
+</html>
+
