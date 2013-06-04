@@ -49,6 +49,8 @@ Now, after hopefully getting you excited, here's the bad news. The demo is using
 [SPServices], so I won't make the demo code available through Github as usual. I'll update this post once the next
 official version of SPServices has been released and tested with Durandal SP3.
 
+**Update 2013/06/04: ** And here's the link to the [github repo](https://github.com/RainerAtSpirit/Blog-Durandal-SP3)
+
 The good news is that there are two public available pages that allows you to go hands-on. Both are best viewed with
 your favorite console open.
 
