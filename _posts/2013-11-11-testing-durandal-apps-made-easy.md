@@ -61,7 +61,7 @@ When everything runs smoothly you should see something like the following while 
 
 ![Specrunner](/img/2013-11-11-SpecRunner.jpg)
 
-**Note**: If you see an error message like following instead
+**Note**: If you are seeing an error message like following instead...
 
 {% highlight bash linenos %}
     $ grunt
@@ -77,8 +77,8 @@ then reread the instructions, you probably missed step 4 `;-)`.
 ### Ready for  your first test? Time for some myth busting...
 ##Durandal's AMD modules are hard to grok
 
-From a Durandal perspective an AMD module should either return a singleton or a constructor function. Here
-are simple examples:
+Hmh, not really. From a Durandal perspective an AMD module should either return a singleton or a constructor
+function. Here are two simple examples:
 
 **singleton.js**
 {% highlight javascript linenos %}
@@ -133,7 +133,9 @@ You'll find both in the wild and it's a question of personal style, which one to
 I tend to use the sugar syntax lately, but now back to the track.
 
 When I say Durandal's perspective I mean that the `module` gets loaded by using `system.resolveObject`,
-where it differentiate between modules that return a function and ... the rest.
+where it differentiate between modules that return a function and ... the rest. Of course Durandal wouldn't be
+Durandal if this couldn't be customized, but that's another story and you have to read it on your
+own [customizing sytem].
 
 {% highlight javascript linenos %}
 resolveObject: function(module) {
@@ -232,7 +234,7 @@ That's it for today, pretty straight forward, so it can be easily applied/adapte
 
 >Give a man a fish, and you feed him for a day; show him how to catch fish, and you feed him for a lifetime.
 
-Let me know what *fish* you can come up with.
+Let me know what kind of *fish* you can come up with.
 
 
 
@@ -245,3 +247,4 @@ Let me know what *fish* you can come up with.
 [google groups]: https://groups.google.com/forum/#!overview
 
 [sugar]: http://requirejs.org/docs/whyamd.html#sugar
+[customizing system]: http://durandaljs.com/documentation/Customizing-System/
