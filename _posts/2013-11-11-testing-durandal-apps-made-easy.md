@@ -135,7 +135,7 @@ I tend to use the sugar syntax lately, but now back to the track.
 When I say Durandal's perspective I mean that the `module` gets loaded by using `system.resolveObject`,
 where it differentiate between modules that return a function and ... the rest. Of course Durandal wouldn't be
 Durandal if this couldn't be customized, but that's another story and you have to read it on your
-own [customizing sytem].
+own (see [customizing system]).
 
 {% highlight javascript linenos %}
 resolveObject: function(module) {
