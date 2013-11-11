@@ -15,7 +15,7 @@ The today's post is targeted to a very dedicated audience, so let's see if the f
 2. You have a need to make your apps better?
 3. You don't know yet how to test a Durandal app?
 
-If you answered one of multiple of these questions with a yes, read on.
+If you answered one or multiple of these questions with a yes, read on.
 
 Hey, even you answered the last two questions with a **no** read on to see if [Grunt] can make your life easier. When
 you haven't heard of [Grunt] yet, head over to smashingmagazine for a nice [Grunt intro].
@@ -133,7 +133,7 @@ You'll find both in the wild and it's a question of personal style, which one to
 I tend to use the sugar syntax lately, but now back to the track.
 
 When I say Durandal's perspective I mean that the `module` gets loaded by using `system.resolveObject`,
-where it differentiate between modules that return a function and ... the rest. Of course Durandal wouldn't be
+where Durandal differentiate between modules that return a function and ... the rest. Of course Durandal wouldn't be
 Durandal if this couldn't be customized, but that's another story and you have to read it on your
 own (see [customizing system]).
 
@@ -205,8 +205,9 @@ Aborted due to warnings.
 {% endhighlight %}
 
 Now having a browser that allows us investigating what's going on becomes pretty handy. Luckily in our case we
-don't even need that. We know already that `constructor.js` returns a
-constructor function and not an object, so let's rewrite the test to take that into account.
+don't even need that. We already know that `constructor.js` returns a
+constructor function and not an object, so let's rewrite the test to take that into account, which should bring
+us back to "all green". 
 
 {% highlight javascript linenos %}
 describe('viewmodels/constructor', function() {
@@ -230,7 +231,7 @@ describe('viewmodels/constructor', function() {
 
 
 That's it for today, pretty straight forward, so it can be easily applied/adapted to your own Durandal projects. It's
- the first post in the 'Catch fish" category, hopefully more to come.
+ the first post in the "Catch fish" category, hopefully more to come.
 
 >Give a man a fish, and you feed him for a day; show him how to catch fish, and you feed him for a lifetime.
 
